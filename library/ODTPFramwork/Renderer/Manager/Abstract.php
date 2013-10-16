@@ -9,14 +9,15 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 	protected $_loader_class_name = 'ODTPFramwork_Renderer_Loader';
 	protected $_loader = null;
 
-	public function __construct($parameters) {
-		$this->init($parameters);
+	public function __construct($path) {
+		$this->init($path);
 	}
 
-	protected function init($parameters) {
-		if (!is_array($parameters)) {
-			throw new ODTPFramwork_Renderer_Manager_Exception('$parameters must be an array');
-		}
+	protected function init($path)
+	{
+	    $this->$_loader = new ODTPFramwork_Renderer_Loader;
+    	$this->$_loader->loadConfigFiles($path);
+		throw new ODTPFramwork_Renderer_Manager_Exception('$parameters must be an array');
 	}
 
 	/**
