@@ -15,9 +15,9 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 
 	protected function init($path)
 	{
-	    $this->$_loader = new ODTPFramwork_Renderer_Loader;
-    	$this->$_loader->loadConfigFiles($path);
-		throw new ODTPFramwork_Renderer_Manager_Exception('$parameters must be an array');
+    	$loader_class_name = $this->getLoaderClassName();
+        $this->_loader = new $loader_class_name();
+        $this->_plugins = $this->_loader->loadConfigFile($filepath);
 	}
 
 	/**
