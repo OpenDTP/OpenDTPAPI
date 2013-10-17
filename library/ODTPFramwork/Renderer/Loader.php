@@ -63,28 +63,24 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 	 * @throws ODTPFramwork_Renderer_Exception If Couldn't open $this->_config_files_paths directory
 	 * @return null
 	 */
-	public function loadConfigFiles($paths = null) {
-		if (is_null($paths) && '' === $this->getDefaultConfigPath()) {
+	public function loadConfigFolder($paths = null)
+	{
+		if (is_null($paths) && '' === $this->getDefaultConfigPath())
 			throw new ODTPFramwork_Renderer_Exception('use setDefaultConfigPath() first.');
-		}
-		if (!is_null($paths) && !is_array($paths)) {
-			throw new ODTPFramwork_Renderer_Exception('$paths must be an array');
-		}
-		if (!is_null($paths)) {
-			foreach ($paths as $path) {
+		if (!is_null($paths))
+					throw new ODTPFramwork_Renderer_Exception('$paths must be an array');
+		if (!is_null($paths))
+			foreach ($paths as $path)
 				$this->loadConfigFile($path);
-			}
-		} else {
+		else 
+		{
 			$dir = @opendir($this->getDefaultConfigPath());
-			if (false === $dir) {
-				throw new ODTPFramwork_Renderer_Exception("$dir : Couldn't open dir");
-			}
+			if (false === $dir)
+		    	throw new ODTPFramwork_Renderer_Exception("$dir : Couldn't open dir");
 			$file = '';
-			while (false !== ($file = readdir($dir))) {
-				if (is_file($this->getDefaultConfigPath() . DIRECTORY_SEPARATOR . $file)) {
+			while (false !== ($file = readdir($dir)))
+				if (is_file($this->getDefaultConfigPath() . DIRECTORY_SEPARATOR . $file))
 					$this->loadConfigFile($this->getDefaultConfigPath() . DIRECTORY_SEPARATOR . $file);
-				}
-			}
 		}
 	}
 
