@@ -20,7 +20,10 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 		}
   	$loader_class_name = $this->getLoaderClassName();
     $this->_loader = new $loader_class_name();
-    $this->_plugins = $this->_loader->loadConfigFile($filepath);
+    if (is_dir($path))
+        $this->_plugins = $this->_loader->loadConfigFolder($filepath);
+    else
+        $this->_plugins = $this->_loader->loadConfigFile($filepath);
 	}
 
 	/**
