@@ -54,37 +54,31 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 	}
 
 	/**
-	 * Load all config files in default path if paths is null.
-	 * Otherwise load all files in array.
+	 * Load all config files in default path if $path is null.
 	 *
-	 * @param array $paths Paths to load.
-	 * @throws ODTPFramwork_Renderer_Exception If $paths is null and $this->_config_files_paths is not set
-	 * @throws ODTPFramwork_Renderer_Exception If $paths is not an array and is not null
+	 * @param array $path Folder to load.
+	 * @throws ODTPFramwork_Renderer_Exception If $path is null and $this->_config_files_paths is not set
+	 * @throws ODTPFramwork_Renderer_Exception If $path is not an array and is not null
 	 * @throws ODTPFramwork_Renderer_Exception If Couldn't open $this->_config_files_paths directory
 	 * @return null
 	 */
-	public function loadConfigFiles($paths = null) {
-		if (is_null($paths) && '' === $this->getDefaultConfigPath()) {
+	public function loadConfigFolder($path = null)
+	{
+		if (is_null($path) && '' === $this->getDefaultConfigPath())
 			throw new ODTPFramwork_Renderer_Exception('use setDefaultConfigPath() first.');
-		}
-		if (!is_null($paths) && !is_array($paths)) {
-			throw new ODTPFramwork_Renderer_Exception('$paths must be an array');
-		}
-		if (!is_null($paths)) {
-			foreach ($paths as $path) {
-				$this->loadConfigFile($path);
-			}
-		} else {
-			$dir = @opendir($this->getDefaultConfigPath());
-			if (false === $dir) {
-				throw new ODTPFramwork_Renderer_Exception("$dir : Couldn't open dir");
-			}
-			$file = '';
-			while (false !== ($file = readdir($dir))) {
-				if (is_file($this->getDefaultConfigPath() . DIRECTORY_SEPARATOR . $file)) {
-					$this->loadConfigFile($this->getDefaultConfigPath() . DIRECTORY_SEPARATOR . $file);
-				}
-			}
+		if (!is_string($path))
+			throw new ODTPFramwork_Renderer_Exception('$path must be an string');
+		if (is_null($path))
+			$path = $this->getDefaultConfigPath();
+		if (!is_dir($path))
+			throw new ODTPFramwork_Renderer_Exception("$path must be a folder");
+		$dir = @opendir($path);
+		if (false === $dir)
+	    	throw new ODTPFramwork_Renderer_Exception("$path : Couldn't open folder");
+		$file = '';
+		while (false !== ($file = readdir($dir))) {
+			if (is_file($path . DIRECTORY_SEPARATOR . $file))
+				$this->loadConfigFile($path . DIRECTORY_SEPARATOR . $file);
 		}
 	}
 
