@@ -8,6 +8,7 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 {
 	protected $_loader_class_name = 'ODTPFramwork_Renderer_Loader';
 	protected $_loader = null;
+	protected $_plugins = array();
 
 	public function __construct($path) {
 		$this->init($path);
@@ -19,11 +20,13 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 			throw new ODTPFramwork_Renderer_Manager_Exception('$path must be a string');
 		}
   	$loader_class_name = $this->getLoaderClassName();
-    $this->_loader = new $loader_class_name();
-    if (is_dir($path))
-        $this->_plugins = $this->_loader->loadConfigFolder($filepath);
-    else
-        $this->_plugins = $this->_loader->loadConfigFile($filepath);
+    $this->setLoader(new $loader_class_name());
+    if (is_dir($path)) {
+			$this->_plugins = $this->getLoader()->loadConfigFolder($path);
+    } else {
+			$this->_plugins = $this->getLoader()->loadConfigFile($path);
+    }
+    $this->_plugins = $this->getLoader()->getRenderers();
 	}
 
 	/**
@@ -32,7 +35,7 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 	 * @throws ODTPFramwork_Renderer_Manager_Exception If not implemented
 	 * @return null
 	 */
-	public function query() {
+	public function query(ODTPFramwork_Renderer_Query_Abstract $query) {
 		throw new ODTPFramwork_Renderer_Manager_Exception("This method must be implemented");
 	}
 
@@ -55,6 +58,13 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 	public function getLoader() { return $this->_loader; }
 
 	/**
+	 * Return manager plugins
+	 *
+	 * @return ODTPFramwork_Renderer_Plugin_Interface
+	 */
+	public function getPlugins() { return $this->_plugins; }
+
+	/**
 	 * Set renderer loader class name
 	 *
 	 * @param string $class_name The renderer loader class name
@@ -66,10 +76,21 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 			throw new ODTPFramwork_Renderer_Manager_Exception('$class_name must be a string');
 		}
 
-		//@todo check if autoloader exists
+		//@todo check if loader exists
 		if (!class_exists($class_name)) {
 			throw new ODTPFramwork_Renderer_Manager_Exception("$class_name does not exists");
 		}
 		$this->_loader_class_name = $class_name;
+	}
+
+	/**
+	 * Define a renderer loader
+	 *
+	 * @param ODTPFramwork_Renderer_Loader_Interface $loader The renderer loader class name
+	 * @return null
+	 */
+	public function setLoader(ODTPFramwork_Renderer_Loader_Interface $loader)
+	{
+		$this->_loader = $loader;
 	}
 }
