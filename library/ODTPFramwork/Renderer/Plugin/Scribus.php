@@ -12,5 +12,6 @@ class ODTPFramwork_Renderer_Plugin_Scribus extends ODTPFramwork_Renderer_Plugin_
 	 * @return ODTPFramwork_Renderer_Response_Interface
 	 */
 	public function query(ODTPFramwork_Renderer_Query_Interface $query) {
+		parent::query();
 	}
 }
