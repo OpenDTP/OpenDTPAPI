@@ -25,7 +25,7 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 		}
 		$this->setPreload(isset($parameters['preload']) ? $parameters['preload'] : false);
 		if ('' !== $this->getDefaultConfigPath() && $this->getPreload()) {
-			$this->loadConfigFiles();
+			$this->loadConfigFolder();
 		}
 	}
 
@@ -66,7 +66,7 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 	{
 		if (is_null($path) && '' === $this->getDefaultConfigPath())
 			throw new ODTPFramwork_Renderer_Exception('use setDefaultConfigPath() first.');
-		if (!is_string($path))
+		if (!is_null($path) && !is_string($path))
 			throw new ODTPFramwork_Renderer_Exception('$path must be an string');
 		if (is_null($path))
 			$path = $this->getDefaultConfigPath();
