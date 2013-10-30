@@ -4,6 +4,9 @@ class ODTPFramwork_Renderer_Query_Parser
 {
 	private $_inputArray = NULL;
 	private $_outputArray = NULL;
+	private $_optionsArray = array(array("render", "output"),
+								   array("update", "in")
+								  );
 /**
 * parses the provided command
 * @return multidimensional array
@@ -21,17 +24,6 @@ private function parseString(string $str)
 				$_arrayName = "output";
 
 			if (!(strcasecmp($_arrayName, "render")))
-				$_outputArray[$_arrayName] = $element;	
-		}
-	}
-	if (strcasecmp(array_shift(array_values($_inputArray)), "update"))	
-	{
-		foreach ($_inputArray as $element)
-		{
-			if ((strcasecmp($element, "in")))
-				$_arrayName = "in";
-
-			if (!(strcasecmp($_arrayName, "update")))
 				$_outputArray[$_arrayName] = $element;	
 		}
 	}
