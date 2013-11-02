@@ -23,10 +23,13 @@ private function parseString(string $str)
 		foreach ($_inputArray as $_element)
 		{
 			if ((strcasecmp($_element, $_key)))
+			{
+				$_outputArray[$_arrayName] = $_fieldArray;
+				unset($_fieldArray);
 				$_arrayName = "output";
-
+			}
 			if (!(strcasecmp($_element, $_inputArray[0])))
-				$_outputArray[$_arrayName] = $_element;	
+				array_push($_fieldArray, $_element);	
 		}
 	}
 	return $_outputArray;
