@@ -5,7 +5,6 @@
  */
 interface ODTPFramwork_Renderer_Query_Interface
 {
-    public function input($src);
-    public function output($src);
-    public function action($params);
+    public function getParameters();
+    public function getAction();
 }
