@@ -7,6 +7,9 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 {
 	private $_id = '';
 	private $_type = '';
+	private $_host = '';
+	private $_port = 0;
+	private $_base_url = '';
 
 	/**
 	 * Default plugin constructor. Should not be overloaded.
@@ -15,7 +18,7 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * @param array $parameters Renderer configurations
 	 * @throws ODTPFramwork_Renderer_Exception If $parameters is not an array
 	 */
-	public function __construct($parameters = null) {
+	public function __construct(array $parameters = null) {
 		if (!is_null($parameters) && !is_array($parameters)) {
 			throw new ODTPFramwork_Renderer_Exception('$parameters must be an array');
 		}
@@ -67,6 +70,27 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	public function getType() { return $this->_type; }
 
 	/**
+	 * Return server host address
+	 *
+	 * @return string
+	 */
+	public function getHost() { return $this->_host; }
+
+	/**
+	 * Return server port
+	 *
+	 * @return int
+	 */
+	public function getPort() { return $this->_port; }
+
+	/**
+	 * Return base URL for each call
+	 *
+	 * @return string
+	 */
+	public function getBaseUrl() { return $this->_base_url; }
+
+	/**
 	 * Set plugin ID
 	 *
 	 * @throws ODTPFramwork_Renderer_Exception If $id is not a string
@@ -88,11 +112,39 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * @param string $type
 	 * @return null
 	 */
-	public function setType($type)
+	public function setType(string $type)
 	{
-		if (!is_string($type)) {
-			throw new ODTPFramwork_Renderer_Exception('$type must be a string');
-		}
 		$this->_type = $type;
+	}
+
+	/**
+	 * Set the server host address
+	 *
+	 * @param string $host The server host address
+	 * @return string
+	 */
+	public function setHost(string $host)
+	{
+		$this->_host = $host;
+	}
+
+	/**
+	 * Set the server port
+	 *
+	 * @return int
+	 */
+	public function setPort(int $port)
+	{
+		$this->_port = $port;
+	}
+
+	/**
+	 * Set the base URL for each call
+	 *
+	 * @return string
+	 */
+	public function setBaseUrl(string $base_url)
+	{
+		$this->_base_url = $base_url;
 	}
 }

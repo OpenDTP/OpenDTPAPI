@@ -50,6 +50,7 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 	public function loadConfigFile($filepath) {
 		$factory = ODTPFramwork_Renderer_Factory::getInstance();
 		$renderer = $factory->factory($filepath);
+		//@TODO reprendre ici pour le chargement
 		$this->registerRenderer($renderer);
 	}
 

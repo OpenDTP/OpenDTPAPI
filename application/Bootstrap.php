@@ -6,6 +6,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     $openDTPIniFile = new Zend_Config_Ini(APPLICATION_PATH . '/configs/opendtp.ini', APPLICATION_ENV);
     Zend_Registry::set('OpenDTP', $openDTPIniFile);
 
+    // Registering renderer connection manager
     $manager = new ODTPFramwork_Renderer_Manager((string)$openDTPIniFile->renderers->loader->default_config_path);
     Zend_Registry::set('RendererManager', $manager);
   }

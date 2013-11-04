@@ -22,11 +22,14 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
   	$loader_class_name = $this->getLoaderClassName();
     $this->setLoader(new $loader_class_name());
     if (is_dir($path)) {
-			$this->_plugins = $this->getLoader()->loadConfigFolder($path);
+			$this->getLoader()->loadConfigFolder($path);
     } else {
-			$this->_plugins = $this->getLoader()->loadConfigFile($path);
+			$this->getLoader()->loadConfigFile($path);
     }
-    $this->_plugins = $this->getLoader()->getRenderers();
+    $plugins = $this->getLoader()->getRenderers();
+    foreach ($plugins as $plugin) {
+    	$this->pushPlugin($plugin);
+    }
 	}
 
 	/**
@@ -35,8 +38,31 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 	 * @throws ODTPFramwork_Renderer_Manager_Exception If not implemented
 	 * @return null
 	 */
-	public function query(ODTPFramwork_Renderer_Query_Abstract $query) {
+	public function query(ODTPFramwork_Renderer_Query_Abstract $query)
+	{
 		throw new ODTPFramwork_Renderer_Manager_Exception("This method must be implemented");
+	}
+
+	/**
+	 * Push a plugin in the manager for further use
+	 *
+	 * @param  ODTPFramwork_Renderer_Plugin_Interface $plugin The plugin to push
+	 * @throws ODTPFramwork_Renderer_Manager_Exception If Plugin ID is not set
+	 * @throws ODTPFramwork_Renderer_Manager_Exception If Plugin Type is not set
+	 * @return null
+	 */
+	public function pushPlugin(ODTPFramwork_Renderer_Plugin_Interface $plugin)
+	{
+		if (!is_string($plugin->getId())) {
+			throw new ODTPFramwork_Renderer_Manager_Exception('Plugin ID is not set');
+		}
+		if (!is_string($plugin->getType())) {
+			throw new ODTPFramwork_Renderer_Manager_Exception('Plugin type is not set for plugin : ' . $plugin->getId());
+		}
+		if (!isset($this->_plugins[$plugin->getType()])) {
+			$this->_plugins[$plugin->getType()] = array();
+		}
+		$this->_plugins[$plugin->getType()][$plugin->getId()] = $plugin;
 	}
 
 	/**
@@ -71,7 +97,8 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 	 * @throws ODTPFramwork_Renderer_Manager_Exception If $class_name is not a string or does not exists
 	 * @return null
 	 */
-	public function setLoaderClassName($class_name) {
+	public function setLoaderClassName($class_name)
+	{
 		if (!(is_string($class_name))) {
 			throw new ODTPFramwork_Renderer_Manager_Exception('$class_name must be a string');
 		}
