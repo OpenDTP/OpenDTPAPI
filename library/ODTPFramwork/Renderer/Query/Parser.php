@@ -31,6 +31,7 @@ private function parseString(string $str)
 			if (!(strcasecmp($_element, $_inputArray[0])))
 				array_push($_fieldArray, $_element);	
 		}
+		$_outputArray[$_arrayName] = $_fieldArray;
 	}
 	return $_outputArray;
 }
