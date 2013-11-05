@@ -32,7 +32,7 @@ class ODTPFramwork_Renderer_Query_Parser
 		$parsed_query = array();
 
 		// First, we prepare the query, keywords and parameters are now space separate
-		$formated_query = $this->preprocessQuery();
+		$formated_query = $this->preprocessQuery($query);
 		$parameters = explode(' ', $formated_query);
 		$current_keyword = null;
 		foreach ($parameters as $parameter) {

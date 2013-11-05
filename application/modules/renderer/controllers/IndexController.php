@@ -19,7 +19,6 @@ class Renderer_IndexController extends ODTPFramwork_Controller
   	$this->view->id = $renderer->getId();
   	$this->view->debug = (string)$query;
   	$this->view->debug_from_string = (string)$query2;
-  	$this->view->debug_info = (string)$query3;
   }
 
 }
