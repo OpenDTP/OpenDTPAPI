@@ -21,6 +21,7 @@ class ODTPFramwork_Renderer_Query_Parser
 	/**
 	* parses the provided command
 	*
+	* @TODO Need to change some things to handle UPDATE and INFO queries
 	* @param string $query The query string to parse
 	* @return array parsed query
 	*/
