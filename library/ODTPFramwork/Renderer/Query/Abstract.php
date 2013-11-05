@@ -5,12 +5,13 @@
 */
 class ODTPFramwork_Renderer_Query_Abstract implements ODTPFramwork_Renderer_Query_Interface
 {
-  private $_parameters = array();
-  private $_input = array();
-  private $_action = '';
+  protected $_parameters = array();
+  protected $_input = array();
+  protected $_action = '';
 
   /**
    * prints the command
+   *
    * @return string
    */
   public function __toString()
@@ -30,7 +31,14 @@ class ODTPFramwork_Renderer_Query_Abstract implements ODTPFramwork_Renderer_Quer
     return $query_string;
   }
 
-  public function addParameters($name, $values) {
+  /**
+   * Add a parameter in parameters list
+   *
+   * @param string $name   The parameter name
+   * @param array $values  Parameter values
+   * @return null
+   */
+  public function addParameter($name, $values) {
     if (!is_string($name)) {
       throw new ODTPFramwork_Renderer_Query_Exception('$name must be a string');
     }
@@ -44,6 +52,12 @@ class ODTPFramwork_Renderer_Query_Abstract implements ODTPFramwork_Renderer_Quer
     }
   }
 
+  /**
+   * Add input file to list
+   *
+   * @param string $file Input file to add
+   * @return null
+   */
   public function addInput($file) {
     if (!is_string($file)) {
       throw new ODTPFramwork_Renderer_Query_Exception('$file must be a string');
@@ -53,10 +67,44 @@ class ODTPFramwork_Renderer_Query_Abstract implements ODTPFramwork_Renderer_Quer
     }
   }
 
-  public function getAction() { return $this->_action; }
-  public function getInput() { return $this->_input; }
-  public function getParameters() { return $this->_parameters; }
+  /**
+   * Getters and Setters
+   */
 
+  /**
+   * Return the query action
+   *
+   * @return string The query action
+   */
+  public function getAction() {
+    return $this->_action;
+  }
+
+  /**
+   * Return query input files
+   *
+   * @return array input files
+   */
+  public function getInput() {
+    return $this->_input;
+  }
+
+  /**
+   * Return query parameters
+   *
+   * @return array The query parameters
+   */
+  public function getParameters() {
+    return $this->_parameters;
+  }
+
+  /**
+   * Set query action
+   *
+   * @param string $action The query action
+   * @throws ODTPFramwork_Renderer_Query_Exception If $action is not a string
+   * @return null
+   */
   public function setAction($action) {
     if (!is_string($action)) {
       throw new ODTPFramwork_Renderer_Query_Exception('$action must be a string');

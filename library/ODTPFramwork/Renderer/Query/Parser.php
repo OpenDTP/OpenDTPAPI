@@ -1,37 +1,65 @@
 <?php
-
-class ODTPFramwork_Renderer_Query_Parser 
-{
-	private $_inputArray = NULL;
-	private $_outputArray = NULL;
-	private $_optionsArray = array("render" => "output",
-								   "update" => "in"
-								  );
-
 /**
-* parses the provided command
-* @return multidimensional array
-*/
-private function parseString(string $str)
+ * Simple query parser for ODTPFramwork Renderer Query objects
+ */
+class ODTPFramwork_Renderer_Query_Parser
 {
-	private string $_arrayName = "input";
-	private string $_key = '';
-	$_inputArray = explode(" ", $str);
-	$_key = array_search($_inputArray[0], $_optionsArray)
-	if (!empty($_key))
-	{
-		foreach ($_inputArray as $_element)
-		{
-			if ((strcasecmp($_element, $_key)))
-			{
-				$_outputArray[$_arrayName] = $_fieldArray;
-				unset($_fieldArray);
-				$_arrayName = "output";
-			}
-			if (!(strcasecmp($_element, $_inputArray[0])))
-				array_push($_fieldArray, $_element);	
-		}
-		$_outputArray[$_arrayName] = $_fieldArray;
+	protected $_keywords = array(
+		'render', 'deconstruct', 'info', 'input', 'output'
+	);
+
+	/**
+	 * Preprocess string to have keywords separated from parameters by space
+	 *
+	 * @param  string $query Query to preprocess
+	 * @return array
+	 */
+	protected function preprocessQuery($query) {
+		return preg_replace('#[\s]*([,=])[\s]*#', '$1', $query);
 	}
-	return $_outputArray;
+
+	/**
+	* parses the provided command
+	*
+	* @TODO Need to change some things to handle UPDATE and INFO queries
+	* @param string $query The query string to parse
+	* @return array parsed query
+	*/
+	public function parseString($query)
+	{
+		if (!is_string($query)) {
+			throw new ODTPFramwork_Renderer_Query_Exception('$query must be a string');
+		}
+		$parsed_query = array();
+
+		// First, we prepare the query, keywords and parameters are now space separate
+		$formated_query = $this->preprocessQuery($query);
+		$parameters = explode(' ', $formated_query);
+		$current_keyword = null;
+		foreach ($parameters as $parameter) {
+			$lower_parameter = strtolower($parameter);
+
+			// It's a parameter, but no keyword before it
+			if (!in_array($lower_parameter, $this->_keywords) && is_null($current_keyword)) {
+				throw new ODTPFramwork_Renderer_Query_Exception("Parse error in query : $query --- Near : $parameter");
+
+			// We found a keyword
+			} else if (in_array($lower_parameter, $this->_keywords)) {
+				if (!isset($parsed_query[$current_keyword])) {
+					$parsed_query[$current_keyword] = array();
+				}
+				$current_keyword = $lower_parameter;
+
+			// It's a parameter. If keywords already set we throw an exception.
+			} else {
+				if (isset($parsed_query[$current_keyword])) {
+					throw new ODTPFramwork_Renderer_Query_Exception("Parse error in query : $query --- Near : $parameter");
+				}
+				$parsed_query[$current_keyword] = explode(',', $parameter);
+				$current_keyword = null;
+			}
+		}
+
+		return $parsed_query;
+	}
 }
