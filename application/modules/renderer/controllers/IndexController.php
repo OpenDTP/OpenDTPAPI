@@ -7,6 +7,7 @@ class Renderer_IndexController extends ODTPFramwork_Controller
     {
     	$loader = Zend_Registry::get('RendererLoader');
     	$query = new ODTPFramwork_Renderer_Query();
+    	$query2 = new ODTPFramwork_Renderer_Query('RENDER test.sla, test2.sla OUTPUT test.pdf, test2.pdf');
 
     	$query->setAction('render');
     	$query->addInput('test.sla');
@@ -17,6 +18,7 @@ class Renderer_IndexController extends ODTPFramwork_Controller
     	$renderer = $loader->getRenderer('scr-default');
     	$this->view->id = $renderer->getId();
     	$this->view->debug = (string)$query;
+    	$this->view->debug_from_string = (string)$query2;
 
     }
 
