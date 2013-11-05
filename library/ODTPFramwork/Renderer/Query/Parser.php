@@ -3,7 +3,7 @@
 class ODTPFramwork_Renderer_Query_Parser
 {
 	protected $_keywords = array(
-		'render', 'deconstruct', 'getinfo', 'input', 'output'
+		'render', 'deconstruct', 'info', 'input', 'output'
 	);
 
 	/**
@@ -24,12 +24,15 @@ class ODTPFramwork_Renderer_Query_Parser
 			if (!in_array($lower_parameter, $this->_keywords) && is_null($current_keyword)) {
 				throw new ODTPFramwork_Renderer_Query_Exception("Parse error in query : $str --- Near : $parameter");
 			} else if (in_array($lower_parameter, $this->_keywords)) {
+				if (!isset($parsed_query[$current_keyword])) {
+					$parsed_query[$current_keyword] = array();
+				}
 				$current_keyword = $lower_parameter;
 			} else {
 				if (isset($parsed_query[$current_keyword])) {
 					throw new ODTPFramwork_Renderer_Query_Exception("Parse error in query : $str --- Near : $parameter");
 				}
-				$parsed_query[$current_keyword] = $parameter;
+				$parsed_query[$current_keyword] = explode(',', $parameter);
 				$current_keyword = null;
 			}
 		}
