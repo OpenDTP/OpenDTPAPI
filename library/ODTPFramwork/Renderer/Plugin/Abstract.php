@@ -45,9 +45,20 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * This method must be implemented by specialized renderer class
 	 *
 	 * @param  ODTPFramwork_Renderer_Query_Interface $query The query to send to renderer
-	 * @return ODTPFramwork_Renderer_Response_Interface
+	 * @throws ODTPFramwork_Renderer_Exception If not implemented
+	 * @return null
 	 */
 	public function query(ODTPFramwork_Renderer_Query_Interface $query) {
+		throw new ODTPFramwork_Renderer_Exception("This method must be implemented");
+	}
+
+	/**
+	 * This method must be implemented by specialized renderer class
+	 *
+	 * @throws ODTPFramwork_Renderer_Exception If not implemented
+	 * @return null
+	 */
+	public function available() {
 		throw new ODTPFramwork_Renderer_Exception("This method must be implemented");
 	}
 

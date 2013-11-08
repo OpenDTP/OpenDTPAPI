@@ -38,7 +38,7 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
 	 * @throws ODTPFramwork_Renderer_Manager_Exception If not implemented
 	 * @return null
 	 */
-	public function query(ODTPFramwork_Renderer_Query_Abstract $query)
+	public function query(ODTPFramwork_Renderer_Query_Interface $query)
 	{
 		throw new ODTPFramwork_Renderer_Manager_Exception("This method must be implemented");
 	}

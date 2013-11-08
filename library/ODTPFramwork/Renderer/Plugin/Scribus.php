@@ -5,6 +5,13 @@
 */
 class ODTPFramwork_Renderer_Plugin_Scribus extends ODTPFramwork_Renderer_Plugin_Abstract
 {
+	protected $_client = null;
+
+	public function init() {
+		parent::init();
+		$this->_client = new Zend_Http_Client();
+	}
+
 	/**
 	 * Send a query to renderer
 	 *
@@ -12,6 +19,17 @@ class ODTPFramwork_Renderer_Plugin_Scribus extends ODTPFramwork_Renderer_Plugin_
 	 * @return ODTPFramwork_Renderer_Response_Interface
 	 */
 	public function query(ODTPFramwork_Renderer_Query_Interface $query) {
-		parent::query();
+		$uri = 'http://' . $this->getHost() . ':';
+		$this->_client->setUri('http://82.244.76.215/setText.py/' . $file . '/' . urlencode($text));
+    $this->_client->request();
+	}
+
+	/**
+	 * Check if renderer is available
+	 *
+	 * @return bool true if available
+	 */
+	public function available() {
+		parent::available();
 	}
 }
