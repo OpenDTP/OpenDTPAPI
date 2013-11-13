@@ -16,5 +16,7 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
 
 	public function addDocument($file)
 	{
+		$document = new ODTPFramwork_Renderer_Document($file);
+		echo '<pre>' . print_r($document, true) . '</pre>';die;
 	}
 }
