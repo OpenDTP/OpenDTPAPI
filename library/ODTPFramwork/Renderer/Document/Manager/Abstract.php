@@ -4,15 +4,18 @@ class ODTPFramwork_Renderer_Document_Manager_Abstract implements ODTPFramwork_Re
 {
 	protected $_documents = array();
 
-	public function __construct($files = null)
+	public function __construct($files = null, $type_matching = array())
 	{
-		$this->init($files);
+		$this->init($files, $type_matching);
 	}
 
-	public function init($files)
+	public function init($files = null, $type_matching = array())
 	{
 		if (!is_null($files) && !is_array($files)) {
 			throw new ODTPFramwork_Renderer_Document_Manager_Exception('$files must be an array');
+		}
+		if (!empty($type_matching) && !is_array($type_matching)) {
+			throw new ODTPFramwork_Renderer_Document_Manager_Exception('$type_matching must be an array');
 		}
 	}
 
@@ -25,8 +28,21 @@ class ODTPFramwork_Renderer_Document_Manager_Abstract implements ODTPFramwork_Re
 	 * Getters and Setters
 	 */
 
-	public function getDocuments()
+	public function getDocuments($type = null)
 	{
-		return $this->_documents;
+		if (!is_null($type) && !is_string($type)) {
+			throw new ODTPFramwork_Renderer_Document_Manager_Exception('$type must be a boolean');
+		}
+		if (!$type) {
+			return $this->_documents;
+		}
+		$documents = array();
+		foreach ($this->_documents as $document) {
+			if ($type === $document->getRenderer()) {
+				$documents[] = $document;
+			}
+		}
+
+		return $documents;
 	}
 }

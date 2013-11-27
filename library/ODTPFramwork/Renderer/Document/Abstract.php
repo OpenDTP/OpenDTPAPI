@@ -6,6 +6,7 @@ class ODTPFramwork_Renderer_Document_Abstract implements ODTPFramwork_Renderer_D
 	protected $_name;
 	protected $_file;
 	protected $_path;
+	protected $_extension;
 
 	public function __construct($file)
 	{
@@ -38,11 +39,17 @@ class ODTPFramwork_Renderer_Document_Abstract implements ODTPFramwork_Renderer_D
 		return $this->_path;
 	}
 
+	public function getExtension()
+	{
+		return $this->_extension;
+	}
+
 	public function setName($name)
 	{
 		if (!is_string($name)) {
 			throw new ODTPFramwork_Renderer_Document_Exception('$name must be a string');
 		}
+		$this->_name = $name;
 	}
 
 	public function setFile($file)
@@ -50,6 +57,7 @@ class ODTPFramwork_Renderer_Document_Abstract implements ODTPFramwork_Renderer_D
 		if (!is_string($file)) {
 			throw new ODTPFramwork_Renderer_Document_Exception('$file must be a string');
 		}
+		$this->_file = $file;
 	}
 
 	public function setPath($path)
@@ -57,6 +65,15 @@ class ODTPFramwork_Renderer_Document_Abstract implements ODTPFramwork_Renderer_D
 		if (!is_string($path)) {
 			throw new ODTPFramwork_Renderer_Document_Exception('$path must be a string');
 		}
+		$this->_path = $path;
+	}
+
+	public function setExtension($extension)
+	{
+		if (!is_string($extension)) {
+			throw new ODTPFramwork_Renderer_Document_Exception('$extension must be a string');
+		}
+		$this->_extension = $extension;
 	}
 
 }
