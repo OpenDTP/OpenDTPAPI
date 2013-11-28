@@ -12,22 +12,22 @@ class ODTPFramwork_Renderer_Manager extends ODTPFramwork_Renderer_Manager_Abstra
 
 	public function query(ODTPFramwork_Renderer_Query_Interface $query)
 	{
-		$plugins = $this->getPlugins();
-		$renderers_count = count($plugins);
-		$i = 0;
-		$has_available = false;
 
-		while (!$has_available && $i < $renderers_count) {
-			try {
-				$plugin->query($query);
-				$has_available = true;
-			} catch (ODTPFramwork_Renderer_Exception $e) {
-				echo '<pre>' . print_r($e, true) . '</pre>';die;
+		// @TODO : type matching must be defined in ini configutarion file
+		$manager = new ODTPFramwork_Renderer_Document_Manager($query->getInput(), array('scribus' => array('sla')));
+		foreach ($manager->getDocuments() as $renderer => $documents) {
+			$has_renderer_available = false;
+			foreach ($this->getPlugins($renderer) as $plugin) {
+				try {
+					$plugin->query($query);
+					$has_renderer_available = true;
+					break;
+				} catch (ODTPFramwork_Renderer_Exception $e) {
+				}
 			}
-		}
-
-		if (!$has_available) {
-			throw new ODTPFramwork_Renderer_Manager_Exception("No renderer available");
+			// if (!$has_renderer_available) {
+			// 	throw new ODTPFramwork_Renderer_Manager_Exception("No renderer $renderer available");
+			// }
 		}
 	}
 }

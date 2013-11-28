@@ -19,9 +19,10 @@ class ODTPFramwork_Renderer_Plugin_Scribus extends ODTPFramwork_Renderer_Plugin_
 	 * @return ODTPFramwork_Renderer_Response_Interface
 	 */
 	public function query(ODTPFramwork_Renderer_Query_Interface $query) {
-		$uri = 'http://' . $this->getHost() . ':';
-		$this->_client->setUri('http://82.244.76.215/setText.py/' . $file . '/' . urlencode($text));
-    $this->_client->request();
+		// $uri = 'http://' . $this->getHost() . ':';
+		// $this->_client->setUri('http://82.244.76.215/setText.py/' . $file . '/' . urlencode($text));
+    // $this->_client->request();
+    throw new ODTPFramwork_Renderer_Exception('Renderer unavailable');
 	}
 
 	/**
