@@ -19,15 +19,15 @@ class ODTPFramwork_Renderer_Manager extends ODTPFramwork_Renderer_Manager_Abstra
 			$has_renderer_available = false;
 			foreach ($this->getPlugins($renderer) as $plugin) {
 				try {
-					$plugin->query($query);
+					$response = $plugin->query($query);
 					$has_renderer_available = true;
 					break;
 				} catch (ODTPFramwork_Renderer_Exception $e) {
 				}
 			}
-			// if (!$has_renderer_available) {
-			// 	throw new ODTPFramwork_Renderer_Manager_Exception("No renderer $renderer available");
-			// }
+			if (!$has_renderer_available) {
+				throw new ODTPFramwork_Renderer_Manager_Exception("No renderer $renderer available");
+			}
 		}
 	}
 }

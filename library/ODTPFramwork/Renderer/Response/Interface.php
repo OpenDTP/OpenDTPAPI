@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Interface for renderer query object
+ * Interface for renderer response object
  */
-interface ODTPFramwork_Renderer_Query_Interface
+interface ODTPFramwork_Renderer_Response_Interface
 {
-    public function input($src);
-    public function output($src);
-    public function action($params);
+    public function getCode();
+    public function getResponse();
 }
