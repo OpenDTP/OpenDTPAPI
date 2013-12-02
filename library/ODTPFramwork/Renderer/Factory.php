@@ -72,7 +72,9 @@ class ODTPFramwork_Renderer_Factory
   	// setting parameters for plugin instanciation
   	$parameters = array(
   		'id' => (string)$node['id'],
-      'type' => (string)$node->server->type
+      'type' => (string)$node->server->type,
+      'address' => (string)$node->server->address,
+      'port' => (string)$node->server->port
   		);
   	$renderer = new $class_name($parameters);
 

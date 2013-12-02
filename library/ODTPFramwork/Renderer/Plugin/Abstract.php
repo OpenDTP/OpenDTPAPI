@@ -18,11 +18,11 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * @param array $parameters Renderer configurations
 	 * @throws ODTPFramwork_Renderer_Exception If $parameters is not an array
 	 */
-	public function __construct(array $parameters = null) {
+	public function __construct($parameters = null) {
 		if (!is_null($parameters) && !is_array($parameters)) {
 			throw new ODTPFramwork_Renderer_Exception('$parameters must be an array');
 		}
-		$this->_init($parameters);
+		$this->init($parameters);
 	}
 
 	/**
@@ -32,13 +32,15 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * @throws ODTPFramwork_Renderer_Exception If $parameters is not an array
 	 * @return null
 	 */
-	protected function _init($parameters)
+	protected function init($parameters = null)
 	{
 		if (!is_null($parameters) && !is_array($parameters)) {
 			throw new ODTPFramwork_Renderer_Exception('$parameters must be an array');
 		}
 		$this->setId($parameters['id']);
-		$this->_type = $parameters['type'];
+		$this->setType($parameters['type']);
+		$this->setHost($parameters['address']);
+		$this->setPort($parameters['port']);
 	}
 
 	/**
@@ -123,8 +125,11 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * @param string $type
 	 * @return null
 	 */
-	public function setType(string $type)
+	public function setType($type)
 	{
+		if (!is_string($type)) {
+			throw new ODTPFramwork_Renderer_Exception('$type must be a string');
+		}
 		$this->_type = $type;
 	}
 
@@ -134,8 +139,11 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 * @param string $host The server host address
 	 * @return string
 	 */
-	public function setHost(string $host)
+	public function setHost($host)
 	{
+		if (!is_string($host)) {
+			throw new ODTPFramwork_Renderer_Exception('$host must be a string');
+		}
 		$this->_host = $host;
 	}
 
@@ -144,8 +152,11 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 *
 	 * @return int
 	 */
-	public function setPort(int $port)
+	public function setPort($port)
 	{
+		if (!is_string($port)) {
+			throw new ODTPFramwork_Renderer_Exception('$port must be a string');
+		}
 		$this->_port = $port;
 	}
 
@@ -154,8 +165,11 @@ class ODTPFramwork_Renderer_Plugin_Abstract implements ODTPFramwork_Renderer_Plu
 	 *
 	 * @return string
 	 */
-	public function setBaseUrl(string $base_url)
+	public function setBaseUrl($base_url)
 	{
+		if (!is_string($base_url)) {
+			throw new ODTPFramwork_Renderer_Exception('$base_url must be a string');
+		}
 		$this->_base_url = $base_url;
 	}
 }

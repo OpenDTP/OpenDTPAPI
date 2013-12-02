@@ -7,8 +7,8 @@ class ODTPFramwork_Renderer_Plugin_Scribus extends ODTPFramwork_Renderer_Plugin_
 {
 	protected $_client = null;
 
-	public function init() {
-		parent::init();
+	public function init($parameters = null) {
+		parent::init($parameters);
 		$this->_client = new Zend_Http_Client();
 	}
 
@@ -19,10 +19,11 @@ class ODTPFramwork_Renderer_Plugin_Scribus extends ODTPFramwork_Renderer_Plugin_
 	 * @return ODTPFramwork_Renderer_Response_Interface
 	 */
 	public function query(ODTPFramwork_Renderer_Query_Interface $query) {
-		// $uri = 'http://' . $this->getHost() . ':' . $this->getPort();
-		// $this->_client->setUri($uri);
-		// $this->_client->request();
-		// $response = new ODTPFramwork_Renderer_Response_Scribus('{"test":"valid"}', ODTPFramwork_Renderer_Response_Scribus::RESPONSE_JSON);
+		$uri = 'http://' . $this->getHost() . ':' . $this->getPort();
+		$this->_client->setUri($uri);
+		// $response = $this->_client->request();
+		$response = new ODTPFramwork_Renderer_Response_Scribus('{"test":"valid"}', ODTPFramwork_Renderer_Response_Scribus::RESPONSE_JSON);
+		echo '<pre>' . print_r($response, true) . '</pre>';die;
     throw new ODTPFramwork_Renderer_Exception('Renderer unavailable');
 	}
 
