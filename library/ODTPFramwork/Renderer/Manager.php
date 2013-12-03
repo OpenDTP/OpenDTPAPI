@@ -15,11 +15,12 @@ class ODTPFramwork_Renderer_Manager extends ODTPFramwork_Renderer_Manager_Abstra
 
 		// @TODO : type matching must be defined in ini configutarion file
 		$manager = new ODTPFramwork_Renderer_Document_Manager($query->getInput(), array('scribus' => array('sla')));
+		$responses = array();
 		foreach ($manager->getDocuments() as $renderer => $documents) {
 			$has_renderer_available = false;
 			foreach ($this->getPlugins($renderer) as $plugin) {
 				try {
-					$response = $plugin->query($query);
+					$responses[] = $plugin->query($query);
 					$has_renderer_available = true;
 					break;
 				} catch (ODTPFramwork_Renderer_Exception $e) {
@@ -29,5 +30,7 @@ class ODTPFramwork_Renderer_Manager extends ODTPFramwork_Renderer_Manager_Abstra
 				throw new ODTPFramwork_Renderer_Manager_Exception("No renderer $renderer available");
 			}
 		}
+
+		return $responses;
 	}
 }
