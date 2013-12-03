@@ -1,14 +1,15 @@
 <?php
 
-class Renderer_IndexController extends ODTPFramwork_Controller {
+class Renderer_IndexController extends ODTPFramwork_Controller
+{
 
-    public function indexAction() {
-    	$loader = Zend_Registry::get('RendererLoader');
+  public function indexAction()
+  {
+  	$query = new ODTPFramwork_Renderer_Query('RENDER C:/Users/mforaste/Desktop/Document-1.sla OUTPUT test.pdf, test2.pdf');
 
-    	// getting a renderer
-    	$renderer = $loader->getRenderer('scr-default');
-    	$this->view->id = $renderer->getId();
-    }
+  	// getting a renderer
+  	$this->view->debug = (string)$query;
+  }
 
 }
 
