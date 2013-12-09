@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * A document object for renderers
+ */
 class ODTPFramwork_Renderer_Document extends ODTPFramwork_Renderer_Document_Abstract
 {
 	protected $_renderer;
@@ -21,11 +24,23 @@ class ODTPFramwork_Renderer_Document extends ODTPFramwork_Renderer_Document_Abst
 	 * Getters and setters
 	 */
 
+	/**
+	 * Return the renderer type
+	 *
+	 * @return string the renderer type
+	 */
 	public function getRenderer()
 	{
 		return $this->_renderer;
 	}
 
+	/**
+	 * Set the renderer type
+	 *
+	 * @param string $renderer The renderer type matching this document (Scribus, InDesign, etc ...)
+	 * @throws ODTPFramwork_Renderer_Document_Exception If $renderer is not a string
+	 * @return null
+	 */
 	public function setRenderer($renderer)
 	{
 		if (!is_string($renderer)) {
