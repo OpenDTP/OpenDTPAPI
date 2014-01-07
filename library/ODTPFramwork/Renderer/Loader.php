@@ -24,7 +24,8 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 			$this->setDefaultConfigPath($parameters['default_config_path']);
 		}
 		$this->setPreload(isset($parameters['preload']) ? $parameters['preload'] : false);
-		if ('' !== $this->getDefaultConfigPath() && $this->getPreload()) {
+		if ('' !== $this->getDefaultConfigPath() && !$this->getPreload())
+		{
 			$this->loadConfigFolder();
 		}
 	}
