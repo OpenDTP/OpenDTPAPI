@@ -46,7 +46,10 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
 		}
 		$document->setRenderer($renderer);
 		$document_id = md5($file);
-		$this->_documents[$document_id] = $document;
+		if (!isset($this->_documents[$renderer])) {
+			$this->_documents[$renderer] = array();
+		}
+		$this->_documents[$renderer][$document_id] = $document;
 
 		return $document_id;
 	}

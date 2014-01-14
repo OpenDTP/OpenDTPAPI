@@ -1,11 +1,22 @@
 <?php
 
 /**
- * Interface for renderer query object
+ * Interface for renderer response object
  */
-interface ODTPFramwork_Renderer_Query_Interface
+interface ODTPFramwork_Renderer_Response_Interface
 {
-    public function input($src);
-    public function output($src);
-    public function action($params);
+		/**
+		 * Return the HTTP response code
+		 *
+		 * @return int The HTTP response code
+		 */
+    public function getCode();
+
+    /**
+     * Return the response depending on the given format
+     *
+     * @param string $format The format of response
+     * @return mixed The response parsed depending on $format
+     */
+    public function getResponse($format = null);
 }

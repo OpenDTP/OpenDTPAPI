@@ -51,6 +51,8 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 	public function loadConfigFile($filepath) {
 		$factory = ODTPFramwork_Renderer_Factory::getInstance();
 		$renderer = $factory->factory($filepath);
+
+		//@TODO reprendre ici pour le chargement
 		$this->registerRenderer($renderer);
 	}
 
@@ -78,8 +80,9 @@ class ODTPFramwork_Renderer_Loader implements ODTPFramwork_Renderer_Loader_Inter
 	    	throw new ODTPFramwork_Renderer_Exception("$path : Couldn't open folder");
 		$file = '';
 		while (false !== ($file = readdir($dir))) {
-			if (is_file($path . DIRECTORY_SEPARATOR . $file))
+			if (is_file($path . DIRECTORY_SEPARATOR . $file)) {
 				$this->loadConfigFile($path . DIRECTORY_SEPARATOR . $file);
+			}
 		}
 	}
 

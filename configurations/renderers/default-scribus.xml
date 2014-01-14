@@ -2,7 +2,7 @@
 <renderer id="scr-default">
 	<server>
 		<type>scribus</type>
-		<address>127.0.0.1</address>
+		<address>109.232.237.35</address>
 		<port>8080</port>
 	</server>
 </renderer>
