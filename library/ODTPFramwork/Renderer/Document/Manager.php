@@ -4,7 +4,10 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
 {
 	public function init($files = null, $type_matching = array())
 	{
+		$opendtp_ini = Zend_Registry::get('OpenDTP');
+
 		parent::init($files);
+		$this->setDocumentsPool($opendtp_ini->pools->default->path);
 		if (is_null($files)) {
 
 			return;
@@ -35,7 +38,7 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
 		if (!is_string($file)) {
 			throw new ODTPFramwork_Renderer_Document_Manager_Exception('$file must be a string');
 		}
-		$document = new ODTPFramwork_Renderer_Document($file);
+		$document = new ODTPFramwork_Renderer_Document($this->getDocumentsPool() . '/' . $file);
 		if (is_null($renderer)) {
 			$renderer = $this->find_renderer($document);
 			if (is_null($renderer)) {

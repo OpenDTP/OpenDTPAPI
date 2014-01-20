@@ -4,6 +4,7 @@ class ODTPFramwork_Renderer_Document_Manager_Abstract implements ODTPFramwork_Re
 {
 	protected $_documents = array();
 	protected $_type_matching = array();
+	protected $_documents_pool = '';
 
 	public function __construct($files = null, $type_matching = array())
 	{
@@ -47,6 +48,11 @@ class ODTPFramwork_Renderer_Document_Manager_Abstract implements ODTPFramwork_Re
 		return $documents;
 	}
 
+	public function getDocumentsPool() {
+
+		return $this->_documents_pool;
+	}
+
 	public function getTypeMatching()
 	{
 
@@ -59,5 +65,12 @@ class ODTPFramwork_Renderer_Document_Manager_Abstract implements ODTPFramwork_Re
 			throw new ODTPFramwork_Renderer_Document_Manager_Exception('$type_matching must be an array');
 		}
 		$this->_type_matching = $type_matching;
+	}
+
+	public function setDocumentsPool($documents_pool) {
+		if (!is_string($documents_pool)) {
+			throw new ODTPFramwork_Renderer_Document_Manager_Exception('$documents_pool must be a string');
+		}
+		$this->_documents_pool = $documents_pool;
 	}
 }
