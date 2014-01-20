@@ -7,7 +7,7 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
 		$opendtp_ini = Zend_Registry::get('OpenDTP');
 
 		parent::init($files);
-		$this->setDocumentsPool($opendtp_ini->pools->default);
+		$this->setDocumentsPool($opendtp_ini->pools->default->path);
 		if (is_null($files)) {
 
 			return;
