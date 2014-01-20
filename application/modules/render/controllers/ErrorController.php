@@ -1,6 +1,6 @@
 <?php
 
-class Deconstruct_ErrorController extends Zend_Controller_Action
+class Render_ErrorController extends Zend_Controller_Action
 {
 
     public function errorAction()

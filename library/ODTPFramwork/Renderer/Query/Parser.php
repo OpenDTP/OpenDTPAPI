@@ -5,7 +5,7 @@
 class ODTPFramwork_Renderer_Query_Parser
 {
 	protected $_keywords = array(
-		'render', 'deconstruct', 'info', 'input', 'output'
+		'render', 'deconstruct', 'info', 'input', 'output', 'type'
 	);
 
 	/**
