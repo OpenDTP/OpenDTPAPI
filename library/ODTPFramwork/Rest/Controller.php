@@ -25,6 +25,7 @@ class ODTPFramwork_Rest_Controller extends Zend_Rest_Controller {
 		}
 
 		$this->view->error_code = 0;
+		$this->view->error_type = '';
 		$this->view->error_message = "Success !";
 
 		$contextSwitch = $this->_helper->getHelper('contextSwitch');
@@ -35,17 +36,23 @@ class ODTPFramwork_Rest_Controller extends Zend_Rest_Controller {
 		->addActionContext('delete', array("json"))
 		->initContext('json');
 	}
-	
+
+	protected function setException($e) {
+		$this->view->error_code = $e->getCode();
+		$this->view->error_type = get_class($e);
+		$this->view->error_message = $e->getMessage();
+	}
+
 	public function indexAction(){}
-	
+
 	public function headAction(){}
-	
+
 	public function getAction(){}
-	
+
 	public function postAction(){}
-	
+
 	public function putAction(){}
-	
+
 	public function deleteAction(){}
 
 }
