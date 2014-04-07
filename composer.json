@@ -1,0 +1,19 @@
+{
+    "name": "weezevent/weezevent",
+    "authors": [
+        {
+            "name": "Michael FORASTE",
+            "email": "j.bourdin@weezevent.com"
+        }
+    ],
+    "require": {
+        "robmorgan/phinx": "*",
+        "leafo/lessphp": "0.4.*",
+        "neeckeloo/closure-compiler-php": "dev-master",
+        "symfony/console": "2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "phpunit/dbunit": "1.3.*"
+    }
+}
