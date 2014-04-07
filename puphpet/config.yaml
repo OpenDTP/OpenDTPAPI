@@ -60,7 +60,7 @@ server:
             bash_aliases: null
     _prevent_empty: ''
 mailcatcher:
-    install: 1
+    install: 0
     settings:
         smtp_ip: 0.0.0.0
         smtp_port: 1025
@@ -75,19 +75,13 @@ apache:
         - vhost_alias
     vhosts:
         3t5epkTVs0sN:
-            servername: opendtp.dev
+            servername: api.opendtp.dev
             docroot: /data/public
             port: '80'
             setenv:
                 - 'APPLICATION_ENV development'
             override:
                 - All
-        shiuB9ep:
-            servername: opendtp.phpmyadmin.dev
-            docroot: /usr/share/phpmyadmin
-            port: '80'
-            override:
-                - None
         caHohg4u:
             servername: opendtp.phpmemcachedadmin.dev
             docroot: /var/www/phpmemcachedadmin
@@ -113,9 +107,7 @@ php:
         php:
             - cli
             - intl
-            - mcrypt
             - memcached
-            - imagick
             - curl
         pear: {  }
         pecl:
@@ -147,24 +139,17 @@ xdebug:
         xdebug.profiler_enable_trigger: '1'
         xdebug.profiler_output_name: "cachegrind.out.%t.%r"
 xhprof:
-    install: '1'
+    install: 0
 drush:
     install: 0
     settings:
         drush.tag_branch: 6.x
 mysql:
+    install: 0
     root_password: opendtp
-    phpmyadmin: '1'
+    phpmyadmin: 0
     adminer: 0
-    databases:
-        QKamvxD9TBaP:
-            grant:
-                - ALL
-            name: opendtp
-            host: 0.0.0.0
-            user: opendtp
-            password: opendtp
-            sql_file: ''
+    databases: {  }
 mongodb:
     install: 0
     auth: 1
