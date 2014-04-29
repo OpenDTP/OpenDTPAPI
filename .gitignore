@@ -3,6 +3,6 @@ LICENSE.txt
 README.txt
 demos/
 extras/documentation
-*.cxx
-*.so
-
+.vagrant/
+vendor/
+composer.lock

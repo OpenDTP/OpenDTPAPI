@@ -1,0 +1,176 @@
+---
+vagrantfile-local:
+    vm:
+        box: debian-wheezy72-x64-vbox43
+        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+        hostname: api.opendtp.dev
+        aliases:
+            - api.opendtp.phpmemcachedadmin.dev
+            - api.opendtp.webgrind.dev
+        network:
+            private_network: 192.168.57.100
+            forwarded_port:
+                Fnf3lFw7oWIX:
+                    host: '8980'
+                    guest: '80'
+                2qBNr0TfPq2K:
+                    host: '2320'
+                    guest: '22'
+        provider:
+            virtualbox:
+                modifyvm:
+                    natdnshostresolver1: on
+                    memory: '1024'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+        provision:
+            puppet:
+                manifests_path: puphpet/puppet
+                manifest_file: manifest.pp
+                options:
+                    - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            sIZ4tSy4bdyK:
+                id: vagrant-root
+                source: './'
+                target: /data
+                nfs: 'false'
+        usable_port_range: 2200..2250
+    ssh:
+        host: null
+        port: null
+        private_key_path: null
+        username: vagrant
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: detect
+server:
+    packages:
+        - emacs
+        - memcached
+        - pwgen
+        - htop
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+mailcatcher:
+    install: 0
+    settings:
+        smtp_ip: 0.0.0.0
+        smtp_port: 1025
+        http_ip: 0.0.0.0
+        http_port: '1080'
+        path: /usr/local/bin
+        log: /var/log/mailcatcher/mailcatcher.log
+apache:
+    modules:
+        - php
+        - rewrite
+        - vhost_alias
+    vhosts:
+        3t5epkTVs0sN:
+            servername: api.opendtp.dev
+            docroot: /data/public
+            port: '80'
+            setenv:
+                - 'APPLICATION_ENV development'
+            override:
+                - All
+        caHohg4u:
+            servername: opendtp.phpmemcachedadmin.dev
+            docroot: /var/www/phpmemcachedadmin
+            port: '80'
+            override:
+                - None
+        aeh2Caij:
+            servername: opendtp.webgrind.dev
+            docroot: /var/www/webgrind
+            port: '80'
+            override:
+                - None
+    user: www-data
+    group: www-data
+    default_vhost: false
+    mpm_module: prefork
+    mod_pagespeed: 0
+    mod_spdy: 0
+php:
+    version: '54'
+    composer: '1'
+    modules:
+        php:
+            - cli
+            - intl
+            - memcached
+            - curl
+        pear: {  }
+        pecl:
+            - pecl_http
+    ini:
+        display_errors: On
+        error_reporting: 'E_ALL'
+        session.save_path: /var/lib/php/session
+        session.use_cookies: 1
+        session.use_only_cookies: 0
+        post_max_size: 20M
+        upload_max_filesize: 20M
+    timezone: Europe/Paris
+xdebug:
+    install: '1'
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: 'dbgp'
+        xdebug.remote_port: '9000'
+        xdebug.overload_var_dump: '1'
+        xdebug.var_display_max_children: '128'
+        xdebug.var_display_max_data: '1024'
+        xdebug.var_display_max_depth: '8'
+        xdebug.collect_includes: '1'
+        xdebug.collect_params: '2'
+        xdebug.profiler_enable_trigger: '1'
+        xdebug.profiler_output_name: "cachegrind.out.%t.%r"
+xhprof:
+    install: 0
+drush:
+    install: 0
+    settings:
+        drush.tag_branch: 6.x
+mysql:
+    install: 0
+    root_password: opendtp
+    phpmyadmin: 0
+    adminer: 0
+    databases: {  }
+mongodb:
+    install: 0
+    auth: 1
+    port: '27017'
+    databases: {  }
+beanstalkd:
+    install: 0
+    settings:
+        listenaddress: 0.0.0.0
+        listenport: '13000'
+        maxjobsize: '65535'
+        maxconnections: '1024'
+        binlogdir: /var/lib/beanstalkd/binlog
+        binlogfsync: null
+        binlogsize: '10485760'
+    beanstalk_console: 0
+    binlogdir: /var/lib/beanstalkd/binlog
+rabbitmq:
+    install: 0
+    port: '5672'
+phpmemcachedadmin:
+    install: 1
+webgrind:
+    install: 1
