@@ -11,10 +11,10 @@ vagrantfile-local:
             private_network: 192.168.57.100
             forwarded_port:
                 Fnf3lFw7oWIX:
-                    host: '8980'
+                    host: '8880'
                     guest: '80'
                 2qBNr0TfPq2K:
-                    host: '2320'
+                    host: '2220'
                     guest: '22'
         provider:
             virtualbox:
@@ -60,21 +60,29 @@ server:
             bash_aliases: null
     _prevent_empty: ''
 mailcatcher:
-    install: 0
+    install: '1'
     settings:
         smtp_ip: 0.0.0.0
         smtp_port: 1025
         http_ip: 0.0.0.0
         http_port: '1080'
-        path: /usr/local/bin
-        log: /var/log/mailcatcher/mailcatcher.log
+        mailcatcher_path: /usr/local/bin
+        log_path: /var/log/mailcatcher/mailcatcher.log
 apache:
+    install: '1'
+    settings:
+        user: www-data
+        group: www-data
+        default_vhost: false
+        manage_user: false
+        manage_group: false
+        sendfile: 0
     modules:
         - php
         - rewrite
         - vhost_alias
     vhosts:
-        3t5epkTVs0sN:
+        U53C322boebk:
             servername: api.opendtp.dev
             docroot: /data/public
             port: '80'
@@ -82,42 +90,71 @@ apache:
                 - 'APPLICATION_ENV development'
             override:
                 - All
-        caHohg4u:
-            servername: opendtp.phpmemcachedadmin.dev
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+        h88GtBac3jrc:
+            servername: api.opendtp.phpmemcachedadmin.dev
             docroot: /var/www/phpmemcachedadmin
             port: '80'
             override:
                 - None
-        aeh2Caij:
-            servername: opendtp.webgrind.dev
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+        hFwYPubCVl1i:
+            servername: api.opendtp.webgrind.dev
             docroot: /var/www/webgrind
             port: '80'
             override:
                 - None
-    user: www-data
-    group: www-data
-    default_vhost: false
-    mpm_module: prefork
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
     mod_pagespeed: 0
     mod_spdy: 0
+nginx:
+    install: 0
+    vhosts:
+        7PcxH7vQHXoQ:
+            server_name: awesome.dev
+            server_aliases:
+                - www.awesome.dev
+            www_root: /var/www/awesome.dev
+            listen_port: '80'
+            index_files:
+                - index.html
+                - index.htm
+                - index.php
+            envvars:
+                - 'APP_ENV dev'
 php:
-    version: '54'
+    install: '1'
+    version: '55'
     composer: '1'
     modules:
         php:
             - cli
-            - intl
-            - memcached
             - curl
+            - imagick
+            - intl
+            - mcrypt
+            - memcached
         pear: {  }
         pecl:
             - pecl_http
     ini:
         display_errors: On
-        error_reporting: 'E_ALL'
+        error_reporting: E_ALL
         session.save_path: /var/lib/php/session
-        session.use_cookies: 1
-        session.use_only_cookies: 0
+        session.use_cookies: '1'
+        session.use_only_cookies: '0'
         post_max_size: 20M
         upload_max_filesize: 20M
     timezone: Europe/Paris
@@ -128,7 +165,7 @@ xdebug:
         xdebug.remote_autostart: '0'
         xdebug.remote_connect_back: '1'
         xdebug.remote_enable: '1'
-        xdebug.remote_handler: 'dbgp'
+        xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
         xdebug.overload_var_dump: '1'
         xdebug.var_display_max_children: '128'
@@ -137,9 +174,9 @@ xdebug:
         xdebug.collect_includes: '1'
         xdebug.collect_params: '2'
         xdebug.profiler_enable_trigger: '1'
-        xdebug.profiler_output_name: "cachegrind.out.%t.%r"
+        xdebug.profiler_output_name: cachegrind.out.%t.%r
 xhprof:
-    install: 0
+    install: '1'
 drush:
     install: 0
     settings:
@@ -147,14 +184,43 @@ drush:
 mysql:
     install: 0
     root_password: opendtp
+    phpmyadmin: '1'
+    adminer: 0
+    databases:
+        nnyEmyN8QqsV:
+            grant:
+                - ALL
+            name: opendtp
+            host: 0.0.0.0
+            user: opendtp
+            password: opendtp
+            sql_file: ''
+postgresql:
+    install: 0
+    settings:
+        root_password: '123'
+        user_group: postgres
+        encoding: UTF8
+        version: '9.3'
+    databases: {  }
+    adminer: 0
+mariadb:
+    install: 0
+    root_password: '123'
     phpmyadmin: 0
     adminer: 0
     databases: {  }
+    version: '10.0'
 mongodb:
     install: 0
-    auth: 1
-    port: '27017'
+    settings:
+        auth: 1
+        port: '27017'
     databases: {  }
+redis:
+    install: 0
+    settings:
+        conf_port: '6379'
 beanstalkd:
     install: 0
     settings:
@@ -169,8 +235,10 @@ beanstalkd:
     binlogdir: /var/lib/beanstalkd/binlog
 rabbitmq:
     install: 0
-    port: '5672'
+    settings:
+        port: '5672'
 phpmemcachedadmin:
-    install: 1
+    install: '1'
 webgrind:
-    install: 1
+    install: '1'
+
