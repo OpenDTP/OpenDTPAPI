@@ -60,10 +60,6 @@ Vagrant.configure("2") do |config|
 		config.vm.hostname = "#{data['vm']['hostname']}"
 	end
 
-	if data['vm']['aliases'].to_s != ''
-		config.hostmanager.aliases = data['vm']['aliases'].join(' ')
-	end
-
 	data['vm']['network']['forwarded_port'].each do |i, port|
 		if port['guest'] != '' && port['host'] != ''
 			config.vm.network :forwarded_port, guest: port['guest'].to_i, host: port['host'].to_i
