@@ -1,5 +1,8 @@
 {
     "name": "weezevent/weezevent",
+    "config": {
+        "github-protocols": ["git"]
+    },
     "authors": [
         {
             "name": "Michael FORASTE",
