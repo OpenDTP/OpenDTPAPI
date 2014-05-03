@@ -1,0 +1,73 @@
+---
+vm:
+    box: debian-wheezy72-x64-vbox43
+    box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+    hostname: api.opendtp.dev
+    network:
+        private_network: 192.168.57.101
+        forwarded_port: {}
+    provider:
+        modifyvm:
+            natdnshostresolver1: on
+            memory: '1024'
+        setextradata:
+            VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+    provision:
+        manifests_path: vagrant/puppet/manifest
+        manifest_file: manifest.pp
+        options:
+            - '--hiera_config /vagrant/puppet/Hiera.yaml'
+            - '--modulepath /vagrant/puppet/modules'
+    synced_folder:
+        sIZ4tSy4bdyK:
+            id: vagrant-root
+            source: './'
+            target: /data
+            nfs: 'false'
+    usable_port_range: 2200..2250
+ssh:
+    host: null
+    port: null
+    private_key_path: null
+    username: vagrant
+    guest_port: null
+    keep_alive: true
+    forward_agent: false
+    forward_x11: false
+    shell: 'bash -l'
+server:
+    packages:
+        - pwgen
+        - htop
+        - emacs
+apache:
+    modules:
+        - rewrite
+        - vhost_alias
+        - expires
+    vhosts:
+        api.opendtp.dev:
+            docroot: /data/public
+            port: '80'
+            setenv:
+                - 'APPLICATION_ENV development'
+            override:
+                - All
+databases:
+    opendtp:
+        user: opendtp
+        password: opendtp
+mailcatcher:
+    name: api.opendtp.mailcatcher.dev
+    smtp_ip: 127.0.0.1
+    smtp_port: 1025
+    http_ip: 127.0.0.1
+    http_port: '1080'
+    path: /usr/local/bin
+    log: /var/log/mailcatcher/mailcatcher.log
+webgrind:
+    name: api.opendtp.webgrind.dev
+phpmemcachedadmin:
+    name: api.opendtp.phpmemcachedadmin.dev
+phpmyadmin:
+    name: api.opendtp.phpmyadmin.dev
