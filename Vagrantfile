@@ -55,6 +55,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.provision "shell" do |s|
+    s.path = "vagrant/provision/update-librarian.sh"
+    s.args = "/vagrant"
+  end
+
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = data_vm['provision']['manifests_path']
     puppet.manifest_file = data_vm['provision']['manifest_file']
