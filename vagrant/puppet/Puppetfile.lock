@@ -23,7 +23,7 @@ GIT
 GIT
   remote: git://github.com/puppetlabs/puppetlabs-apache.git
   ref: master
-  sha: edd20d0b0737163c70d2c3c5dbe32c8f06183714
+  sha: 4eff35427922db47f6e7caf887372adfb25abb97
   specs:
     puppetlabs/apache (1.0.1)
       puppetlabs/concat (>= 1.0.0)
@@ -40,7 +40,7 @@ GIT
 GIT
   remote: git://github.com/puppetlabs/puppetlabs-concat.git
   ref: master
-  sha: a278e5063c745a07b34f778efb3821065d754479
+  sha: 7ede29bd8edb12b9b57b30af23fa0f3d1e3281ee
   specs:
     puppetlabs/concat (1.1.0-rc1)
       puppetlabs/stdlib (>= 4.0.0)
@@ -63,7 +63,7 @@ GIT
 GIT
   remote: git://github.com/puppetlabs/puppetlabs-mysql.git
   ref: master
-  sha: 467017a3dee7d314837a2a34974ffa4ef542f9e1
+  sha: f70c81c2d0328d697faaab96891bece831f7b3c8
   specs:
     puppetlabs/mysql (2.2.1)
       puppetlabs/stdlib (>= 3.2.0)
@@ -71,7 +71,7 @@ GIT
 GIT
   remote: git://github.com/puppetlabs/puppetlabs-ntp.git
   ref: master
-  sha: dc713c4bf137fccf1bc4f0d658cafeb2f8f5003e
+  sha: 23acfa4a80f59cc4487db97d2dff416da815ec9a
   specs:
     puppetlabs/ntp (3.0.4)
       puppetlabs/stdlib (>= 0.1.6)
@@ -79,7 +79,7 @@ GIT
 GIT
   remote: git://github.com/puppetlabs/puppetlabs-stdlib.git
   ref: master
-  sha: f8bfe46bbfa4a4737cef9a20cfe1bed04aee4bdc
+  sha: e962b9553b8d79b36faa90ef6e002649820208a3
   specs:
     puppetlabs/stdlib (4.1.0)
 
