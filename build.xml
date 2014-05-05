@@ -29,7 +29,7 @@
 		<!-- PHPMD call -->
     <target name="phpmd">
     	<exec
-	      command="${project.basedir}/vendor/bin/phpmd  --suffixes php application,library/ODTPFramwork,test,public/index.php xml codesize,unusedcode,naming > ${project.basedir}/build/phpmd-md.xml"
+	      command="'${project.basedir}/vendor/bin/phpmd'  --suffixes php application,library/ODTPFramwork,test,public/index.php xml codesize,unusedcode,naming > '${project.basedir}/build/phpmd-md.xml'"
 	      passthru="true"
       />
     </target>
@@ -37,7 +37,7 @@
 		<!-- PHPCPD call -->
     <target name="phpcpd">
     	<exec
-	      command="${project.basedir}/vendor/bin/phpcpd application library/ODTPFramwork test public/index.php --log-pmd ${project.basedir}/build/phpcmd-pmd.xml"
+	      command="'${project.basedir}/vendor/bin/phpcpd' application library/ODTPFramwork test public/index.php --log-pmd '${project.basedir}/build/phpcmd-pmd.xml'"
 	      passthru="true"
       />
     </target>
@@ -45,7 +45,7 @@
 		<!-- PHPCS call -->
     <target name="phpcs">
     	<exec
-	      command="${project.basedir}/vendor/bin/phpcs  --standard=Zend --report=checkstyle public/index.php application library/ODTPFramwork > ${project.basedir}/build/phpcs-checkstyle.xml"
+	      command="'${project.basedir}/vendor/bin/phpcs'  --standard=Zend --report=checkstyle public/index.php application library/ODTPFramwork > '${project.basedir}/build/phpcs-checkstyle.xml'"
 	      passthru="true"
       />
     </target>
@@ -53,7 +53,7 @@
     <!-- PHPUnit call -->
     <target name="phpunit">
     	<exec
-	      command="${project.basedir}/vendor/bin/phpunit  --colors -c ${project.basedir}/test/phpunit.xml --coverage-clover ${project.basedir}/build/phpunit-clover.xml --log-junit ${project.basedir}/build/phpunit-junit.xml"
+	      command="'${project.basedir}/vendor/bin/phpunit'  --colors -c '${project.basedir}/test/phpunit.xml' --coverage-clover '${project.basedir}/build/phpunit-clover.xml' --log-junit '${project.basedir}/build/phpunit-junit.xml'"
 	      passthru="true"
       />
     </target>
