@@ -8,3 +8,4 @@ vendor/
 composer.lock
 build/
 vagrant/provision/.run_once
+.idea/

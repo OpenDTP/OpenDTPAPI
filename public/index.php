@@ -1,20 +1,17 @@
 <?php
 
-define('API_VERSION', '0.1 ALPHA');
-
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
-
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+require_once(realpath(dirname(__FILE__) . '../configurations/const.php'));
 
 // Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
-    get_include_path(),
-)));
+set_include_path(
+    implode(
+        PATH_SEPARATOR,
+        array(
+            realpath(APPLICATION_PATH . '/../library'),
+            get_include_path(),
+        )
+    )
+);
 
 // Zend application
 require_once 'Zend/Application.php';
@@ -26,4 +23,4 @@ $application = new Zend_Application(
 );
 
 $application->bootstrap()
-            ->run();
+    ->run();

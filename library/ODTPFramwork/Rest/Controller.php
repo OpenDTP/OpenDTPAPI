@@ -1,58 +1,73 @@
 <?php
-class ODTPFramwork_Rest_Controller extends Zend_Rest_Controller {
 
-	public function init()
-	{
-		$frontController = Zend_Controller_Front::getInstance();
-		$request = $frontController->getRequest();
-		$modulePath = $frontController->getModuleDirectory($request->getModuleName());
+class ODTPFramwork_Rest_Controller extends Zend_Rest_Controller
+{
 
-		if (file_exists($modulePath . '/configurations/' . $request->getControllerName() . '.ini')) {
+    public function init()
+    {
+        $frontController = Zend_Controller_Front::getInstance();
+        $request = $frontController->getRequest();
+        $modulePath = $frontController->getModuleDirectory($request->getModuleName());
 
-			$config = new Zend_Config_Ini($modulePath . '/configurations/' . $request->getControllerName() . '.ini',
-			 APPLICATION_ENV);
-			$actionName = $request->getActionName();
+        if (file_exists($modulePath . '/configurations/' . $request->getControllerName() . '.ini')) {
 
-			if (!empty($config->$actionName)) {
-				$this->form = new Zend_Form($config->$actionName);
-			}
-			else {
-				$this->form = false;
-			}
+            $config = new Zend_Config_Ini(
+                $modulePath . '/configurations/' . $request->getControllerName() . '.ini',
+                APPLICATION_ENV
+            );
+            $actionName = $request->getActionName();
 
-		} else {
-			$this->form = false;
-		}
+            if (!empty($config->$actionName)) {
+                $this->form = new Zend_Form($config->$actionName);
+            } else {
+                $this->form = false;
+            }
 
-		$this->view->error_code = 0;
-		$this->view->error_type = '';
-		$this->view->error_message = "Success !";
+        } else {
+            $this->form = false;
+        }
 
-		$contextSwitch = $this->_helper->getHelper('contextSwitch');
-		$contextSwitch->addActionContext('index', array('json'))
-		->addActionContext('get', array("json"))
-		->addActionContext('post', array("json"))
-		->addActionContext('put', array("json"))
-		->addActionContext('delete', array("json"))
-		->initContext('json');
-	}
+        $this->view->error_code = 0;
+        $this->view->error_type = '';
+        $this->view->error_message = "Success !";
 
-	protected function setException($e) {
-		$this->view->error_code = $e->getCode();
-		$this->view->error_type = get_class($e);
-		$this->view->error_message = $e->getMessage();
-	}
+        $contextSwitch = $this->_helper->getHelper('contextSwitch');
+        $contextSwitch->addActionContext('index', array('json'))
+            ->addActionContext('get', array("json"))
+            ->addActionContext('post', array("json"))
+            ->addActionContext('put', array("json"))
+            ->addActionContext('delete', array("json"))
+            ->initContext('json');
+    }
 
-	public function indexAction(){}
+    protected function setException($e)
+    {
+        $this->view->error_code = $e->getCode();
+        $this->view->error_type = get_class($e);
+        $this->view->error_message = $e->getMessage();
+    }
 
-	public function headAction(){}
+    public function indexAction()
+    {
+    }
 
-	public function getAction(){}
+    public function headAction()
+    {
+    }
 
-	public function postAction(){}
+    public function getAction()
+    {
+    }
 
-	public function putAction(){}
+    public function postAction()
+    {
+    }
 
-	public function deleteAction(){}
+    public function putAction()
+    {
+    }
 
+    public function deleteAction()
+    {
+    }
 }
