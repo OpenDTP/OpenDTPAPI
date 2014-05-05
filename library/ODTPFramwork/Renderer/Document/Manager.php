@@ -20,7 +20,7 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
         }
     }
 
-    protected function find_renderer(ODTPFramwork_Renderer_Document_Interface $document)
+    protected function findRenderer(ODTPFramwork_Renderer_Document_Interface $document)
     {
         $i = 0;
 
@@ -40,7 +40,7 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
         }
         $document = new ODTPFramwork_Renderer_Document($this->getDocumentsPool() . '/' . $file);
         if (is_null($renderer)) {
-            $renderer = $this->find_renderer($document);
+            $renderer = $this->findRenderer($document);
             if (is_null($renderer)) {
                 throw new ODTPFramwork_Renderer_Document_Manager_Exception('Unknown extension '
                     . $document->getExtension() . ' : can\'t define renderer');

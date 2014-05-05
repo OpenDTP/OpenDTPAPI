@@ -29,4 +29,3 @@ class Render_IndexController extends ODTPFramwork_Controller
     }
 
 }
-
