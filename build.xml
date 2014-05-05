@@ -14,7 +14,8 @@
 		<!-- Code quality analyse rules -->
     <target name="quality-analyse">
     	<echo msg="Quality Analyse Start" />
-    	<mkdir dir="${project.basedir}/build" mode="777"/>
+        <mkdir dir="${project.basedir}/build" mode="644"/>
+    	<mkdir dir="${project.basedir}/build/html" mode="644"/>
     	<phingcall target="phpcs" />
     	<phingcall target="phpmd" />
     	<phingcall target="phpcpd" />
