@@ -46,7 +46,7 @@
 		<!-- PHPCS call -->
     <target name="phpcs">
     	<exec
-	      command="'${project.basedir}/vendor/bin/phpcs'  --standard=Zend --report=checkstyle public/index.php application library/ODTPFramwork > '${project.basedir}/build/phpcs-checkstyle.xml'"
+	      command="'${project.basedir}/vendor/bin/phpcs'  --standard=test/PHPCSRulsets/CustomZend/ruleset.xml --report=checkstyle public application library > '${project.basedir}/build/phpcs-checkstyle.xml'"
 	      passthru="true"
       />
     </target>
