@@ -12,11 +12,12 @@ class Render_IndexController extends ODTPFramwork_Controller
 
         try {
             // Should be construct with the query builder in 0.3 version
-            // Furthermore keywords for option should be changed with something more like WITH SCALE=100 for exemple
-            $query_string
-                = 'RENDER ' . $document . ' TYPE ' . ($type ? $type : 'jpeg') . ' SCALE ' . ($scale ? $scale : 100)
+            // Furthermore keywords for option should be changed
+            // with something more like WITH SCALE=100 for exemple
+            $queryString = 'RENDER ' . $document . ' TYPE ' .
+                ($type ? $type : 'jpeg') . ' SCALE ' . ($scale ? $scale : 100)
                 . ' PAGE ' . ($page ? $page : 'ALL');
-            $query = new ODTPFramwork_Renderer_Query($query_string);
+            $query = new ODTPFramwork_Renderer_Query($queryString);
             $responses = Zend_Registry::get('RendererManager')->query($query);
 
             //@TODO Add some dynamism and use scribus output

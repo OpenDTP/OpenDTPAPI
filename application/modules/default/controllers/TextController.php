@@ -24,7 +24,9 @@ class TextController extends ODTPFramwork_Controller
         }
 
         $client = new Zend_Http_Client();
-        $client->setUri('http://82.244.76.215/setText.py/' . $file . '/' . urlencode($text));
+        $client->setUri(
+            'http://82.244.76.215/setText.py/' . $file . '/' . urlencode($text)
+        );
         $client->request();
 
         $this->view->error_code = 0;
@@ -34,7 +36,6 @@ class TextController extends ODTPFramwork_Controller
 
     public function getAction()
     {
-
     }
 
 }
