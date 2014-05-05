@@ -2,7 +2,6 @@
 
 class TextController extends ODTPFramwork_Controller
 {
-
     public function indexAction()
     {
     }
@@ -37,5 +36,4 @@ class TextController extends ODTPFramwork_Controller
     public function getAction()
     {
     }
-
 }

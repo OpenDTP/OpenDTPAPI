@@ -1,13 +1,4 @@
 <?php
-/**
- * @see Zend_Controller_Plugin_Abstract
- */
-require_once 'Zend/Controller/Plugin/Abstract.php';
-
-/**
- * @see Zend_Controller_Request_Http
- */
-require_once 'Zend/Controller/Request/Http.php';
 
 class ODTPFramwork_Controller_Plugin_DeleteHandler extends Zend_Controller_Plugin_Abstract
 {

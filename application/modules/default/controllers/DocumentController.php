@@ -2,7 +2,6 @@
 
 class DocumentController extends ODTPFramwork_Controller
 {
-
     public function indexAction()
     {
     }
@@ -27,5 +26,4 @@ class DocumentController extends ODTPFramwork_Controller
     {
 
     }
-
 }

@@ -27,4 +27,3 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController->getRouter()->addRoute('default', $restRoute);
     }
 }
-

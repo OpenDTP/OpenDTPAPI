@@ -2,7 +2,6 @@
 
 class Deconstruct_IndexController extends ODTPFramwork_Controller
 {
-
     public function getAction()
     {
         $document = $this->getRequest()->getParam('document');
@@ -15,5 +14,4 @@ class Deconstruct_IndexController extends ODTPFramwork_Controller
             $this->setException($e);
         }
     }
-
 }
