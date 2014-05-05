@@ -60,7 +60,7 @@ class ODTPFramwork_Renderer_Manager_Abstract implements ODTPFramwork_Renderer_Ma
         }
         if (!is_string($plugin->getType())) {
             throw new ODTPFramwork_Renderer_Manager_Exception('Plugin type is not set for plugin : ' . $plugin->getId(
-            ));
+                ));
         }
         if (!isset($this->_plugins[$plugin->getType()])) {
             $this->_plugins[$plugin->getType()] = array();

@@ -43,7 +43,7 @@ class ODTPFramwork_Renderer_Document_Manager extends ODTPFramwork_Renderer_Docum
             $renderer = $this->find_renderer($document);
             if (is_null($renderer)) {
                 throw new ODTPFramwork_Renderer_Document_Manager_Exception('Unknown extension '
-                . $document->getExtension() . ' : can\'t define renderer');
+                    . $document->getExtension() . ' : can\'t define renderer');
             }
         } else {
             if (!$this->renderer_defined($renderer)) {
