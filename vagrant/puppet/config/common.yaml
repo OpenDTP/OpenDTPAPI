@@ -1,7 +1,7 @@
 ---
 vm:
-    box: debian-wheezy72-x64-vbox43
-    box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+    box: opendtp-debian64
+    box_url: 'http://thor.opendtp.net/opendtp-debian64.box'
     hostname: api.opendtp.dev
     network:
         private_network: 192.168.57.101
