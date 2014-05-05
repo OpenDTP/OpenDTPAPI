@@ -5,10 +5,9 @@
  */
 class ODTPFramwork_Renderer_Query_Parser
 {
-    protected $_keywords
-        = array(
-            'render', 'deconstruct', 'info', 'input', 'output', 'type', 'page', 'scale'
-        );
+    protected $_keywords = array(
+        'render', 'deconstruct', 'info', 'input', 'output', 'type', 'page', 'scale'
+    );
 
     /**
      * Preprocess string to have keywords separated from parameters by space

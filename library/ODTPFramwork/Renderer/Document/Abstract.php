@@ -2,7 +2,6 @@
 
 class ODTPFramwork_Renderer_Document_Abstract implements ODTPFramwork_Renderer_Document_Interface
 {
-
     protected $_name;
     protected $_file;
     protected $_path;
@@ -75,5 +74,4 @@ class ODTPFramwork_Renderer_Document_Abstract implements ODTPFramwork_Renderer_D
         }
         $this->_extension = $extension;
     }
-
 }

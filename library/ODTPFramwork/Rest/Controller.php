@@ -11,8 +11,10 @@ class ODTPFramwork_Rest_Controller extends Zend_Rest_Controller
 
         if (file_exists($modulePath . '/configurations/' . $request->getControllerName() . '.ini')) {
 
-            $config = new Zend_Config_Ini($modulePath . '/configurations/' . $request->getControllerName() . '.ini',
-                APPLICATION_ENV);
+            $config = new Zend_Config_Ini(
+                $modulePath . '/configurations/' . $request->getControllerName() . '.ini',
+                APPLICATION_ENV
+            );
             $actionName = $request->getActionName();
 
             if (!empty($config->$actionName)) {
@@ -68,5 +70,4 @@ class ODTPFramwork_Rest_Controller extends Zend_Rest_Controller
     public function deleteAction()
     {
     }
-
 }
