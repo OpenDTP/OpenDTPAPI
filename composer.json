@@ -1,5 +1,5 @@
 {
-    "name": "weezevent/weezevent",
+    "name": "OpenDTP/OpenDTPAPI",
     "config": {
         "github-protocols": ["git"]
     },
