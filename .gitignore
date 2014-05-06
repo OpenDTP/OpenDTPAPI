@@ -6,6 +6,8 @@ extras/documentation
 .vagrant/
 vendor/
 composer.lock
-build/
+build/*.xml
+build/html/
+build/report/
 vagrant/provision/.run_once
 .idea/

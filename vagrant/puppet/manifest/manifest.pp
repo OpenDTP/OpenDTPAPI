@@ -120,6 +120,10 @@ apache::mod { $apache_values['modules']: }
 ###                PHP Setup                     ###
 ####################################################
 
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
 # installing php
 class { 'php':
   service => 'apache2'
@@ -136,6 +140,9 @@ exec {'install-composer' :
   onlyif  => "test ! -e /usr/local/bin/composer",
   require => Package['curl']
 }
+
+# Additional php modules
+php::module { $php_values['modules']: }
 
 ####################################################
 ###                Mailcatcher Setup             ###
