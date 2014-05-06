@@ -53,6 +53,9 @@ apache:
                 - 'APPLICATION_ENV development'
             override:
                 - All
+php:
+    modules:
+        - xsl
 databases:
     opendtp:
         user: opendtp
