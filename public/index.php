@@ -1,6 +1,6 @@
 <?php
 
-require_once(realpath(dirname(__FILE__) . '../configurations/const.php'));
+require_once(realpath(dirname(__FILE__) . '/../configurations/const.php'));
 
 // Ensure library/ is on include_path
 set_include_path(
