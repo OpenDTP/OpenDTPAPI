@@ -107,6 +107,14 @@ class { 'apache':
   manage_group  => false
 }
 
+file { "/var/log/apache2":
+  ensure => directory,
+  recurse => true,
+  owner => "www-data",
+  group => "www-data",
+  mode => 0644
+}
+
 # Additional declared VHosts
 if count($apache_values['vhosts']) > 0 {
   create_resources(apache::vhost, $apache_values['vhosts'])
