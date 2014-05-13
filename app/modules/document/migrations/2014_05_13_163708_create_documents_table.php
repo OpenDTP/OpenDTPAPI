@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentTable extends Migration
+class CreateDocumentsTable extends Migration
 {
 
     /**
@@ -24,6 +24,11 @@ class CreateDocumentTable extends Migration
                 $table->string('description')
                     ->nullable();
                 $table->string('file');
+                $table->unsignedInteger('type');
+                $table->foreign('type')
+                    ->references('id')
+                    ->on('documents_types');
+                $table->timestamps();
             }
         );
     }

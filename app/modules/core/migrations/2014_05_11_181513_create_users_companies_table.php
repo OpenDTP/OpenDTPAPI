@@ -24,9 +24,7 @@ class CreateUsersCompaniesTable extends Migration
                 $table->foreign('company_id')
                     ->references('id')
                     ->on('companies');
-                $table->primary(
-                    array('user_id', 'company_id')
-                );
+                $table->primary(['user_id', 'company_id']);
                 $table->timestamps();
             }
         );
