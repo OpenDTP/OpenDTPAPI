@@ -3,16 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentTable extends Migration {
+class CreateDocumentTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::Create(
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::Create(
             'documents',
             function (Blueprint $table) {
                 $table->increments('id');
@@ -25,21 +26,21 @@ class CreateDocumentTable extends Migration {
                 $table->string('file');
             }
         );
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::table(
             'documents',
             function (Blueprint $table) {
                 $table->drop();
             }
         );
-	}
+    }
 
 }

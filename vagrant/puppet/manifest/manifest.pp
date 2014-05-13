@@ -145,6 +145,25 @@ exec {'install-composer' :
 php::module { $php_values['modules']: }
 
 ####################################################
+###                XDebug Setup                  ###
+####################################################
+
+# Installing xdebug package
+package { 'xdebug':
+  name   => 'php5-xdebug',
+  ensure => 'installed',
+  require => Class['php']
+}
+
+# XDebug configuration file
+file { '/etc/php5/mods-available/xdebug.ini' :
+  content => template('/vagrant/puppet/templates/xdebug/ini_file.erb'),
+  ensure  => present,
+  require => Package['xdebug'],
+  notify  => Service['apache2']
+}
+
+####################################################
 ###                Mailcatcher Setup             ###
 ####################################################
 

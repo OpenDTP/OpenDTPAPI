@@ -56,6 +56,21 @@ apache:
 php:
     modules:
         - xsl
+    xdebug:
+        default_enable: '1'
+        remote_autostart: '0'
+        remote_connect_back: '1'
+        remote_enable: '1'
+        remote_handler: 'dbgp'
+        remote_port: '9000'
+        overload_var_dump: '1'
+        var_display_max_children: '128'
+        var_display_max_data: '1024'
+        var_display_max_depth: '8'
+        collect_includes: '1'
+        collect_params: '2'
+        profiler_enable_trigger: '1'
+        profiler_output_name: "cachegrind.out.%t.%r"
 databases:
     opendtp:
         user: opendtp

@@ -2,7 +2,6 @@
 
 namespace App\Modules\Core\Controllers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -27,9 +26,7 @@ class UserController extends BaseController
         }
 
         return Response::string(
-            array(
-                'data' => $response
-            )
+            ['data' => $response]
         );
     }
 
@@ -41,21 +38,21 @@ class UserController extends BaseController
      */
     public function store()
     {
-        $rules = array(
+        $rules = [
             'login' => 'required|alpha_num',
             'password' => 'required|min:6',
             'email' => 'required|email|unique:users,email'
-        );
+        ];
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
 
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_500,
                     'messages' => $errors->getMessages()
-                )
+                ]
             );
         } else {
             $user = new User;
@@ -65,9 +62,7 @@ class UserController extends BaseController
             $user->save();
 
             return Response::string(
-                array(
-                    'messages' => array('Successfully created user !')
-                )
+                ['messages' => ['Successfully created user !']]
             );
         }
     }
@@ -90,16 +85,14 @@ class UserController extends BaseController
                 $response['companies'][] = $company->attributesToArray();
             }
             $response = Response::string(
-                array(
-                    'data' => $response
-                )
+                ['data' => $response]
             );
         } else {
             $response = Response::string(
-                array(
+                [
                     'code' => API_RETURN_404,
                     'messages' => array("Unkown user with ID $id")
-                )
+                ]
             );
         }
 
@@ -116,29 +109,29 @@ class UserController extends BaseController
     public function update($id)
     {
         $inputs = Input::all();
-        $rules = array(
+        $rules = [
             'login' => 'alpha_num',
             'password' => 'min:6',
             'email' => 'email|unique:users,email'
-        );
+        ];
         $validator = Validator::make($inputs, $rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_500,
                     'messages' => $errors->getMessages()
-                )
+                ]
             );
         } else {
             $user = User::find($id);
             if (is_null($user)) {
                 return Response::string(
-                    array(
+                    [
                         'code' => API_RETURN_404,
                         'messages' => array("Unkown user with ID $id")
-                    )
+                    ]
                 );
             }
             $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
@@ -148,9 +141,7 @@ class UserController extends BaseController
 
             // redirect
             return Response::string(
-                array(
-                    'messages' => array("Successfully updated user $id !")
-                )
+                ['messages' => array("Successfully updated user $id !")]
             );
         }
     }
@@ -168,17 +159,15 @@ class UserController extends BaseController
 
         if (is_null($user)) {
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_404,
                     'messages' => array("Unkown user with ID $id")
-                )
+                ]
             );
         }
         $user->delete();
         return Response::string(
-            array(
-                'messages' => array("User $id deleted")
-            )
+            ['messages' => array("User $id deleted")]
         );
     }
 
