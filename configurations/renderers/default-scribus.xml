@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<renderer id="scr-default">
-	<server>
-		<type>scribus</type>
-		<address>192.168.58.128</address>
-		<port>8080</port>
-	</server>
-</renderer>
