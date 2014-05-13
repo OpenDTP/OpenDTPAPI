@@ -15,43 +15,32 @@
  * OpenDTP API V1
  */
 Route::group(
-    array(
-        'prefix' => 'api/v1',
-        'before' => 'auth.basic'
-    ),
+    ['prefix' => 'api/v1', 'before' => 'auth.basic'],
     function () {
         Route::resource(
             'user',
             'App\Modules\Core\Controllers\UserController',
-            array(
-                'except' => array('create', 'edit')
-            )
+            ['except' => ['create', 'edit']]
         );
-        Route::when('api/v1/user*', 'admin', array('POST', 'PUT', 'PATCH', 'DELETE'));
 
         Route::resource(
             'company',
             'App\Modules\Core\Controllers\CompanyController',
-            array(
-                'except' => array('create', 'edit')
-            )
+            ['except' => ['create', 'edit']]
         );
-        Route::when('api/v1/company*', 'admin', array('POST', 'PUT', 'PATCH', 'DELETE'));
 
         Route::resource(
             'company/user',
             'App\Modules\Core\Controllers\CompanyUserController',
-            array(
-                'only' => array('store', 'show')
-            )
+            ['only' => ['store', 'show']]
         );
+
         Route::delete(
             'company/user/{company}/{user}',
-            array(
+            [
                 'as' => 'api.v1.company.user.destroy',
                 'uses' => 'App\Modules\Core\Controllers\CompanyUserController@destroy'
-            )
+            ]
         );
-        Route::when('api/v1/company/user*', 'admin');
     }
 );

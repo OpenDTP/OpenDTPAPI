@@ -16,9 +16,14 @@
  */
 Route::group(
     [
-        'prefix' => 'api/v1',
+        'prefix' => 'api/v1/document',
         'before' => 'auth.basic'
     ],
     function () {
+        Route::resource(
+            'types',
+            'App\Modules\Document\Controllers\DocumentTypeController',
+            ['except' => ['create', 'edit']]
+        );
     }
 );
