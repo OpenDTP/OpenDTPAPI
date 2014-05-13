@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="1.5.3">
+<file name="/data/app/modules/core/controllers/BaseController.php">
+ <error line="35" column="1" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+</file>
+<file name="/data/app/modules/core/controllers/CompanyController.php">
+ <error line="11" column="48" severity="error" message="Opening brace of a class must be on the line after the definition" source="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+ <error line="13" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="18" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="18" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="18" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="19" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="25" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="27" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="32" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="32" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="32" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="33" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="61" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="63" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="69" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="69" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="69" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="70" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="86" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="89" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="95" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="95" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="95" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="96" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="133" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="136" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="142" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="142" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="142" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="143" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="160" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="163" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/core/controllers/CompanyUserController.php">
+ <error line="111" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/core/controllers/UserController.php">
+ <error line="186" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/core/migrations/2014_05_11_171121_create_companies_table.php">
+ <error line="6" column="1" severity="error" message="Each class must be in a namespace of at least one level (a top-level vendor name)" source="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+ <error line="47" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/core/migrations/2014_05_11_171924_create_users_table.php">
+ <error line="6" column="1" severity="error" message="Each class must be in a namespace of at least one level (a top-level vendor name)" source="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+ <error line="47" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/core/migrations/2014_05_11_181513_create_users_companies_table.php">
+ <error line="6" column="1" severity="error" message="Each class must be in a namespace of at least one level (a top-level vendor name)" source="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+ <error line="50" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/core/models/Company.php">
+ <error line="20" column="1" severity="error" message="Closing class brace must be on a line by itself" source="PSR2.Classes.ClassDeclaration.CloseBraceSameLine"/>
+ <error line="20" column="2" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+</file>
+<file name="/data/app/modules/core/models/User.php">
+ <error line="14" column="76" severity="error" message="Opening brace of a class must be on the line after the definition" source="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+ <error line="18" column="33" severity="error" message="Opening brace should be on a new line" source="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+ <error line="51" column="1" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+</file>
+<file name="/data/app/modules/core/models/UserCompany.php">
+ <error line="11" column="37" severity="error" message="Opening brace of a class must be on the line after the definition" source="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+ <error line="14" column="64" severity="error" message="Opening brace should be on a new line" source="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+ <error line="20" column="30" severity="error" message="Opening brace should be on a new line" source="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+ <error line="25" column="1" severity="error" message="Closing class brace must be on a line by itself" source="PSR2.Classes.ClassDeclaration.CloseBraceSameLine"/>
+ <error line="25" column="2" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+</file>
+<file name="/data/app/modules/core/seeds/DatabaseSeeder.php">
+ <error line="91" column="1" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+ <error line="91" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/modules/document/migrations/2014_05_13_163708_create_document_table.php">
+ <error line="6" column="1" severity="error" message="Each class must be in a namespace of at least one level (a top-level vendor name)" source="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+ <error line="6" column="45" severity="error" message="Opening brace of a class must be on the line after the definition" source="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+ <error line="8" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="13" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="13" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="13" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="14" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="15" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="15" column="3" severity="error" message="Line indented incorrectly; expected at least 8 spaces, found 2" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="16" column="1" severity="error" message="Multi-line function call not indented correctly; expected 6 spaces but found 12" source="PSR2.Methods.FunctionCallSignature.Indent"/>
+ <error line="17" column="1" severity="error" message="Multi-line function call not indented correctly; expected 6 spaces but found 12" source="PSR2.Methods.FunctionCallSignature.Indent"/>
+ <error line="27" column="1" severity="error" message="Multi-line function call not indented correctly; expected 2 spaces but found 8" source="PSR2.Methods.FunctionCallSignature.Indent"/>
+ <error line="28" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="30" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="35" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="35" column="2" severity="error" message="Line indented incorrectly; expected at least 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="35" column="9" severity="error" message="Line indented incorrectly; expected 4 spaces, found 1" source="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+ <error line="36" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="43" column="1" severity="error" message="Spaces must be used to indent lines; tabs are not allowed" source="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+ <error line="45" column="1" severity="error" message="The closing brace for the class must go on the next line after the body" source="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+</file>
+<file name="/data/app/start/constants.php">
+ <error line="12" column="30" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+</file>
+<file name="/data/app/tests/ExampleTest.php">
+ <error line="3" column="1" severity="error" message="Each class must be in a namespace of at least one level (a top-level vendor name)" source="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+</file>
+<file name="/data/app/tests/TestCase.php">
+ <error line="3" column="1" severity="error" message="Each class must be in a namespace of at least one level (a top-level vendor name)" source="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+</file>
+</checkstyle>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pmd version="@package_version@" timestamp="2014-05-13T22:52:47+02:00">
+  <file name="/data/app/modules/core/controllers/CompanyController.php">
+    <violation beginline="69" endline="69" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+    <violation beginline="95" endline="95" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+    <violation beginline="142" endline="142" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+  </file>
+  <file name="/data/app/modules/core/controllers/CompanyUserController.php">
+    <violation beginline="61" endline="61" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+    <violation beginline="66" endline="66" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$response'.
+    </violation>
+  </file>
+  <file name="/data/app/modules/core/controllers/UserController.php">
+    <violation beginline="82" endline="82" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+    <violation beginline="116" endline="156" rule="NPathComplexity" ruleset="Code Size Rules" package="App\Modules\Core\Controllers" externalInfoUrl="http://phpmd.org/rules/codesize.html#npathcomplexity" class="UserController" method="update" priority="3">
+      The method update() has an NPath complexity of 251. The configured NPath complexity threshold is 200.
+    </violation>
+    <violation beginline="116" endline="116" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+    <violation beginline="165" endline="165" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+      Avoid variables with short names like $id. Configured minimum length is 3.
+    </violation>
+  </file>
+  <file name="/data/app/modules/core/migrations/2014_05_11_171121_create_companies_table.php">
+    <violation beginline="14" endline="30" rule="ShortMethodName" ruleset="Naming Rules" package="+global" externalInfoUrl="http://phpmd.org/rules/naming.html#shortmethodname" class="CreateCompaniesTable" method="up" priority="3">
+      Avoid using short method names like CreateCompaniesTable::up(). The configured minimum method name length is 3.
+    </violation>
+  </file>
+  <file name="/data/app/modules/core/migrations/2014_05_11_171924_create_users_table.php">
+    <violation beginline="14" endline="30" rule="ShortMethodName" ruleset="Naming Rules" package="+global" externalInfoUrl="http://phpmd.org/rules/naming.html#shortmethodname" class="CreateUsersTable" method="up" priority="3">
+      Avoid using short method names like CreateUsersTable::up(). The configured minimum method name length is 3.
+    </violation>
+  </file>
+  <file name="/data/app/modules/core/migrations/2014_05_11_181513_create_users_companies_table.php">
+    <violation beginline="14" endline="33" rule="ShortMethodName" ruleset="Naming Rules" package="+global" externalInfoUrl="http://phpmd.org/rules/naming.html#shortmethodname" class="CreateUsersCompaniesTable" method="up" priority="3">
+      Avoid using short method names like CreateUsersCompaniesTable::up(). The configured minimum method name length is 3.
+    </violation>
+  </file>
+  <file name="/data/app/modules/document/migrations/2014_05_13_163708_create_document_table.php">
+    <violation beginline="13" endline="28" rule="ShortMethodName" ruleset="Naming Rules" package="+global" externalInfoUrl="http://phpmd.org/rules/naming.html#shortmethodname" class="CreateDocumentTable" method="up" priority="3">
+      Avoid using short method names like CreateDocumentTable::up(). The configured minimum method name length is 3.
+    </violation>
+  </file>
+  <file name="/data/app/tests/ExampleTest.php">
+    <violation beginline="12" endline="12" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$crawler'.
+    </violation>
+  </file>
+  <file name="/data/app/tests/TestCase.php">
+    <violation beginline="12" endline="12" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$unitTesting'.
+    </violation>
+    <violation beginline="14" endline="14" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$testEnvironment'.
+    </violation>
+  </file>
+</pmd>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="OpenDTPAPI" basedir="." default="build">
+    <target name="build">
+        <chmod file="${project.basedir}/app/storage" mode="0775" />
+        <echo msg="Build End"/>
+    </target>
+
+    <target name="build-dev" depends="build">
+        <mkdir dir="${project.basedir}/build" mode="755"/>
+        <mkdir dir="${project.basedir}/build/report" mode="755"/>
+        <mkdir dir="${project.basedir}/build/html" mode="755"/>
+        <phingcall target="quality-analyse"/>
+        <echo msg="Dev Build End"/>
+    </target>
+
+    <!-- Code quality analyse rules -->
+    <target name="quality-analyse" depends="phpcs,phpmd,phpcpd">
+        <echo msg="Quality Analyse End"/>
+    </target>
+
+
+    <!-- Here begins rules executions -->
+    <!-- Can be called separatly -->
+
+    <!-- PHPMD call -->
+    <target name="phpmd">
+        <exec
+                command="'${project.basedir}/vendor/bin/phpmd'  --suffixes php app,public/index.php xml codesize,unusedcode,naming > '${project.basedir}/build/phpmd-md.xml'"
+                passthru="true"
+                />
+        <xslt file="${project.basedir}/build/phpmd-md.xml" tofile="${project.basedir}/build/report/code_mess.html"
+              style="${project.basedir}/build/xsl/phpmd.xsl"/>
+    </target>
+
+    <!-- PHPCPD call -->
+    <target name="phpcpd">
+        <exec
+                command="'${project.basedir}/vendor/bin/phpcpd' app public/index.php --log-pmd '${project.basedir}/build/phpcmd-pmd.xml'"
+                passthru="true"
+                />
+    </target>
+
+    <!-- PHPCS call -->
+    <target name="phpcs">
+        <exec
+                command="'${project.basedir}/vendor/bin/phpcs'  --standard=PSR2 --report=checkstyle public/index.php app > '${project.basedir}/build/phpcs-checkstyle.xml'"
+                passthru="true"
+                />
+        <xslt file="${project.basedir}/build/phpcs-checkstyle.xml"
+              tofile="${project.basedir}/build/report/codestyle.html" style="${project.basedir}/build/xsl/phpcs.xsl"/>
+    </target>
+
+    <!-- PHPUnit call -->
+    <target name="phpunit">
+        <exec
+                command="'${project.basedir}/vendor/bin/phpunit'  --colors -c '${project.basedir}/test/phpunit.xml' --coverage-clover '${project.basedir}/build/phpunit-clover.xml' --log-junit '${project.basedir}/build/phpunit-junit.xml'"
+                passthru="true"
+                />
+    </target>
+</project>
