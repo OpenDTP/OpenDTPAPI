@@ -15,10 +15,10 @@
  * OpenDTP API V1
  */
 Route::group(
-    array(
+    [
         'prefix' => 'api/v1',
         'before' => 'auth.basic'
-    ),
+    ],
     function () {
     }
 );
