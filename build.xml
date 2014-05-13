@@ -15,7 +15,7 @@
     </target>
 
     <!-- Code quality analyse rules -->
-    <target name="quality-analyse" depends="phpcs,phpmd,phpcpd">
+    <target name="quality-analyse" depends="phpcs,phpmd,phpcpd,phpunit">
         <echo msg="Quality Analyse End"/>
     </target>
 
@@ -54,7 +54,7 @@
     <!-- PHPUnit call -->
     <target name="phpunit">
         <exec
-                command="'${project.basedir}/vendor/bin/phpunit'  --colors -c '${project.basedir}/test/phpunit.xml' --coverage-clover '${project.basedir}/build/phpunit-clover.xml' --log-junit '${project.basedir}/build/phpunit-junit.xml'"
+                command="'${project.basedir}/vendor/bin/phpunit'  --colors -c '${project.basedir}/phpunit.xml' --coverage-clover '${project.basedir}/build/phpunit-clover.xml' --log-junit '${project.basedir}/build/phpunit-junit.xml'"
                 passthru="true"
                 />
     </target>

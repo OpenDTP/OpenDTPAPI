@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<pmd version="@package_version@" timestamp="2014-05-13T22:52:47+02:00">
+<pmd version="@package_version@" timestamp="2014-05-14T00:08:40+02:00">
   <file name="/data/app/modules/core/controllers/CompanyController.php">
     <violation beginline="69" endline="69" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
       Avoid variables with short names like $id. Configured minimum length is 3.
@@ -20,16 +20,16 @@
     </violation>
   </file>
   <file name="/data/app/modules/core/controllers/UserController.php">
-    <violation beginline="82" endline="82" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+    <violation beginline="77" endline="77" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
       Avoid variables with short names like $id. Configured minimum length is 3.
     </violation>
-    <violation beginline="116" endline="156" rule="NPathComplexity" ruleset="Code Size Rules" package="App\Modules\Core\Controllers" externalInfoUrl="http://phpmd.org/rules/codesize.html#npathcomplexity" class="UserController" method="update" priority="3">
+    <violation beginline="109" endline="147" rule="NPathComplexity" ruleset="Code Size Rules" package="App\Modules\Core\Controllers" externalInfoUrl="http://phpmd.org/rules/codesize.html#npathcomplexity" class="UserController" method="update" priority="3">
       The method update() has an NPath complexity of 251. The configured NPath complexity threshold is 200.
     </violation>
-    <violation beginline="116" endline="116" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+    <violation beginline="109" endline="109" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
       Avoid variables with short names like $id. Configured minimum length is 3.
     </violation>
-    <violation beginline="165" endline="165" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
+    <violation beginline="156" endline="156" rule="ShortVariable" ruleset="Naming Rules" externalInfoUrl="http://phpmd.org/rules/naming.html#shortvariable" priority="3">
       Avoid variables with short names like $id. Configured minimum length is 3.
     </violation>
   </file>
@@ -49,7 +49,7 @@
     </violation>
   </file>
   <file name="/data/app/modules/document/migrations/2014_05_13_163708_create_document_table.php">
-    <violation beginline="13" endline="28" rule="ShortMethodName" ruleset="Naming Rules" package="+global" externalInfoUrl="http://phpmd.org/rules/naming.html#shortmethodname" class="CreateDocumentTable" method="up" priority="3">
+    <violation beginline="14" endline="29" rule="ShortMethodName" ruleset="Naming Rules" package="+global" externalInfoUrl="http://phpmd.org/rules/naming.html#shortmethodname" class="CreateDocumentTable" method="up" priority="3">
       Avoid using short method names like CreateDocumentTable::up(). The configured minimum method name length is 3.
     </violation>
   </file>
