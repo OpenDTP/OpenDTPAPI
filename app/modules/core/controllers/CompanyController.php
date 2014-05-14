@@ -17,9 +17,7 @@ class CompanyController extends BaseController {
 	 */
 	public function index()
 	{
-        return Response::string(
-            ['data' => Auth::user()->companies()]
-        );
+        return Response::string(['data' => Auth::user()->companies()]);
 	}
 
 	/**
@@ -44,14 +42,13 @@ class CompanyController extends BaseController {
                     'messages' => $errors->getMessages()
                 ]
             );
-        } else {
-            $company = new Company;
-            $company->name = Input::get('name');
-            $company->description = Input::get('description');
-            $company->save();
-
-            return Response::string(['messages' => ['Successfully created company !']]);
         }
+        $company = new Company;
+        $company->name = Input::get('name');
+        $company->description = Input::get('description');
+        $company->save();
+
+        return Response::string(['messages' => ['Successfully created company !']]);
 	}
 
 	/**
@@ -67,6 +64,7 @@ class CompanyController extends BaseController {
         if (!is_null($company)) {
             return Response::string(['data' => $company->attributesToArray()]);
         }
+
         return Response::string(
             [
                 'code' => API_RETURN_404,
