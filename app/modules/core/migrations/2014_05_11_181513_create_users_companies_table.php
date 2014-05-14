@@ -13,6 +13,7 @@ class CreateUsersCompaniesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('users_companies');
         Schema::create(
             'users_companies',
             function (Blueprint $table) {

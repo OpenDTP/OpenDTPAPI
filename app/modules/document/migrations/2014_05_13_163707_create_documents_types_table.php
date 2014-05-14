@@ -13,13 +13,20 @@ class CreateDocumentsTypesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('documents_types');
         Schema::Create(
             'documents_types',
             function (Blueprint $table) {
                 $table->increments('id');
+                $table->unsignedInteger('company_id')
+                    ->nullable();
                 $table->string('type');
                 $table->string('extension');
+                $table->foreign('company_id')
+                    ->references('id')
+                    ->on('companies');
                 $table->timestamps();
+
             }
         );
     }

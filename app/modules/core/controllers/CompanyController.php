@@ -18,9 +18,7 @@ class CompanyController extends BaseController {
 	public function index()
 	{
         return Response::string(
-            array(
-                'data' => Auth::user()->companies()
-            )
+            ['data' => Auth::user()->companies()]
         );
 	}
 
@@ -31,20 +29,20 @@ class CompanyController extends BaseController {
 	 */
 	public function store()
 	{
-        $rules = array(
+        $rules = [
             'name' => 'required|min:3|unique:companies,name',
             'description' => 'max:512'
-        );
+        ];
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
 
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_500,
                     'messages' => $errors->getMessages()
-                )
+                ]
             );
         } else {
             $company = new Company;
@@ -52,11 +50,7 @@ class CompanyController extends BaseController {
             $company->description = Input::get('description');
             $company->save();
 
-            return Response::string(
-                array(
-                    'messages' => array('Successfully created company !')
-                )
-            );
+            return Response::string(['messages' => ['Successfully created company !']]);
         }
 	}
 
@@ -71,17 +65,13 @@ class CompanyController extends BaseController {
         $company = Company::find($id);
 
         if (!is_null($company)) {
-            return Response::string(
-                array(
-                    'data' => $company->attributesToArray()
-                )
-            );
+            return Response::string(['data' => $company->attributesToArray()]);
         }
         return Response::string(
-            array(
+            [
                 'code' => API_RETURN_404,
-                'messages' => array("Unkown company with ID $id")
-            )
+                'messages' => ["Unkown company with ID $id"]
+            ]
         );
 	}
 
@@ -95,28 +85,28 @@ class CompanyController extends BaseController {
 	public function update($id)
 	{
         $inputs = Input::all();
-        $rules = array(
+        $rules = [
             'name' => 'min:3|unique:companies,name',
             'description' => 'max:512'
-        );
+        ];
         $validator = Validator::make($inputs, $rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_500,
                     'messages' => $errors->getMessages()
-                )
+                ]
             );
         } else {
             $company = Company::find($id);
             if (is_null($company)) {
                 return Response::string(
-                    array(
+                    [
                         'code' => API_RETURN_404,
-                        'messages' => array("Unkown company with ID $id")
-                    )
+                        'messages' => ["Unkown company with ID $id"]
+                    ]
                 );
             }
             $company->name = empty($inputs['name']) ? $company->name : $inputs['name'];
@@ -124,11 +114,7 @@ class CompanyController extends BaseController {
             $company->save();
 
             // redirect
-            return Response::string(
-                array(
-                    'messages' => array("Successfully updated company $id !")
-                )
-            );
+            return Response::string(['messages' => ["Successfully updated company $id !"]]);
         }
 	}
 
@@ -145,17 +131,15 @@ class CompanyController extends BaseController {
 
         if (is_null($company)) {
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_404,
-                    'messages' => array("Unkown company with ID $id")
-                )
+                    'messages' => ["Unkown company with ID $id"]
+                ]
             );
         }
         $company->delete();
         return Response::string(
-            array(
-                'messages' => array("Company $id deleted")
-            )
+            ['messages' => ["Company $id deleted"]]
         );
 	}
 

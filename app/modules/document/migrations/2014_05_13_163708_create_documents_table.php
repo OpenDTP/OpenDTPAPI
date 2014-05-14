@@ -13,6 +13,7 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('documents');
         Schema::Create(
             'documents',
             function (Blueprint $table) {
