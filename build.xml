@@ -15,7 +15,7 @@
     </target>
 
     <!-- Code quality analyse rules -->
-    <target name="quality-analyse" depends="phpcs,phpmd,phpcpd,phpunit">
+    <target name="quality-analyse" depends="phpcs,phpmd,phpcpd">
         <echo msg="Quality Analyse End"/>
     </target>
 
