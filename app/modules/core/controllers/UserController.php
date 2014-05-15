@@ -54,17 +54,16 @@ class UserController extends BaseController
                     'messages' => $errors->getMessages()
                 ]
             );
-        } else {
-            $user = new User;
-            $user->login = Input::get('login');
-            $user->password = Input::get('password');
-            $user->email = Input::get('email');
-            $user->save();
-
-            return Response::string(
-                ['messages' => ['Successfully created user !']]
-            );
         }
+        $user = new User;
+        $user->login = Input::get('login');
+        $user->password = Input::get('password');
+        $user->email = Input::get('email');
+        $user->save();
+
+        return Response::string(
+            ['messages' => ['Successfully created user !']]
+        );
     }
 
 

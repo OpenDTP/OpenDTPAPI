@@ -21,8 +21,13 @@ Route::group(
     ],
     function () {
         Route::resource(
-            'types',
+            'type',
             'App\Modules\Document\Controllers\DocumentTypeController',
+            ['except' => ['create', 'edit']]
+        );
+        Route::resource(
+            'connector',
+            'App\Modules\Document\Controllers\ConnectorController',
             ['except' => ['create', 'edit']]
         );
     }

@@ -10,5 +10,5 @@ namespace App\Modules\Document\Models;
 
 
 class Connector extends \Eloquent {
-    protected $table = 'connector';
+    protected $table = 'connectors';
 } 
