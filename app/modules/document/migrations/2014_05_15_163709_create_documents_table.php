@@ -20,7 +20,6 @@ class CreateDocumentsTable extends Migration
                 $table->increments('id');
                 $table->unsignedInteger('company_id');
                 $table->unsignedInteger('user_id');
-                //@todo add document type
                 $table->string('name');
                 $table->string('description')
                     ->nullable();
