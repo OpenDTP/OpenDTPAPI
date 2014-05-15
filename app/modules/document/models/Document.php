@@ -9,7 +9,7 @@
 namespace App\Modules\Document\Models;
 
 
-class Document {
+class Document extends \Eloquent {
     protected $table = 'documents';
 
     public function type() {
