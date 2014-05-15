@@ -1,6 +1,8 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+namespace App\Tests;
+
+class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /**
      * Creates the application.

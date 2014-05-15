@@ -26,7 +26,8 @@
     },
     "autoload": {
         "classmap": [
-            "app/modules"
+            "app/modules",
+            "app/tests"
         ]
     },
     "scripts": {
