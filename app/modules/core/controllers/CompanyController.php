@@ -8,25 +8,26 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Core\Models\Company;
 
-class CompanyController extends BaseController {
+class CompanyController extends BaseController
+{
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
         return Response::string(['data' => Auth::user()->companies()]);
-	}
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
         $rules = [
             'name' => 'required|min:3|unique:companies,name',
             'description' => 'max:512'
@@ -49,16 +50,16 @@ class CompanyController extends BaseController {
         $company->save();
 
         return Response::string(['messages' => ['Successfully created company !']]);
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
         $company = Company::find($id);
 
         if (!is_null($company)) {
@@ -71,17 +72,17 @@ class CompanyController extends BaseController {
                 'messages' => ["Unkown company with ID $id"]
             ]
         );
-	}
+    }
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
         $inputs = Input::all();
         $rules = [
             'name' => 'min:3|unique:companies,name',
@@ -114,17 +115,17 @@ class CompanyController extends BaseController {
             // redirect
             return Response::string(['messages' => ["Successfully updated company $id !"]]);
         }
-	}
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
         $company = Company::find($id);
 
         if (is_null($company)) {
@@ -139,7 +140,7 @@ class CompanyController extends BaseController {
         return Response::string(
             ['messages' => ["Company $id deleted"]]
         );
-	}
+    }
 
 
 }
