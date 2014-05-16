@@ -33,7 +33,7 @@ class ConnectorController extends BaseController
     {
         $rules = [
             'name' => 'required|min:3|unique:connectors,name',
-            'active' => 'in:0,1'
+            'active' => 'required|in:0,1'
         ];
         $validator = Validator::make(Input::all(), $rules);
 
@@ -89,7 +89,7 @@ class ConnectorController extends BaseController
     {
         $inputs = Input::all();
         $rules = [
-            'name' => 'required|min:3|unique:connectors,name',
+            'name' => 'min:3|unique:connectors,name',
             'active' => 'in:0,1'
         ];
         $validator = Validator::make($inputs, $rules);
@@ -112,7 +112,6 @@ class ConnectorController extends BaseController
                 ]
             );
         }
-        $connector = new Connector;
         $connector->name = empty($inputs['name']) ? $connector->name : $inputs['name'];
         $connector->active = empty($inputs['active']) ? $connector->active : $inputs['active'];
         $connector->save();
