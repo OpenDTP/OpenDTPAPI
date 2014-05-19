@@ -33,12 +33,4 @@ set :pty, true
 
 namespace :deploy do
 
-  task :composer_update do
-      execute "cd #{release_path} && composer update"
-  end
-
-  task :phing_dev do
-      execute "cd #{release_path} && vendor/bin/phing build-dev"
-  end
-
 end
