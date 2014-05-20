@@ -143,6 +143,4 @@ class ConnectorController extends BaseController
         $connector->delete();
         return Response::string(['messages' => ["Connector $id deleted"]]);
     }
-
-
 }

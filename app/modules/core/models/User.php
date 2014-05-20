@@ -11,11 +11,13 @@ namespace App\Modules\Core\Models;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends \Eloquent implements UserInterface, RemindableInterface {
+class User extends \Eloquent implements UserInterface, RemindableInterface
+{
     protected $table = 'users';
     protected $hidden = array('password');
 
-    public function companies() {
+    public function companies()
+    {
         return $this->belongsToMany('App\Modules\Core\Models\Company', 'users_companies', 'user_id', 'company_id');
     }
 

@@ -106,6 +106,4 @@ class CompanyUserController extends BaseController
             )
         );
     }
-
-
 }

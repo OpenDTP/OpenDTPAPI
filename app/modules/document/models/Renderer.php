@@ -9,6 +9,7 @@
 namespace App\Modules\Document\Models;
 
 
-class Renderer extends \Eloquent {
+class Renderer extends \Eloquent
+{
     protected $table = 'renderers';
-} 
+}

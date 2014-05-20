@@ -49,5 +49,4 @@ class CreateRenderersTables extends Migration
             }
         );
     }
-
 }

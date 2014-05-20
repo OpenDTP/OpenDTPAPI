@@ -45,5 +45,4 @@ class CreateDocumentsTypesConnectorsTables extends Migration
             }
         );
     }
-
 }

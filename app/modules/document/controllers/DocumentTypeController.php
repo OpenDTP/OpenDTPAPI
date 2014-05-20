@@ -87,6 +87,4 @@ class DocumentTypeController extends BaseController
     {
         //
     }
-
-
 }

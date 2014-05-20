@@ -39,5 +39,4 @@ class CreateConnectorsTables extends Migration
             }
         );
     }
-
 }
