@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Modules\Core\Controllers;
+namespace App\Modules\Document\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-use App\Modules\Core\Models\User;
+use App\Modules\Core\Controllers\BaseController;
+use App\Modules\Document\Models\Renderer;
 
-class UserController extends BaseController
+class RendererController extends BaseController
 {
 
     /**
@@ -18,15 +19,16 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $user = Auth::user();
-        $response = $user->attributesToArray();
-        $response['companies'] = array();
-        foreach ($user->companies()->getResults() as $company) {
-            $response['companies'][] = $company->attributesToArray();
+        $companies = Auth::user()->companies()->getResults();
+        $companiesId = [];
+
+        foreach ($companies as $company) {
+            $companiesId[] = $company->id;
         }
 
+        $renderers = Renderer::WhereIn('company_id', $companiesId)->get();
         return Response::string(
-            ['data' => $response]
+            ['data' => $renderers->toArray()]
         );
     }
 
@@ -39,9 +41,10 @@ class UserController extends BaseController
     public function store()
     {
         $rules = [
-            'login' => 'required|alpha_num',
-            'password' => 'required|min:6',
-            'email' => 'required|email|unique:users,email'
+            'company_id' => 'required|exists:companies,id',
+            'connector_id' => 'exists:connectors,id',
+            'name' => 'required|unique:renderers,name',
+            'address' => 'required|ip'
         ];
         $validator = Validator::make(Input::all(), $rules);
 
@@ -55,14 +58,15 @@ class UserController extends BaseController
                 ]
             );
         }
-        $user = new User;
-        $user->login = Input::get('login');
-        $user->password = Input::get('password');
-        $user->email = Input::get('email');
-        $user->save();
+        $renderer = new Renderer;
+        $renderer->company_id = Input::get('company_id');
+        $renderer->connector_id = Input::get('connector_id');
+        $renderer->name = Input::get('name');
+        $renderer->address = Input::get('address');
+        $renderer->save();
 
         return Response::string(
-            ['messages' => ['Successfully created user !']]
+            ['messages' => ['Successfully created renderer !']]
         );
     }
 
@@ -75,25 +79,18 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $renderer = Renderer::find($id);
 
-        if (is_null($user)) {
+        if (is_null($renderer)) {
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown user with ID $id"]
+                    'messages' => ["Unkown renderer with ID $id"]
                 ]
             );
         }
 
-        $response = $user->attributesToArray();
-        $response['companies'] = array();
-        foreach ($user->companies()->getResults() as $company) {
-            $response['companies'][] = $company->attributesToArray();
-        }
-        return Response::string(
-            ['data' => $response]
-        );
+        return $renderer->attributesToArray();
     }
 
 
@@ -107,14 +104,16 @@ class UserController extends BaseController
     {
         $inputs = Input::all();
         $rules = [
-            'login' => 'alpha_num',
-            'password' => 'min:6',
-            'email' => 'email|unique:users,email'
+            'company_id' => 'exists:companies,id',
+            'connector_id' => 'exists:connectors,id',
+            'name' => 'unique:renderers,name',
+            'address' => 'ip'
         ];
         $validator = Validator::make($inputs, $rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
+
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -122,22 +121,23 @@ class UserController extends BaseController
                 ]
             );
         }
-        $user = User::find($id);
-        if (is_null($user)) {
+        $renderer = Renderer::find($id);
+        if (is_null($renderer)) {
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown user with ID $id"]
+                    'messages' => ["Unkown renderer with ID $id"]
                 ]
             );
         }
-        $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
-        $user->password = empty($inputs['password']) ? $user->login : $inputs['password'];
-        $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
-        $user->save();
+        $renderer->company_id = empty($inputs['company_id']) ? $renderer->company_id : $inputs['company_id'];
+        $renderer->connector_id = empty($inputs['connector_id']) ? $renderer->connector_id : $inputs['connector_id'];
+        $renderer->name = empty($inputs['name']) ? $renderer->company_id : $inputs['name'];
+        $renderer->address = empty($inputs['address']) ? $renderer->company_id : $inputs['address'];
+        $renderer->save();
 
         return Response::string(
-            ['messages' => ["Successfully updated user $id !"]]
+            ['messages' => ["Successfully updated renderer $id !"]]
         );
     }
 
@@ -150,20 +150,20 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $renderer = Renderer::find($id);
 
-        if (is_null($user)) {
+        if (is_null($renderer)) {
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown user with ID $id"]
+                    'messages' => ["Unkown renderer with ID $id"]
                 ]
             );
         }
-        $user->delete();
+        $renderer->delete();
 
         return Response::string(
-            ['messages' => ["User $id deleted"]]
+            ['messages' => ["Renderer $id deleted"]]
         );
     }
 }

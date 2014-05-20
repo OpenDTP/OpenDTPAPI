@@ -20,7 +20,8 @@ class CreateRenderersTables extends Migration
             function (Blueprint $table) {
                 $table->increments('id');
                 $table->unsignedInteger('company_id');
-                $table->unsignedInteger('connector_id');
+                $table->unsignedInteger('connector_id')
+                    ->nullable();
                 $table->foreign('company_id')
                     ->references('id')
                     ->on('companies');
