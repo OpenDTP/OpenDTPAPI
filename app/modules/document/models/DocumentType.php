@@ -9,6 +9,7 @@
 namespace App\Modules\Document\Models;
 
 
-class DocumentType extends \Eloquent {
+class DocumentType extends \Eloquent
+{
     protected $table = 'documents_types';
 }

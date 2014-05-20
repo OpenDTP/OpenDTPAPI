@@ -169,6 +169,4 @@ class UserController extends BaseController
             ['messages' => array("User $id deleted")]
         );
     }
-
-
 }

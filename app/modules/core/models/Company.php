@@ -17,4 +17,4 @@ class Company extends \Eloquent
     {
         return $this->belongsToMany('App\Modules\Core\Models\User', 'users_companies', 'company_id', 'user_id');
     }
-} 
+}

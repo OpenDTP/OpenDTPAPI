@@ -141,6 +141,4 @@ class CompanyController extends BaseController
             ['messages' => ["Company $id deleted"]]
         );
     }
-
-
 }
