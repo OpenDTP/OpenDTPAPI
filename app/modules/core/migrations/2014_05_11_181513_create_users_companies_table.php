@@ -45,5 +45,4 @@ class CreateUsersCompaniesTable extends Migration
             }
         );
     }
-
 }

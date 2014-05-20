@@ -47,5 +47,4 @@ class CreateDocumentsTable extends Migration
             }
         );
     }
-
 }
