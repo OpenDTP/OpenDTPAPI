@@ -30,5 +30,10 @@ Route::group(
             'App\Modules\Document\Controllers\ConnectorController',
             ['except' => ['create', 'edit']]
         );
+        Route::resource(
+            'renderer',
+            'App\Modules\Document\Controllers\RendererController',
+            ['except' => ['create', 'edit']]
+        );
     }
 );
