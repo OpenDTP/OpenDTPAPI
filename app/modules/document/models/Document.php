@@ -9,10 +9,12 @@
 namespace App\Modules\Document\Models;
 
 
-class Document extends \Eloquent {
+class Document extends \Eloquent
+{
     protected $table = 'documents';
 
-    public function type() {
+    public function type()
+    {
         return $this->hasOne('documents_types', 'id');
     }
-} 
+}
