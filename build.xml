@@ -44,7 +44,7 @@
     <!-- PHPCS call -->
     <target name="phpcs">
         <exec
-                command="'${project.basedir}/vendor/bin/phpcs'  --standard=PSR2 --report=checkstyle public/index.php app > '${project.basedir}/build/phpcs-checkstyle.xml'"
+                command="'${project.basedir}/vendor/bin/phpcs' --ignore='app/modules/*/migrations'  --standard=PSR2 --report=checkstyle public/index.php app > '${project.basedir}/build/phpcs-checkstyle.xml'"
                 passthru="true"
                 />
         <xslt file="${project.basedir}/build/phpcs-checkstyle.xml"
