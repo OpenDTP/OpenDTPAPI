@@ -18,9 +18,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "opendtp-debian64"
-  #config.vm.box = "#{data_vm['box']}"
-  #config.vm.box_url = "#{data_vm['box_url']}"
+  config.vm.box = "#{data_vm['box']}"
+  config.vm.box_url = "#{data_vm['box_url']}"
 
   config.vm.hostname = "#{data_vm['hostname']}"
   config.vm.network "private_network", ip: "#{data_vm['network']['private_network']}"

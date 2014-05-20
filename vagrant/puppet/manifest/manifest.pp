@@ -107,6 +107,14 @@ class { 'apache':
   manage_group  => false
 }
 
+file { "/var/log/apache2":
+  ensure => directory,
+  recurse => true,
+  owner => "www-data",
+  group => "www-data",
+  mode => 0644
+}
+
 # Additional declared VHosts
 if count($apache_values['vhosts']) > 0 {
   create_resources(apache::vhost, $apache_values['vhosts'])
@@ -119,6 +127,10 @@ apache::mod { $apache_values['modules']: }
 ####################################################
 ###                PHP Setup                     ###
 ####################################################
+
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
 
 # installing php
 class { 'php':
@@ -135,6 +147,28 @@ exec {'install-composer' :
               mv composer.phar /usr/local/bin/composer",
   onlyif  => "test ! -e /usr/local/bin/composer",
   require => Package['curl']
+}
+
+# Additional php modules
+php::module { $php_values['modules']: }
+
+####################################################
+###                XDebug Setup                  ###
+####################################################
+
+# Installing xdebug package
+package { 'xdebug':
+  name   => 'php5-xdebug',
+  ensure => 'installed',
+  require => Class['php']
+}
+
+# XDebug configuration file
+file { '/etc/php5/mods-available/xdebug.ini' :
+  content => template('/vagrant/puppet/templates/xdebug/ini_file.erb'),
+  ensure  => present,
+  require => Package['xdebug'],
+  notify  => Service['apache2']
 }
 
 ####################################################

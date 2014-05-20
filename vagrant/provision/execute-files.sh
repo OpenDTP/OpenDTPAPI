@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RUN_ONCE='/vagrant/provision/.run_once'
+RUN_ONCE='/.run_once'
 
 shopt -s nullglob
 files=(/vagrant/provision/exec-once/*)

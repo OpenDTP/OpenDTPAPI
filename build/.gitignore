@@ -1,0 +1,7 @@
+html/
+report/
+phpcmd-pmd.xml
+phpcs-checkstyle.xml
+phpmd-md.xml
+phpunit-clover.xml
+phpunit-junit.xml

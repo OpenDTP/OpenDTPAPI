@@ -1,0 +1,6 @@
+{
+    "enabled": true,
+    "order": 10,
+    "depends": "core",
+    "seeder": "App\\Modules\\Document\\Seeds\\DatabaseSeeder"
+}
