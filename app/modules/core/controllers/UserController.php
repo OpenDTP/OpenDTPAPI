@@ -77,25 +77,23 @@ class UserController extends BaseController
     {
         $user = User::find($id);
 
-        if (!is_null($user)) {
-            $response = $user->attributesToArray();
-            $response['companies'] = array();
-            foreach ($user->companies()->getResults() as $company) {
-                $response['companies'][] = $company->attributesToArray();
-            }
-            $response = Response::string(
-                ['data' => $response]
-            );
-        } else {
-            $response = Response::string(
+        if (is_null($user)) {
+            return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => array("Unkown user with ID $id")
+                    'messages' => ["Unkown user with ID $id"]
                 ]
             );
         }
 
-        return $response;
+        $response = $user->attributesToArray();
+        $response['companies'] = array();
+        foreach ($user->companies()->getResults() as $company) {
+            $response['companies'][] = $company->attributesToArray();
+        }
+        return Response::string(
+            ['data' => $response]
+        );
     }
 
 
@@ -123,26 +121,24 @@ class UserController extends BaseController
                     'messages' => $errors->getMessages()
                 ]
             );
-        } else {
-            $user = User::find($id);
-            if (is_null($user)) {
-                return Response::string(
-                    [
-                        'code' => API_RETURN_404,
-                        'messages' => array("Unkown user with ID $id")
-                    ]
-                );
-            }
-            $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
-            $user->password = empty($inputs['password']) ? $user->login : $inputs['password'];
-            $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
-            $user->save();
-
-            // redirect
+        }
+        $user = User::find($id);
+        if (is_null($user)) {
             return Response::string(
-                ['messages' => array("Successfully updated user $id !")]
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["Unkown user with ID $id"]
+                ]
             );
         }
+        $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
+        $user->password = empty($inputs['password']) ? $user->login : $inputs['password'];
+        $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
+        $user->save();
+
+        return Response::string(
+            ['messages' => ["Successfully updated user $id !"]]
+        );
     }
 
 
@@ -160,13 +156,14 @@ class UserController extends BaseController
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => array("Unkown user with ID $id")
+                    'messages' => ["Unkown user with ID $id"]
                 ]
             );
         }
         $user->delete();
+
         return Response::string(
-            ['messages' => array("User $id deleted")]
+            ['messages' => ["User $id deleted"]]
         );
     }
 }
