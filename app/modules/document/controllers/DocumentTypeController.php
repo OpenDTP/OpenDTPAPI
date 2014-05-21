@@ -17,14 +17,15 @@ class DocumentTypeController extends BaseController
      */
     public function index()
     {
-        $types = DocumentType::whereNull('company_id')->get();
-        $results = [];
+        $typesQuery = DocumentType::whereNull('company_id');
+        $companies = Auth::user()->companies()->getResults();
 
-        foreach ($types as $type) {
-            $results[] = $type->attributesToArray();
+        foreach ($companies as $company) {
+            $typesQuery->orWhere('company_id', $company->id);
         }
+        $types = $typesQuery->get();
 
-        return Response::string(['data' => $results]);
+        return Response::string(['data' => $types->toArray()]);
     }
 
     /**
