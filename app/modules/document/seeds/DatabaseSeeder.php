@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Core\Seeds;
+namespace App\Modules\Document\Seeds;
 
 use Eloquent;
 use Illuminate\Database\Seeder;
@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
 
-        $this->call('App\Modules\Core\Seeds\UserSeeder');
-        $this->call('App\Modules\Core\Seeds\CompanySeeder');
-        $this->call('App\Modules\Core\Seeds\UserCompanySeeder');
+        $this->call('App\Modules\Document\Seeds\ConnectorSeeder');
+        $this->call('App\Modules\Document\Seeds\RendererSeeder');
     }
 }
