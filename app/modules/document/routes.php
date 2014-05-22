@@ -35,10 +35,5 @@ Route::group(
             'App\Modules\Document\Controllers\RendererController',
             ['except' => ['create', 'edit']]
         );
-        Route::resource(
-            'type',
-            'App\Modules\Document\Controllers\DocumentTypeController',
-            ['except' => ['create', 'edit']]
-        );
     }
 );
