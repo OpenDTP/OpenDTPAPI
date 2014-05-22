@@ -156,6 +156,4 @@ class DocumentController extends BaseController
             ['messages' => ["Document $id deleted"]]
         );
     }
-
-
 }
