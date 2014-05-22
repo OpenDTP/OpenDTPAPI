@@ -2,6 +2,7 @@
 
 namespace App\Modules\Document\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -17,14 +18,15 @@ class DocumentTypeController extends BaseController
      */
     public function index()
     {
-        $types = DocumentType::whereNull('company_id')->get();
-        $results = [];
+        $typesQuery = DocumentType::whereNull('company_id');
+        $companies = Auth::user()->companies()->getResults();
 
-        foreach ($types as $type) {
-            $results[] = $type->attributesToArray();
+        foreach ($companies as $company) {
+            $typesQuery->orWhere('company_id', $company->id);
         }
+        $types = $typesQuery->get();
 
-        return Response::string(['data' => $results]);
+        return Response::string(['data' => $types->toArray()]);
     }
 
     /**
@@ -50,6 +52,14 @@ class DocumentTypeController extends BaseController
                 ]
             );
         }
+        $type = new DocumentType;
+        $type->extension = Input::get('extension');
+        $type->company_id = Input::get('company_id');
+        $type->save();
+
+        return Response::string(
+            ['messages' => ['Successfully created document type !']]
+        );
     }
 
 
@@ -61,7 +71,18 @@ class DocumentTypeController extends BaseController
      */
     public function show($id)
     {
-        //
+        $type = DocumentType::find($id);
+
+        if (is_null($type)) {
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["Unkown document type with ID $id"]
+                ]
+            );
+        }
+
+        return $type->attributesToArray();
     }
 
 
@@ -73,7 +94,39 @@ class DocumentTypeController extends BaseController
      */
     public function update($id)
     {
-        //
+        $inputs = Input::all();
+        $rules = [
+            'extension' => 'alpha_num',
+            'company_id' => 'exists:companies,id'
+        ];
+        $validator = Validator::make($inputs, $rules);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return Response::string(
+                [
+                    'code' => API_RETURN_500,
+                    'messages' => $errors->getMessages()
+                ]
+            );
+        }
+        $type = DocumentType::find($id);
+        if (is_null($type)) {
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["Unkown document type with ID $id"]
+                ]
+            );
+        }
+        $type->extension = empty($inputs['extension']) ? $type->extension : $inputs['extension'];
+        $type->company_id = empty($inputs['company_id']) ? $type->company_id : $inputs['company_id'];
+        $type->save();
+
+        return Response::string(
+            ['messages' => ["Successfully updated document type $id !"]]
+        );
     }
 
 
@@ -85,6 +138,20 @@ class DocumentTypeController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $type = DocumentType::find($id);
+
+        if ((is_null($type))) {
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["Unkown document type with ID $id"]
+                ]
+            );
+        }
+        $type->delete();
+
+        return Response::string(
+            ['messages' => ["Document type $id deleted"]]
+        );
     }
 }

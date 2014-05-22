@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Core\Controllers\BaseController;
-use App\Modules\Document\Models\Renderer;
+use App\Modules\Document\Models\Document;
 
-class RendererController extends BaseController
+class DocumentController extends BaseController
 {
 
     /**
@@ -19,16 +19,10 @@ class RendererController extends BaseController
      */
     public function index()
     {
-        $companies = Auth::user()->companies()->getResults();
-        $companiesId = [];
+        $documents = Document::where('user_id', '=', Auth::user()->user_id)->get();
 
-        foreach ($companies as $company) {
-            $companiesId[] = $company->id;
-        }
-
-        $renderers = Renderer::WhereIn('company_id', $companiesId)->get();
         return Response::string(
-            ['data' => $renderers->toArray()]
+            ['data' => $documents->toArray()]
         );
     }
 
@@ -42,9 +36,7 @@ class RendererController extends BaseController
     {
         $rules = [
             'company_id' => 'required|exists:companies,id',
-            'connector_id' => 'exists:connectors,id',
-            'name' => 'required|unique:renderers,name',
-            'address' => 'required|ip'
+            'name' => 'required'
         ];
         $validator = Validator::make(Input::all(), $rules);
 
@@ -58,15 +50,17 @@ class RendererController extends BaseController
                 ]
             );
         }
-        $renderer = new Renderer;
-        $renderer->company_id = Input::get('company_id');
-        $renderer->connector_id = Input::get('connector_id');
-        $renderer->name = Input::get('name');
-        $renderer->address = Input::get('address');
-        $renderer->save();
+        $document = new Document;
+        $document->company_id = Input::get('company_id');
+        $document->user_id = Auth::user()->user_id;
+        $document->name = Input::get('name');
+        $document->description = Input::get('description');
+        $document->file = 'toto';
+        $document->file_type = 1;
+        $document->save();
 
         return Response::string(
-            ['messages' => ['Successfully created renderer !']]
+            ['messages' => ['Successfully created document !']]
         );
     }
 
@@ -79,18 +73,18 @@ class RendererController extends BaseController
      */
     public function show($id)
     {
-        $renderer = Renderer::find($id);
+        $document = Document::find($id);
 
-        if (is_null($renderer)) {
+        if (is_null($document)) {
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown renderer with ID $id"]
+                    'messages' => ["Unkown document with ID $id"]
                 ]
             );
         }
 
-        return Response::string(['data' => $renderer->toArray()]);
+        return Response::string(['data' => $document->toArray()]);
     }
 
 
@@ -104,10 +98,8 @@ class RendererController extends BaseController
     {
         $inputs = Input::all();
         $rules = [
-            'company_id' => 'exists:companies,id',
-            'connector_id' => 'exists:connectors,id',
-            'name' => 'unique:renderers,name',
-            'address' => 'ip'
+            'company_id' => 'required|exists:companies,id',
+            'name' => 'required'
         ];
         $validator = Validator::make($inputs, $rules);
 
@@ -121,23 +113,21 @@ class RendererController extends BaseController
                 ]
             );
         }
-        $renderer = Renderer::find($id);
-        if (is_null($renderer)) {
+        $document = Renderer::find($id);
+        if (is_null($document)) {
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown renderer with ID $id"]
+                    'messages' => ["Unkown document with ID $id"]
                 ]
             );
         }
-        $renderer->company_id = empty($inputs['company_id']) ? $renderer->company_id : $inputs['company_id'];
-        $renderer->connector_id = empty($inputs['connector_id']) ? $renderer->connector_id : $inputs['connector_id'];
-        $renderer->name = empty($inputs['name']) ? $renderer->company_id : $inputs['name'];
-        $renderer->address = empty($inputs['address']) ? $renderer->company_id : $inputs['address'];
-        $renderer->save();
+        $document->company_id = empty($inputs['company_id']) ? $document->company_id : $inputs['company_id'];
+        $document->name = empty($inputs['name']) ? $document->name : $inputs['name'];
+        $document->description = empty($inputs['description']) ? $document->description : $inputs['description'];
 
         return Response::string(
-            ['messages' => ["Successfully updated renderer $id !"]]
+            ['messages' => ["Successfully updated document $id !"]]
         );
     }
 
@@ -150,20 +140,20 @@ class RendererController extends BaseController
      */
     public function destroy($id)
     {
-        $renderer = Renderer::find($id);
+        $document = Document::find($id);
 
-        if (is_null($renderer)) {
+        if (is_null($document)) {
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown renderer with ID $id"]
+                    'messages' => ["Unkown document with ID $id"]
                 ]
             );
         }
-        $renderer->delete();
+        $document->delete();
 
         return Response::string(
-            ['messages' => ["Renderer $id deleted"]]
+            ['messages' => ["Document $id deleted"]]
         );
     }
 }
