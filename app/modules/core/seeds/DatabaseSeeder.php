@@ -18,5 +18,6 @@ class DatabaseSeeder extends \Seeder
 
         $this->call('App\Modules\Core\Seeds\UserSeeder');
         $this->call('App\Modules\Core\Seeds\CompanySeeder');
+        $this->call('App\Modules\Core\Seeds\UserCompanySeeder');
     }
 }
