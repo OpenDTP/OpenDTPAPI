@@ -18,13 +18,8 @@ class CreateDocumentsTypesTable extends Migration
             'documents_types',
             function (Blueprint $table) {
                 $table->increments('id');
-                $table->unsignedInteger('company_id')
-                    ->nullable();
-                $table->string('type');
+                $table->string('name');
                 $table->string('extension');
-                $table->foreign('company_id')
-                    ->references('id')
-                    ->on('companies');
                 $table->timestamps();
 
             }

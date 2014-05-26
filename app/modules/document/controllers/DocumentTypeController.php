@@ -37,8 +37,8 @@ class DocumentTypeController extends BaseController
     public function store()
     {
         $rules = [
-            'extension' => 'required|alpha_num',
-            'company_id' => 'exists:companies,id'
+            'name' => 'required',
+            'extension' => 'required|alpha_num'
         ];
         $validator = Validator::make(Input::all(), $rules);
 
@@ -53,8 +53,8 @@ class DocumentTypeController extends BaseController
             );
         }
         $type = new DocumentType;
+        $type->name = Input::get('name');
         $type->extension = Input::get('extension');
-        $type->company_id = Input::get('company_id');
         $type->save();
 
         return Response::string(
@@ -96,8 +96,8 @@ class DocumentTypeController extends BaseController
     {
         $inputs = Input::all();
         $rules = [
-            'extension' => 'alpha_num',
-            'company_id' => 'exists:companies,id'
+            'name' => 'required',
+            'extension' => 'alpha_num'
         ];
         $validator = Validator::make($inputs, $rules);
 
@@ -120,8 +120,8 @@ class DocumentTypeController extends BaseController
                 ]
             );
         }
+        $type->name = empty($inputs['name']) ? $type->name : $inputs['name'];
         $type->extension = empty($inputs['extension']) ? $type->extension : $inputs['extension'];
-        $type->company_id = empty($inputs['company_id']) ? $type->company_id : $inputs['company_id'];
         $type->save();
 
         return Response::string(
