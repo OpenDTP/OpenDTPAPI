@@ -32,4 +32,4 @@ class CompanySeeder extends Seeder
             ]
         );
     }
-} 
+}

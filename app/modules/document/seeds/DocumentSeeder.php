@@ -32,4 +32,4 @@ class DocumentSeeder extends Seeder
             ]
         );
     }
-} 
+}

@@ -8,7 +8,8 @@ use App\Modules\Document\Models\Renderer;
 class RendererSeeder extends Seeder
 {
 
-    public function run() {
+    public function run()
+    {
         Renderer::create(
             [
                 'company_id' => 1,
@@ -36,4 +37,4 @@ class RendererSeeder extends Seeder
             ]
         );
     }
-} 
+}

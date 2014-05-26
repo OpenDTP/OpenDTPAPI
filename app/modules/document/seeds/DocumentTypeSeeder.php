@@ -46,4 +46,4 @@ class DocumentTypeSeeder extends Seeder
             ]
         );
     }
-} 
+}

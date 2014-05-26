@@ -8,7 +8,8 @@ use App\Modules\Document\Models\Connector;
 class ConnectorSeeder extends Seeder
 {
 
-    public function run() {
+    public function run()
+    {
 
         Connector::create(
             [
@@ -31,4 +32,4 @@ class ConnectorSeeder extends Seeder
             ]
         );
     }
-} 
+}
