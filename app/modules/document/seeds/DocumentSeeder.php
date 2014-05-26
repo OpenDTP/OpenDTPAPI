@@ -5,9 +5,11 @@ namespace App\Modules\Document\Seeds;
 use Illuminate\Database\Seeder;
 use App\Modules\Document\Models\Document;
 
-class DocumentSeeder extends Seeder {
+class DocumentSeeder extends Seeder
+{
 
-    public function run() {
+    public function run()
+    {
         Document::create(
             [
                 'company_id' => 1,
