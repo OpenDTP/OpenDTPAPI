@@ -19,6 +19,15 @@ class UserController extends BaseController
     public function index()
     {
         $user = Auth::user();
+
+        if (is_null($user)) {
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["No user information"]
+                ]
+            );
+        }
         $response = $user->attributesToArray();
         $response['companies'] = array();
         foreach ($user->companies()->getResults() as $company) {
