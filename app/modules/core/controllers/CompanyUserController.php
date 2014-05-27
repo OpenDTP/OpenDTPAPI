@@ -43,8 +43,10 @@ class CompanyUserController extends BaseController
         $user_company->company_id = Input::get('company_id');
         $user_company->save();
 
-        Log::info('Successfully associated user ' . Input::get('user_id') .
-            ' to company ' . Input::get('company_id') . ' !');
+        Log::info(
+            'Successfully associated user ' . Input::get('user_id') .
+            ' to company ' . Input::get('company_id') . ' !'
+        );
         return Response::string(
             [
                 'messages' => [
