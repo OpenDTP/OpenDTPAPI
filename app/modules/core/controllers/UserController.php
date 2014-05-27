@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Models\User;
 
 class UserController extends BaseController
@@ -29,11 +30,12 @@ class UserController extends BaseController
             );
         }
         $response = $user->attributesToArray();
-        $response['companies'] = array();
+        $response['companies'] = [];
         foreach ($user->companies()->getResults() as $company) {
             $response['companies'][] = $company->attributesToArray();
         }
 
+        Log::info('Found user : ' . print_r($response, true));
         return Response::string(
             ['data' => $response]
         );
@@ -57,6 +59,7 @@ class UserController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -70,6 +73,7 @@ class UserController extends BaseController
         $user->email = Input::get('email');
         $user->save();
 
+        Log::info('Successfully created user !');
         return Response::string(
             ['messages' => ['Successfully created user !']]
         );
@@ -87,6 +91,7 @@ class UserController extends BaseController
         $user = User::find($id);
 
         if (is_null($user)) {
+            Log::info("Unkown user with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -96,10 +101,12 @@ class UserController extends BaseController
         }
 
         $response = $user->attributesToArray();
-        $response['companies'] = array();
+        $response['companies'] = [];
         foreach ($user->companies()->getResults() as $company) {
             $response['companies'][] = $company->attributesToArray();
         }
+
+        Log::info('Found user : ' . print_r($response, true));
         return Response::string(
             ['data' => $response]
         );
@@ -124,6 +131,7 @@ class UserController extends BaseController
 
         if ($validator->fails()) {
             $errors = $validator->errors();
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -133,6 +141,7 @@ class UserController extends BaseController
         }
         $user = User::find($id);
         if (is_null($user)) {
+            Log::info("Unkown user with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -145,6 +154,7 @@ class UserController extends BaseController
         $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
         $user->save();
 
+        Log::info('Updated user : ' . print_r($user->attributesToArray(), true));
         return Response::string(
             ['messages' => ["Successfully updated user $id !"]]
         );
@@ -162,6 +172,7 @@ class UserController extends BaseController
         $user = User::find($id);
 
         if (is_null($user)) {
+            Log::info("Unkown user with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -171,6 +182,7 @@ class UserController extends BaseController
         }
         $user->delete();
 
+        Log::info("User $id deleted");
         return Response::string(
             ['messages' => ["User $id deleted"]]
         );

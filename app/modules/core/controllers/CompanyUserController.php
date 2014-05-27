@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Modules\Core\Models\Company;
 use App\Modules\Core\Models\UserCompany;
 use App\Modules\Core\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class CompanyUserController extends BaseController
 {
@@ -19,20 +20,21 @@ class CompanyUserController extends BaseController
      */
     public function store()
     {
-        $rules = array(
+        $rules = [
             'user_id' => 'required|exists:users,id',
             'company_id' => 'required|exists:companies,id'
-        );
+        ];
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
-                array(
+                [
                     'code' => API_RETURN_500,
                     'messages' => $errors->getMessages()
-                )
+                ]
             );
         }
 
@@ -41,13 +43,17 @@ class CompanyUserController extends BaseController
         $user_company->company_id = Input::get('company_id');
         $user_company->save();
 
+        Log::info(
+            'Successfully associated user ' . Input::get('user_id') .
+            ' to company ' . Input::get('company_id') . ' !'
+        );
         return Response::string(
-            array(
-                'messages' => array(
+            [
+                'messages' => [
                     'Successfully associated user ' . Input::get('user_id') .
                     ' to company ' . Input::get('company_id') . ' !'
-                )
-            )
+                ]
+            ]
         );
     }
 
@@ -63,19 +69,17 @@ class CompanyUserController extends BaseController
         $company = Company::find($id);
 
         if (is_null($company)) {
-            $response = Response::string(
-                array(
+            return Response::string(
+                [
                     'code' => API_RETURN_404,
-                    'messages' => array("Unkown company with ID $id")
-                )
+                    'messages' => ["Unkown company with ID $id"]
+                ]
             );
         }
+        $users = $company->users()->toArray();
 
-        return Response::string(
-            array(
-                'data' => $company->users()
-            )
-        );
+        Log::info('Found users : ' . print_r($users, true));
+        return Response::string(['data' => $users]);
     }
 
     /**
@@ -89,21 +93,20 @@ class CompanyUserController extends BaseController
         $user_company = UserCompany::findRelation($company_id, $user_id);
 
         if (is_null($user_company)) {
+            Log::info("No user $user_id associated to company $company_id !");
             return Response::string(
-                array(
-                    'messages' => array(
-                        "No user $user_id associated to company $company_id !"
-                    )
-                )
+                [
+                    'messages' => ["No user $user_id associated to company $company_id !"]
+                ]
             );
         }
         $user_company->delete();
+
+        Log::info("Successfully unassociated user $user_id to company $company_id !");
         return Response::string(
-            array(
-                'messages' => array(
-                    "Successfully unassociated user $user_id to company $company_id !"
-                )
-            )
+            [
+                'messages' => ["Successfully unassociated user $user_id to company $company_id !"]
+            ]
         );
     }
 }

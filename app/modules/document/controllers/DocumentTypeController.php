@@ -24,9 +24,10 @@ class DocumentTypeController extends BaseController
         foreach ($companies as $company) {
             $typesQuery->orWhere('company_id', $company->id);
         }
-        $types = $typesQuery->get();
+        $types = $typesQuery->get()->toArray();
 
-        return Response::string(['data' => $types->toArray()]);
+        Log::info('Found document types : ' . print_r($types, true));
+        return Response::string(['data' => $types]);
     }
 
     /**
@@ -45,6 +46,7 @@ class DocumentTypeController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -57,9 +59,8 @@ class DocumentTypeController extends BaseController
         $type->extension = Input::get('extension');
         $type->save();
 
-        return Response::string(
-            ['messages' => ['Successfully created document type !']]
-        );
+        Log::info('Successfully created document type !');
+        return Response::string(['messages' => ['Successfully created document type !']]);
     }
 
 
@@ -74,6 +75,7 @@ class DocumentTypeController extends BaseController
         $type = DocumentType::find($id);
 
         if (is_null($type)) {
+            Log::info("Unkown document type with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -82,6 +84,7 @@ class DocumentTypeController extends BaseController
             );
         }
 
+        Log::info('Found document type ' . print_r($type->toArray(), true));
         return $type->attributesToArray();
     }
 
@@ -104,6 +107,7 @@ class DocumentTypeController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -113,6 +117,7 @@ class DocumentTypeController extends BaseController
         }
         $type = DocumentType::find($id);
         if (is_null($type)) {
+            Log::info("Unkown document type with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -124,9 +129,8 @@ class DocumentTypeController extends BaseController
         $type->extension = empty($inputs['extension']) ? $type->extension : $inputs['extension'];
         $type->save();
 
-        return Response::string(
-            ['messages' => ["Successfully updated document type $id !"]]
-        );
+        Log::info('Updated document type : ' . print_r($type->attributesToArray(), true));
+        return Response::string(['messages' => ["Successfully updated document type $id !"]]);
     }
 
 
@@ -141,6 +145,7 @@ class DocumentTypeController extends BaseController
         $type = DocumentType::find($id);
 
         if ((is_null($type))) {
+            Log::info("Unkown document type with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -150,6 +155,7 @@ class DocumentTypeController extends BaseController
         }
         $type->delete();
 
+        Log::info("Document type $id deleted");
         return Response::string(
             ['messages' => ["Document type $id deleted"]]
         );

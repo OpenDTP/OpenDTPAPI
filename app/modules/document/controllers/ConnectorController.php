@@ -18,9 +18,10 @@ class ConnectorController extends BaseController
      */
     public function index()
     {
-        $connectors = Connector::all();
+        $connectors = Connector::all()->toArray();
 
-        return Response::string(['data' => $connectors->toArray()]);
+        Log::info('Found connector : ' . print_r($connectors, true));
+        return Response::string(['data' => $connectors]);
     }
 
 
@@ -40,6 +41,7 @@ class ConnectorController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -52,6 +54,7 @@ class ConnectorController extends BaseController
         $connector->active = Input::get('active');
         $connector->save();
 
+        Log::info('Successfully created connector !');
         return Response::string(['message' => 'Successfully registered connector !']);
     }
 
@@ -67,6 +70,7 @@ class ConnectorController extends BaseController
         $connector = Connector::find($id);
 
         if (is_null($connector)) {
+            Log::info("Unkown connector with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -75,6 +79,7 @@ class ConnectorController extends BaseController
             );
         }
 
+        Log::info('Found connector ' . print_r($connector->toArray(), true));
         return Response::string(['data' => $connector->attributesToArray()]);
     }
 
@@ -96,6 +101,7 @@ class ConnectorController extends BaseController
 
         if ($validator->fails()) {
             $errors = $validator->errors();
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -105,6 +111,7 @@ class ConnectorController extends BaseController
         }
         $connector = Connector::find($id);
         if (is_null($connector)) {
+            Log::info("Unkown connector with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -116,9 +123,8 @@ class ConnectorController extends BaseController
         $connector->active = empty($inputs['active']) ? $connector->active : $inputs['active'];
         $connector->save();
 
-        return Response::string(
-            ['messages' => ["Successfully updated connector $id !"]]
-        );
+        Log::info('Updated connector : ' . print_r($connector->attributesToArray(), true));
+        return Response::string(['messages' => ["Successfully updated connector $id !"]]);
     }
 
 
@@ -133,6 +139,7 @@ class ConnectorController extends BaseController
         $connector = Connector::find($id);
 
         if (is_null($connector)) {
+            Log::info("Unkown connector with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -141,6 +148,8 @@ class ConnectorController extends BaseController
             );
         }
         $connector->delete();
+
+        Log::info("Connector $id deleted");
         return Response::string(['messages' => ["Connector $id deleted"]]);
     }
 }

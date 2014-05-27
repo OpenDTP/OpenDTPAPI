@@ -19,10 +19,11 @@ class DocumentController extends BaseController
      */
     public function index()
     {
-        $documents = Document::where('user_id', '=', Auth::user()->user_id)->get();
+        $documents = Document::where('user_id', '=', Auth::user()->user_id)->get()->toArray();
 
+        Log::info('Found documents : ' . print_r($documents, true));
         return Response::string(
-            ['data' => $documents->toArray()]
+            ['data' => $documents]
         );
     }
 
@@ -43,6 +44,7 @@ class DocumentController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -59,6 +61,7 @@ class DocumentController extends BaseController
         $document->file_type = 1;
         $document->save();
 
+        Log::info('Successfully created document !');
         return Response::string(
             ['messages' => ['Successfully created document !']]
         );
@@ -76,6 +79,7 @@ class DocumentController extends BaseController
         $document = Document::find($id);
 
         if (is_null($document)) {
+            Log::info("Unkown document with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -84,6 +88,7 @@ class DocumentController extends BaseController
             );
         }
 
+        Log::info('Found document ' . print_r($document->toArray(), true));
         return Response::string(['data' => $document->toArray()]);
     }
 
@@ -106,6 +111,7 @@ class DocumentController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -115,6 +121,7 @@ class DocumentController extends BaseController
         }
         $document = Renderer::find($id);
         if (is_null($document)) {
+            Log::info("Unkown document with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -126,6 +133,7 @@ class DocumentController extends BaseController
         $document->name = empty($inputs['name']) ? $document->name : $inputs['name'];
         $document->description = empty($inputs['description']) ? $document->description : $inputs['description'];
 
+        Log::info('Updated document : ' . print_r($document->attributesToArray(), true));
         return Response::string(
             ['messages' => ["Successfully updated document $id !"]]
         );
@@ -143,6 +151,7 @@ class DocumentController extends BaseController
         $document = Document::find($id);
 
         if (is_null($document)) {
+            Log::info("Unkown document with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -152,8 +161,7 @@ class DocumentController extends BaseController
         }
         $document->delete();
 
-        return Response::string(
-            ['messages' => ["Document $id deleted"]]
-        );
+        Log::info("Document $id deleted");
+        return Response::string(['messages' => ["Document $id deleted"]]);
     }
 }
