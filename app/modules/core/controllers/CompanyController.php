@@ -18,7 +18,10 @@ class CompanyController extends BaseController
      */
     public function index()
     {
-        return Response::string(['data' => Auth::user()->companies()]);
+        $companies = Auth::user()->companies()->toArray();
+
+        Log::info('Found companies : ' . print_r($companies, true));
+        return Response::string(['data' => $companies]);
     }
 
     /**
@@ -37,6 +40,7 @@ class CompanyController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -49,6 +53,7 @@ class CompanyController extends BaseController
         $company->description = Input::get('description');
         $company->save();
 
+        Log::info('Successfully created company !');
         return Response::string(['messages' => ['Successfully created company !']]);
     }
 
@@ -62,16 +67,18 @@ class CompanyController extends BaseController
     {
         $company = Company::find($id);
 
-        if (!is_null($company)) {
-            return Response::string(['data' => $company->attributesToArray()]);
+        if (is_null($company)) {
+            Log::info("Unkown company with ID $id");
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["Unkown company with ID $id"]
+                ]
+            );
         }
 
-        return Response::string(
-            [
-                'code' => API_RETURN_404,
-                'messages' => ["Unkown company with ID $id"]
-            ]
-        );
+        Log::info('Found company : ' . print_r($company->attributesToArray(), true));
+        return Response::string(['data' => $company->attributesToArray()]);
     }
 
 
@@ -92,29 +99,30 @@ class CompanyController extends BaseController
 
         if ($validator->fails()) {
             $errors = $validator->errors();
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
                     'messages' => $errors->getMessages()
                 ]
             );
-        } else {
-            $company = Company::find($id);
-            if (is_null($company)) {
-                return Response::string(
-                    [
-                        'code' => API_RETURN_404,
-                        'messages' => ["Unkown company with ID $id"]
-                    ]
-                );
-            }
-            $company->name = empty($inputs['name']) ? $company->name : $inputs['name'];
-            $company->description = empty($inputs['description']) ? $company->description : $inputs['description'];
-            $company->save();
-
-            // redirect
-            return Response::string(['messages' => ["Successfully updated company $id !"]]);
         }
+        $company = Company::find($id);
+        if (is_null($company)) {
+            Log::info("Unkown company with ID $id");
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["Unkown company with ID $id"]
+                ]
+            );
+        }
+        $company->name = empty($inputs['name']) ? $company->name : $inputs['name'];
+        $company->description = empty($inputs['description']) ? $company->description : $inputs['description'];
+        $company->save();
+
+        Log::info('Updated company : ' . print_r($company->attributesToArray(), true));
+        return Response::string(['messages' => ["Successfully updated company $id !"]]);
     }
 
 
@@ -129,6 +137,7 @@ class CompanyController extends BaseController
         $company = Company::find($id);
 
         if (is_null($company)) {
+            Log::info("Unkown company with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -137,6 +146,8 @@ class CompanyController extends BaseController
             );
         }
         $company->delete();
+
+        Log::info("Company $id deleted");
         return Response::string(
             ['messages' => ["Company $id deleted"]]
         );

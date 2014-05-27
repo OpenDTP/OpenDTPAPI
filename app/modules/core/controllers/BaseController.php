@@ -20,12 +20,12 @@ class BaseController extends Controller
             'string',
             function ($value) {
                 $value = array_merge(
-                    array(
+                    [
                         'version' => API_VERSION,
                         'code' => API_RETURN_200,
-                        'messages' => array('Success !'),
+                        'messages' => ['Success !'],
                         'data' => ''
-                    ),
+                    ],
                     $value
                 );
                 return Response::json($value);
