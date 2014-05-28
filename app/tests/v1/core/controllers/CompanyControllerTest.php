@@ -21,6 +21,7 @@ class CompanyControllerTest extends TestCase
         $dataResponse = $this->parseJson($response);
 
         $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertEquals('dcompany1', $dataResponse->data->name);
     }
 
@@ -34,6 +35,7 @@ class CompanyControllerTest extends TestCase
         $dataResponse = $this->parseJson($response);
 
         $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->messages);
         $this->assertNotEmpty($dataResponse->data);
         $this->assertEquals('Successfully created company ' . $dataResponse->data->id . ' !',
@@ -50,10 +52,23 @@ class CompanyControllerTest extends TestCase
         $dataResponse = $this->parseJson($response);
 
         $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->messages);
         $this->assertNotEmpty($dataResponse->data);
         $this->assertEquals('Successfully updated company 1 !',
             $dataResponse->messages[0]);
         $this->assertEquals('tcompany2', $dataResponse->data->name);
+    }
+
+    public function testDeleteCompanyValid()
+    {
+        $response = $this->call('DELETE', $this->baseUrl . '/company/3');
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
+        $this->assertNotEmpty($dataResponse->messages);
+        $this->assertEquals('Company 3 deleted',
+            $dataResponse->messages[0]);
     }
 }
