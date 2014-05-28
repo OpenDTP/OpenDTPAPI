@@ -15,6 +15,18 @@ class CompanyControllerTest extends TestCase
         $this->assertIsJson($dataResponse);
     }
 
+    public function testUserCompanies()
+    {
+        $response = $this->call('GET', $this->baseUrl . '/company');
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertNotEmpty($dataResponse->data);
+        $this->assertCount(2, $dataResponse->data);
+        $this->assertEquals($dataResponse->data[0]->name, 'dcompany1');
+        $this->assertEquals($dataResponse->data[1]->name, 'dcompany2');
+    }
+
     public function testShowCompanyValid()
     {
         $response = $this->call('GET', $this->baseUrl . '/company/1');
