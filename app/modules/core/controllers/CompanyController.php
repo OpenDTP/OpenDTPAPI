@@ -129,7 +129,12 @@ class CompanyController extends BaseController
         $company->save();
 
         Log::info('Updated company : ' . print_r($company->attributesToArray(), true));
-        return Response::string(['messages' => ["Successfully updated company $id !"]]);
+        return Response::string(
+            [
+                'messages' => ["Successfully updated company $id !"],
+                'data' => $company->attributesToArray()
+            ]
+        );
     }
 
 

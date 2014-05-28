@@ -40,4 +40,20 @@ class CompanyControllerTest extends TestCase
             $dataResponse->messages[0]);
         $this->assertEquals('tcompany', $dataResponse->data->name);
     }
+
+    public function testUpdateCompanyValid()
+    {
+        $company = [
+            'name' => 'tcompany2',
+        ];
+        $response = $this->call('PUT', $this->baseUrl . '/company/1', $company);
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertNotEmpty($dataResponse->messages);
+        $this->assertNotEmpty($dataResponse->data);
+        $this->assertEquals('Successfully updated company 1 !',
+            $dataResponse->messages[0]);
+        $this->assertEquals('tcompany2', $dataResponse->data->name);
+    }
 }
