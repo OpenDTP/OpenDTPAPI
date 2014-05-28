@@ -54,8 +54,14 @@ class CompanyController extends BaseController
         $company->description = Input::get('description');
         $company->save();
 
-        Log::info('Successfully created company !');
-        return Response::string(['messages' => ['Successfully created company !']]);
+        Log::info('Successfully created company '  . $company->id . ' ! [' .
+            print_r($company->attributesToArray(), true) . ']');
+        return Response::string(
+            [
+                'messages' => ['Successfully created company ' . $company->id . ' !'],
+                'data' => $company->attributesToArray()
+            ]
+        );
     }
 
     /**
