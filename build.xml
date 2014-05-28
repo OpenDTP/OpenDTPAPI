@@ -54,11 +54,7 @@
     <!-- PHPUnit call -->
     <target name="phpunit">
         <exec
-                command="php '${project.basedir}/artisan' migrate:reset"
-                passthru="true"
-                />
-        <exec
-                command="php '${project.basedir}/artisan' modules:migrate --seed"
+                command="php '${project.basedir}/artisan' migrate:refresh --seed --env=testing"
                 passthru="true"
                 />
 
