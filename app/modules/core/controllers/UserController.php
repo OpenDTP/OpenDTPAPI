@@ -20,6 +20,15 @@ class UserController extends BaseController
     public function index()
     {
         $user = Auth::user();
+
+        if (is_null($user)) {
+            return Response::string(
+                [
+                    'code' => API_RETURN_404,
+                    'messages' => ["No user information"]
+                ]
+            );
+        }
         $response = $user->attributesToArray();
         $response['companies'] = [];
         foreach ($user->companies()->getResults() as $company) {
@@ -50,7 +59,7 @@ class UserController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
+            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -64,9 +73,12 @@ class UserController extends BaseController
         $user->email = Input::get('email');
         $user->save();
 
-        Log::info('Successfully created user !');
+        Log::info('Successfully created user ' . $user->id . ' ! [' . print_r($user->toArray(), true) . ']');
         return Response::string(
-            ['messages' => ['Successfully created user !']]
+            [
+                'messages' => ['Successfully created user ' . $user->id . ' !'],
+                'data' => $user->toArray()
+            ]
         );
     }
 
@@ -122,7 +134,7 @@ class UserController extends BaseController
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
+            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -147,7 +159,10 @@ class UserController extends BaseController
 
         Log::info('Updated user : ' . print_r($user->attributesToArray(), true));
         return Response::string(
-            ['messages' => ["Successfully updated user $id !"]]
+            [
+                'messages' => ["Successfully updated user $id !"],
+                'data' => $user->attributesToArray()
+            ]
         );
     }
 
