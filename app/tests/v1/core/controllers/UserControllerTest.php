@@ -34,7 +34,7 @@ class UserControllerTest extends TestCase
         $user = [
             'login' => 'tuser',
             'password' => 'tuserpwd',
-            'email' => 'tuser@fake_provider.opendtp.net'
+            'email' => 'tuser@fake.opendtp.net'
         ];
         $response = $this->call('POST', $this->baseUrl . '/user', $user);
         $dataResponse = $this->parseJson($response);
@@ -42,7 +42,8 @@ class UserControllerTest extends TestCase
         $this->assertIsJson($dataResponse);
         $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->messages);
-        $this->assertEquals('Successfully created user !', $dataResponse->messages[0]);
+        $this->assertNotEmpty($dataResponse->data);
+        $this->assertEquals('Successfully created user ' . $dataResponse->data->id . ' !', $dataResponse->messages[0]);
     }
 }
  

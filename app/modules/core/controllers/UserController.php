@@ -59,7 +59,7 @@ class UserController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
+            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -73,9 +73,12 @@ class UserController extends BaseController
         $user->email = Input::get('email');
         $user->save();
 
-        Log::info('Successfully created user !');
+        Log::info('Successfully created user ' . $user->id . ' ! [' . print_r($user->toArray(), true) . ']');
         return Response::string(
-            ['messages' => ['Successfully created user !']]
+            [
+                'messages' => ['Successfully created user ' . $user->id . ' !'],
+                'data' => $user->toArray()
+            ]
         );
     }
 
@@ -131,7 +134,7 @@ class UserController extends BaseController
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
+            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
