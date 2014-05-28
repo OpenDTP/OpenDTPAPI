@@ -14,11 +14,6 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         parent::setUp();
 
         Route::enableFilters();
-
-        // migration for later use
-        //Artisan::call('migrate');
-        //Artisan::call('db:seed');
-
         Auth::loginUsingId(1);
     }
 

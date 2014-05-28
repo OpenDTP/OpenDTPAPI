@@ -159,7 +159,10 @@ class UserController extends BaseController
 
         Log::info('Updated user : ' . print_r($user->attributesToArray(), true));
         return Response::string(
-            ['messages' => ["Successfully updated user $id !"]]
+            [
+                'messages' => ["Successfully updated user $id !"],
+                'data' => $user->attributesToArray()
+            ]
         );
     }
 

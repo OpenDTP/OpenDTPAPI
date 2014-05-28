@@ -55,5 +55,14 @@ class UserSeeder extends Seeder
                 'email' => 'fake_email_duser4@provider.com'
             ]
         );
+
+        // Fourth dummy user
+        User::create(
+            [
+                'login' => 'duser5',
+                'password' => Hash::make('duser5'),
+                'email' => 'fake_email_duser5@provider.com'
+            ]
+        );
     }
 }

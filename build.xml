@@ -54,6 +54,15 @@
     <!-- PHPUnit call -->
     <target name="phpunit">
         <exec
+                command="php '${project.basedir}/artisan' migrate:reset"
+                passthru="true"
+                />
+        <exec
+                command="php '${project.basedir}/artisan' modules:migrate --seed"
+                passthru="true"
+                />
+
+        <exec
                 command="'${project.basedir}/vendor/bin/phpunit'  --colors -c '${project.basedir}/phpunit.xml' --coverage-clover '${project.basedir}/build/phpunit-clover.xml' --log-junit '${project.basedir}/build/phpunit-junit.xml'"
                 passthru="true"
                 />

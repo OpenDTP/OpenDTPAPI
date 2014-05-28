@@ -3,6 +3,7 @@
 namespace App\Tests\V1\Core\Controllers;
 
 use App\Tests\V1\TestCase;
+use Illuminate\Support\Facades\Auth;
 
 class UserControllerTest extends TestCase
 {
@@ -44,6 +45,33 @@ class UserControllerTest extends TestCase
         $this->assertNotEmpty($dataResponse->messages);
         $this->assertNotEmpty($dataResponse->data);
         $this->assertEquals('Successfully created user ' . $dataResponse->data->id . ' !', $dataResponse->messages[0]);
+    }
+
+    public function testUpdateValid()
+    {
+        $user = [
+            'email' => 'update@fake.opendtp.net'
+        ];
+        $response = $this->call('PUT', $this->baseUrl . '/user/2', $user);
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
+        $this->assertNotEmpty($dataResponse->messages);
+        $this->assertNotEmpty($dataResponse->data);
+        $this->assertEquals('Successfully updated user 2 !', $dataResponse->messages[0]);
+        $this->assertEquals($dataResponse->data->email, 'update@fake.opendtp.net');
+    }
+
+    public function testDeleteValid()
+    {
+        $response = $this->call('DELETE', $this->baseUrl . '/user/6');
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
+        $this->assertNotEmpty($dataResponse->messages);
+        $this->assertEquals('User 6 deleted', $dataResponse->messages[0]);
     }
 }
  
