@@ -31,7 +31,7 @@ class UserController extends BaseController
         }
         $response = $user->attributesToArray();
         $response['companies'] = [];
-        foreach ($user->companies()->getResults() as $company) {
+        foreach ($user->companies() as $company) {
             $response['companies'][] = $company->attributesToArray();
         }
 
@@ -105,7 +105,7 @@ class UserController extends BaseController
 
         $response = $user->attributesToArray();
         $response['companies'] = [];
-        foreach ($user->companies()->getResults() as $company) {
+        foreach ($user->companies() as $company) {
             $response['companies'][] = $company->attributesToArray();
         }
 
