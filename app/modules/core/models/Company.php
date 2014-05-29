@@ -15,6 +15,11 @@ class Company extends \Eloquent
 
     public function users()
     {
-        return $this->belongsToMany('App\Modules\Core\Models\User', 'users_companies', 'company_id', 'user_id');
+        return $this->belongsToMany(
+            'App\Modules\Core\Models\User',
+            'users_companies',
+            'company_id',
+            'user_id'
+        )->getResults();
     }
 }

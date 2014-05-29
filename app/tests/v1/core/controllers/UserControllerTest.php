@@ -3,7 +3,6 @@
 namespace App\Tests\V1\Core\Controllers;
 
 use App\Tests\V1\TestCase;
-use Illuminate\Support\Facades\Auth;
 
 class UserControllerTest extends TestCase
 {
@@ -74,4 +73,3 @@ class UserControllerTest extends TestCase
         $this->assertEquals('User 6 deleted', $dataResponse->messages[0]);
     }
 }
- 

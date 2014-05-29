@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Models\Company;
 
 class CompanyController extends BaseController
@@ -53,8 +54,16 @@ class CompanyController extends BaseController
         $company->description = Input::get('description');
         $company->save();
 
-        Log::info('Successfully created company !');
-        return Response::string(['messages' => ['Successfully created company !']]);
+        Log::info(
+            'Successfully created company ' . $company->id . ' ! [' .
+            print_r($company->attributesToArray(), true) . ']'
+        );
+        return Response::string(
+            [
+                'messages' => ['Successfully created company ' . $company->id . ' !'],
+                'data' => $company->attributesToArray()
+            ]
+        );
     }
 
     /**
@@ -122,7 +131,12 @@ class CompanyController extends BaseController
         $company->save();
 
         Log::info('Updated company : ' . print_r($company->attributesToArray(), true));
-        return Response::string(['messages' => ["Successfully updated company $id !"]]);
+        return Response::string(
+            [
+                'messages' => ["Successfully updated company $id !"],
+                'data' => $company->attributesToArray()
+            ]
+        );
     }
 
 
