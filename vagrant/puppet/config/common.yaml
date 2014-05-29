@@ -75,6 +75,9 @@ databases:
     opendtp:
         user: opendtp
         password: opendtp
+    opendtp_testing:
+        user: opendtp_testing
+        password: opendtp
 mailcatcher:
     name: api.opendtp.mailcatcher.dev
     smtp_ip: 127.0.0.1

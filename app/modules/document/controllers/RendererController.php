@@ -26,10 +26,10 @@ class RendererController extends BaseController
             $companiesId[] = $company->id;
         }
 
-        $renderers = Renderer::WhereIn('company_id', $companiesId)->get();
-        return Response::string(
-            ['data' => $renderers->toArray()]
-        );
+        $renderers = Renderer::WhereIn('company_id', $companiesId)->get()->toArray();
+
+        Log::info('Found renderers : ' . print_r($renderers, true));
+        return Response::string(['data' => $renderers]);
     }
 
 
@@ -51,6 +51,7 @@ class RendererController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -65,6 +66,7 @@ class RendererController extends BaseController
         $renderer->address = Input::get('address');
         $renderer->save();
 
+        Log::info('Successfully created renderer !');
         return Response::string(
             ['messages' => ['Successfully created renderer !']]
         );
@@ -82,6 +84,7 @@ class RendererController extends BaseController
         $renderer = Renderer::find($id);
 
         if (is_null($renderer)) {
+            Log::info("Unkown renderer with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -90,6 +93,7 @@ class RendererController extends BaseController
             );
         }
 
+        Log::info('Found renderer ' . print_r($renderer->toArray(), true));
         return Response::string(['data' => $renderer->toArray()]);
     }
 
@@ -113,7 +117,7 @@ class RendererController extends BaseController
 
         if ($validator->fails()) {
             $errors = $validator->errors();
-
+            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -123,6 +127,7 @@ class RendererController extends BaseController
         }
         $renderer = Renderer::find($id);
         if (is_null($renderer)) {
+            Log::info("Unkown renderer with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -136,6 +141,7 @@ class RendererController extends BaseController
         $renderer->address = empty($inputs['address']) ? $renderer->company_id : $inputs['address'];
         $renderer->save();
 
+        Log::info('Updated renderer : ' . print_r($renderer->attributesToArray(), true));
         return Response::string(
             ['messages' => ["Successfully updated renderer $id !"]]
         );
@@ -153,6 +159,7 @@ class RendererController extends BaseController
         $renderer = Renderer::find($id);
 
         if (is_null($renderer)) {
+            Log::info("Unkown connector with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
@@ -162,6 +169,7 @@ class RendererController extends BaseController
         }
         $renderer->delete();
 
+        Log::info("Renderer $id deleted");
         return Response::string(
             ['messages' => ["Renderer $id deleted"]]
         );

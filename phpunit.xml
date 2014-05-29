@@ -10,9 +10,9 @@
          stopOnFailure="false"
          syntaxCheck="false"
 >
-    <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./app/tests/</directory>
+    <testsuites name="OpenDTP API V1 Test suites">
+        <testsuite name="Core module">
+            <directory>./app/tests/v1/core</directory>
         </testsuite>
     </testsuites>
 </phpunit>

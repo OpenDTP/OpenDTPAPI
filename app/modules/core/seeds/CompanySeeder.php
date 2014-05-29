@@ -31,5 +31,13 @@ class CompanySeeder extends Seeder
                 'description' => 'Second Dummy company'
             ]
         );
+
+        // third dummy Company
+        Company::create(
+            [
+                'name' => 'dcompany3',
+                'description' => 'thrird Dummy company'
+            ]
+        );
     }
 }
