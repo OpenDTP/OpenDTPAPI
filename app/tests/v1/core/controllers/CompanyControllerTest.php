@@ -50,8 +50,10 @@ class CompanyControllerTest extends TestCase
         $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->messages);
         $this->assertNotEmpty($dataResponse->data);
-        $this->assertEquals('Successfully created company ' . $dataResponse->data->id . ' !',
-            $dataResponse->messages[0]);
+        $this->assertEquals(
+            'Successfully created company ' . $dataResponse->data->id . ' !',
+            $dataResponse->messages[0]
+        );
         $this->assertEquals('tcompany', $dataResponse->data->name);
     }
 
@@ -67,8 +69,10 @@ class CompanyControllerTest extends TestCase
         $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->messages);
         $this->assertNotEmpty($dataResponse->data);
-        $this->assertEquals('Successfully updated company 1 !',
-            $dataResponse->messages[0]);
+        $this->assertEquals(
+            'Successfully updated company 1 !',
+            $dataResponse->messages[0]
+        );
         $this->assertEquals('tcompany2', $dataResponse->data->name);
     }
 
@@ -80,7 +84,9 @@ class CompanyControllerTest extends TestCase
         $this->assertIsJson($dataResponse);
         $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->messages);
-        $this->assertEquals('Company 3 deleted',
-            $dataResponse->messages[0]);
+        $this->assertEquals(
+            'Company 3 deleted',
+            $dataResponse->messages[0]
+        );
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Core\Models\Company;
 use App\Modules\Core\Models\UserCompany;
-use App\Modules\Core\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class CompanyUserController extends BaseController

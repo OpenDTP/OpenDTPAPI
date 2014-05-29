@@ -18,7 +18,12 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
 
     public function companies()
     {
-        return $this->belongsToMany('App\Modules\Core\Models\Company', 'users_companies', 'user_id', 'company_id')->getResults();
+        return $this->belongsToMany(
+            'App\Modules\Core\Models\Company',
+            'users_companies',
+            'user_id',
+            'company_id'
+        )->getResults();
     }
 
     public function getAuthIdentifier()
