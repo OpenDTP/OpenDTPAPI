@@ -28,4 +28,22 @@ class CompanyUserControllerTest extends TestCase
         $this->assertEquals('duser1', $dataResponse->data[1]->login);
         $this->assertEquals('duser2', $dataResponse->data[2]->login);
     }
+
+    public function testUsersCompanyLinkValid()
+    {
+        $link = [
+            'user_id' => 4,
+            'company_id' => 1
+        ];
+        $response = $this->call('POST', $this->baseUrl . '/company/user', $link);
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
+        $this->assertNotEmpty($dataResponse->data);
+        $this->assertEquals(1, $dataResponse->data->company_id);
+        $this->assertEquals(4, $dataResponse->data->user_id);
+        $this->assertNotEmpty($dataResponse->messages);
+        $this->assertEquals($dataResponse->messages[0], 'Successfully associated user 4 to company 1 !');
+    }
 }

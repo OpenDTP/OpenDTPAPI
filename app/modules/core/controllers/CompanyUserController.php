@@ -44,14 +44,15 @@ class CompanyUserController extends BaseController
 
         Log::info(
             'Successfully associated user ' . Input::get('user_id') .
-            ' to company ' . Input::get('company_id') . ' !'
+            ' to company ' . Input::get('company_id') . ' ! [' . print_r($user_company->attributesToArray(), true) . ']'
         );
         return Response::string(
             [
                 'messages' => [
                     'Successfully associated user ' . Input::get('user_id') .
                     ' to company ' . Input::get('company_id') . ' !'
-                ]
+                ],
+                'data' => $user_company->attributesToArray()
             ]
         );
     }
