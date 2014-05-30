@@ -30,6 +30,6 @@ class ConnectorControllerTest extends TestCase
         $this->assertEquals(API_RETURN_200, $dataResponse->code);
         $this->assertNotEmpty($dataResponse->data);
         $this->assertEquals('indesign_soap', $dataResponse->data->name);
-        $this->assertEquals('indesign_soap', $dataResponse->data->ac);
+        $this->assertEquals(1, $dataResponse->data->id);
     }
 }
