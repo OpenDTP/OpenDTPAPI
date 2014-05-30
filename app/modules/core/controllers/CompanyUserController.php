@@ -28,7 +28,7 @@ class CompanyUserController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
+            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
