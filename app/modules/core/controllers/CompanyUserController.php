@@ -96,16 +96,21 @@ class CompanyUserController extends BaseController
             Log::info("No user $user_id associated to company $company_id !");
             return Response::string(
                 [
-                    'messages' => ["No user $user_id associated to company $company_id !"]
+                    'code' => API_RETURN_404,
+                    'messages' => ["No user $user_id associated to company $company_id !"],
                 ]
             );
         }
         $user_company->delete();
 
-        Log::info("Successfully unassociated user $user_id to company $company_id !");
+        Log::info(
+            "Successfully unassociated user $user_id to company $company_id ! [" .
+            print_r($user_company, true) . "]"
+        );
         return Response::string(
             [
-                'messages' => ["Successfully unassociated user $user_id to company $company_id !"]
+                'messages' => ["Successfully unassociated user $user_id to company $company_id !"],
+                'data' => $user_company->attributesToArray()
             ]
         );
     }

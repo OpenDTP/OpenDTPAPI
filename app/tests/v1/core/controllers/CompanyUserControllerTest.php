@@ -46,4 +46,18 @@ class CompanyUserControllerTest extends TestCase
         $this->assertNotEmpty($dataResponse->messages);
         $this->assertEquals($dataResponse->messages[0], 'Successfully associated user 4 to company 1 !');
     }
+
+    public function testUsersCompanyUnlinkValid()
+    {
+        $response = $this->call('DELETE', $this->baseUrl . '/company/user/2/4');
+        $dataResponse = $this->parseJson($response);
+
+        $this->assertIsJson($dataResponse);
+        $this->assertEquals(API_RETURN_200, $dataResponse->code);
+        $this->assertNotEmpty($dataResponse->data);
+        $this->assertEquals(2, $dataResponse->data->company_id);
+        $this->assertEquals(4, $dataResponse->data->user_id);
+        $this->assertNotEmpty($dataResponse->messages);
+        $this->assertEquals($dataResponse->messages[0], 'Successfully unassociated user 4 to company 2 !');
+    }
 }
