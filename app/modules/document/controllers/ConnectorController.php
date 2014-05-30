@@ -5,6 +5,7 @@ namespace App\Modules\Document\Controllers;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Controllers\BaseController;
 use App\Modules\Document\Models\Connector;
 
