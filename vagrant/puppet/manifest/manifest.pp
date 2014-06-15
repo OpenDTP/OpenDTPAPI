@@ -325,12 +325,12 @@ define mysql_db (
     grant    => $grant,
     sql      => $sql_file,
   }
-  mysql_grant { "${user}@localhost/${db}.*":
+  mysql_grant { "${user}@127.0.0.1/${name}.*":
     ensure => 'present',
     options    => ['GRANT'],
     privileges => $grant,
-    table      => "${db}.*",
-    user       => '${user}@localhost'
+    table      => "${name}.*",
+    user       => "${user}@127.0.0.1"
   }
 }
 
