@@ -28,7 +28,7 @@ class CompanyUserController extends BaseController
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
+            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
             return Response::string(
                 [
                     'code' => API_RETURN_500,
@@ -44,14 +44,15 @@ class CompanyUserController extends BaseController
 
         Log::info(
             'Successfully associated user ' . Input::get('user_id') .
-            ' to company ' . Input::get('company_id') . ' !'
+            ' to company ' . Input::get('company_id') . ' ! [' . print_r($user_company->attributesToArray(), true) . ']'
         );
         return Response::string(
             [
                 'messages' => [
                     'Successfully associated user ' . Input::get('user_id') .
                     ' to company ' . Input::get('company_id') . ' !'
-                ]
+                ],
+                'data' => $user_company->attributesToArray()
             ]
         );
     }
@@ -95,16 +96,21 @@ class CompanyUserController extends BaseController
             Log::info("No user $user_id associated to company $company_id !");
             return Response::string(
                 [
-                    'messages' => ["No user $user_id associated to company $company_id !"]
+                    'code' => API_RETURN_404,
+                    'messages' => ["No user $user_id associated to company $company_id !"],
                 ]
             );
         }
         $user_company->delete();
 
-        Log::info("Successfully unassociated user $user_id to company $company_id !");
+        Log::info(
+            "Successfully unassociated user $user_id to company $company_id ! [" .
+            print_r($user_company, true) . "]"
+        );
         return Response::string(
             [
-                'messages' => ["Successfully unassociated user $user_id to company $company_id !"]
+                'messages' => ["Successfully unassociated user $user_id to company $company_id !"],
+                'data' => $user_company->attributesToArray()
             ]
         );
     }
