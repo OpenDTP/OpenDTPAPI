@@ -113,8 +113,7 @@ return array(
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Creolab\LaravelModules\ServiceProvider',
-        'App\Services\ValidationServiceProvider'
+        'Creolab\LaravelModules\ServiceProvider'
 
     ),
     /*

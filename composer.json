@@ -27,7 +27,7 @@
         "classmap": [
             "app/modules",
             "app/tests",
-            "app/services"
+            "workbench"
         ]
     },
     "scripts": {
