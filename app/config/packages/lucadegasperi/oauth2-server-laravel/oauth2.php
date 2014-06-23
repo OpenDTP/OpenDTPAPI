@@ -72,7 +72,7 @@ return [
             'callback'         => function ($username, $password) {
                 
                 $credentials = [
-                    'email' => $username,
+                    'login' => $username,
                     'password' => $password,
                 ];
 
@@ -86,10 +86,10 @@ return [
             }
         ],
 
-        'client_credentials' => [
-            'class'            => 'League\OAuth2\Server\Grant\ClientCredentials',
-            'access_token_ttl' => 3600,
-        ],
+        //'client_credentials' => [
+        //    'class'            => 'League\OAuth2\Server\Grant\ClientCredentials',
+        //    'access_token_ttl' => 3600,
+        //],
 
         'refresh_token' => [
             'class'                 => 'League\OAuth2\Server\Grant\RefreshToken',

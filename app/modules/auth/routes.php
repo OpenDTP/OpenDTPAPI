@@ -2,9 +2,9 @@
 
 /**
  * OpenDTP API V1
+ * OAuth2 authentification
  */
-Route::resource(
-    'login',
-    'App\Modules\Auth\Controllers\LoginController',
-    ['except' => ['create', 'edit']]
-);
+Route::post('oauth/access_token', function()
+{
+    return AuthorizationServer::performAccessTokenFlow();
+});
