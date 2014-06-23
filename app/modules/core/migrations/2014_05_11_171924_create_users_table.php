@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
                 $table->string('login');
                 $table->string('password');
                 $table->string('email');
+                $table->string('remember_token')
+                    ->nullable();
                 $table->boolean('valid')
                     ->default(true);
                 $table->boolean('blocked')
