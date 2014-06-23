@@ -6,13 +6,14 @@
  * Time: 20:21
  */
 
-namespace App\Modules\Core\Controllers;
+namespace App\Modules\Auth\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Modules\Core\Controllers\BaseController;
 
 class LoginController extends BaseController
 {
@@ -24,9 +25,14 @@ class LoginController extends BaseController
      */
     public function index()
     {
-        Log::info('Checking login informations : ' . print_r($response, true));
         return Response::string(
-            ['data' => $response]
+            [
+                'code' => API_RETURN_400,
+                'messages' => ['You are not logged in'],
+                'data' => [
+                    'logged' => false
+                ]
+            ]
         );
     }
 
@@ -40,7 +46,7 @@ class LoginController extends BaseController
     {
         $rules = [
             'login' => 'required|alpha_num',
-            'password' => 'required|min:6'
+            'password' => 'required|min:4'
         ];
         $validator = Validator::make(Input::all(), $rules);
 
@@ -56,8 +62,16 @@ class LoginController extends BaseController
             );
         }
 
-        Auth::attempt(array('login' => Input::get('login'), 'password' => Input::get('password')));
+        $logged = Auth::attempt(array('login' => Input::get('login'), 'password' => Input::get('password')), true);
 
+        return Response::string(
+            [
+               'code' => $logged ? API_RETURN_500 : API_RETURN_400,
+               'messages' => [
+                   $logged ? 'Successfully logged in' : 'Invalid credentials'
+               ]
+            ]
+        );
     }
 
 
