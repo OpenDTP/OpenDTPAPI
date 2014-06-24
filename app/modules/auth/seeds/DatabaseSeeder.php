@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
 
-        $this->call('App\Modules\Core\Seeds\TokenSeeder');
+        $this->call('App\Modules\Auth\Seeds\TokenSeeder');
     }
 }
