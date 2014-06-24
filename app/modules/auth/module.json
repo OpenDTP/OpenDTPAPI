@@ -1,1 +1,4 @@
-{"enabled":true}
+{
+    "enabled": true,
+    "seeder": "App\\Modules\\Auth\\Seeds\\DatabaseSeeder"
+}
