@@ -15,7 +15,7 @@
  * OpenDTP API V1
  */
 Route::group(
-    ['prefix' => 'api/v1', 'before' => 'auth.basic'],
+    ['prefix' => 'api/v1', 'before' => 'oauth'],
     function () {
         Route::resource(
             'user',

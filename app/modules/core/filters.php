@@ -22,16 +22,3 @@ App::after(
     function ($request, $response) {
     }
 );
-
-Route::filter(
-    'auth.basic',
-    function () {
-        return Auth::basic("login");
-    }
-);
-
-Route::filter(
-    'admin',
-    function () {
-    }
-);
