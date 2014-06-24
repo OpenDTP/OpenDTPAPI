@@ -13,7 +13,6 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         parent::setUp();
 
-        Route::enableFilters();
         Auth::loginUsingId(1);
     }
 
