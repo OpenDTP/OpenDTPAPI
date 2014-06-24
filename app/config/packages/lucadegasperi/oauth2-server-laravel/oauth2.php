@@ -61,29 +61,29 @@ return [
     'grant_types' => [
 
         'authorization_code' => [
-            'class'            => 'League\OAuth2\Server\Grant\AuthCode',
+            'class' => 'League\OAuth2\Server\Grant\AuthCode',
             'access_token_ttl' => 3600,
-            'auth_token_ttl'   => 3600,
+            'auth_token_ttl' => 3600,
         ],
 
         'password' => [
-            'class'            => 'League\OAuth2\Server\Grant\Password',
+            'class' => 'League\OAuth2\Server\Grant\Password',
             'access_token_ttl' => 604800,
-            'callback'         => function ($username, $password) {
-                
-                $credentials = [
-                    'login' => $username,
-                    'password' => $password,
-                ];
+            'callback' => function ($username, $password) {
 
-                $valid = Auth::validate($credentials);
+                    $credentials = [
+                        'login' => $username,
+                        'password' => $password,
+                    ];
 
-                if (!$valid) {
-                    return false;
+                    $valid = Auth::validate($credentials);
+
+                    if (!$valid) {
+                        return false;
+                    }
+
+                    return Auth::getProvider()->retrieveByCredentials($credentials)->id;
                 }
-
-                return Auth::getProvider()->retrieveByCredentials($credentials)->id;
-            }
         ],
 
         //'client_credentials' => [
@@ -92,12 +92,12 @@ return [
         //],
 
         'refresh_token' => [
-            'class'                 => 'League\OAuth2\Server\Grant\RefreshToken',
-            'access_token_ttl'      => 3600,
-            'refresh_token_ttl'     => 604800,
+            'class' => 'League\OAuth2\Server\Grant\RefreshToken',
+            'access_token_ttl' => 3600,
+            'refresh_token_ttl' => 604800,
             'rotate_refresh_tokens' => false,
         ],
-        
+
     ],
 
     /*
