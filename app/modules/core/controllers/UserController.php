@@ -11,6 +11,16 @@ use App\Modules\Core\Models\User;
 
 class UserController extends BaseController
 {
+    protected $store_rules = [
+        'login' => 'required|alpha_num',
+        'password' => 'required|min:6',
+        'email' => 'required|email|unique:users,email'
+    ];
+    protected $update_rules = [
+        'login' => 'alpha_num',
+        'password' => 'min:6',
+        'email' => 'email|unique:users,email'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -49,23 +59,8 @@ class UserController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'login' => 'required|alpha_num',
-            'password' => 'required|min:6',
-            'email' => 'required|email|unique:users,email'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $user = new User;
         $user->login = Input::get('login');
@@ -124,23 +119,8 @@ class UserController extends BaseController
      */
     public function update($id)
     {
-        $inputs = Input::all();
-        $rules = [
-            'login' => 'alpha_num',
-            'password' => 'min:6',
-            'email' => 'email|unique:users,email'
-        ];
-        $validator = Validator::make($inputs, $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $user = User::find($id);
         if (is_null($user)) {
