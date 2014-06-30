@@ -11,6 +11,14 @@ use App\Modules\Document\Models\Document;
 
 class DocumentController extends BaseController
 {
+    protected $store_rules = [
+        'company_id' => 'required|exists:companies,id',
+        'name' => 'required'
+    ];
+    protected $update_rules = [
+        'company_id' => 'required|exists:companies,id',
+        'name' => 'required'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -35,22 +43,8 @@ class DocumentController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'company_id' => 'required|exists:companies,id',
-            'name' => 'required'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $document = new Document;
         $document->company_id = Input::get('company_id');
@@ -102,22 +96,8 @@ class DocumentController extends BaseController
     public function update($id)
     {
         $inputs = Input::all();
-        $rules = [
-            'company_id' => 'required|exists:companies,id',
-            'name' => 'required'
-        ];
-        $validator = Validator::make($inputs, $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $document = Renderer::find($id);
         if (is_null($document)) {

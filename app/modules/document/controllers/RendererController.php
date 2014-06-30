@@ -11,6 +11,18 @@ use App\Modules\Document\Models\Renderer;
 
 class RendererController extends BaseController
 {
+    protected $store_rules = [
+        'company_id' => 'required|exists:companies,id',
+        'connector_id' => 'exists:connectors,id',
+        'name' => 'required|unique:renderers,name',
+        'address' => 'required|ip'
+    ];
+    protected $update_rules = [
+        'company_id' => 'exists:companies,id',
+        'connector_id' => 'exists:connectors,id',
+        'name' => 'unique:renderers,name',
+        'address' => 'ip'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -40,24 +52,8 @@ class RendererController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'company_id' => 'required|exists:companies,id',
-            'connector_id' => 'exists:connectors,id',
-            'name' => 'required|unique:renderers,name',
-            'address' => 'required|ip'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $renderer = new Renderer;
         $renderer->company_id = Input::get('company_id');
@@ -107,23 +103,8 @@ class RendererController extends BaseController
     public function update($id)
     {
         $inputs = Input::all();
-        $rules = [
-            'company_id' => 'exists:companies,id',
-            'connector_id' => 'exists:connectors,id',
-            'name' => 'unique:renderers,name',
-            'address' => 'ip'
-        ];
-        $validator = Validator::make($inputs, $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $renderer = Renderer::find($id);
         if (is_null($renderer)) {
