@@ -27,8 +27,7 @@
     "autoload": {
         "classmap": [
             "app/modules",
-            "app/tests",
-            "workbench"
+            "app/tests"
         ]
     },
     "scripts": {
