@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Log;
 
 class CompanyUserController extends BaseController
 {
+    protected $store_rules = [
+        'user_id' => 'required|exists:users,id',
+        'company_id' => 'required|exists:companies,id'
+    ];
 
     /**
      * Store a newly created resource in storage.
@@ -19,22 +23,8 @@ class CompanyUserController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'user_id' => 'required|exists:users,id',
-            'company_id' => 'required|exists:companies,id'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . print_r($errors->getMessages(), true) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
 
         $user_company = new UserCompany;

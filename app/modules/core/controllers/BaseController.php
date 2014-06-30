@@ -86,7 +86,7 @@ class BaseController extends Controller
 
         if ($method == 'POST') {
             $rules = $this->store_rules;
-        } else if ($method == 'PUT' || $method == 'PATCH') {
+        } elseif ($method == 'PUT' || $method == 'PATCH') {
             $rules = $this->update_rules;
         }
         if (empty($rules)) {

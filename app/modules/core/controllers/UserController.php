@@ -122,6 +122,7 @@ class UserController extends BaseController
         if (!$this->isValid()) {
             return Response::error();
         }
+        $inputs = Input::all();
         $user = User::find($id);
         if (is_null($user)) {
             Log::info("Unkown user with ID $id");
