@@ -13,7 +13,7 @@ return array(
     |
     */
 
-    'name' => '',
+    'name' => 'Michael FORASTE',
     /*
     |--------------------------------------------------------------------------
     | Workbench Author E-Mail Address
@@ -25,6 +25,6 @@ return array(
     |
     */
 
-    'email' => '',
+    'email' => 'michael.foraste@gmail.com',
 
 );

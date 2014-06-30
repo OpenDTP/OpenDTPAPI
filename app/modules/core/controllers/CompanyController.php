@@ -11,6 +11,14 @@ use App\Modules\Core\Models\Company;
 
 class CompanyController extends BaseController
 {
+    protected $store_rules = [
+        'name' => 'required|min:3|unique:companies,name',
+        'description' => 'max:512'
+    ];
+    protected $update_rules = [
+        'name' => 'min:3|unique:companies,name',
+        'description' => 'max:512'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -32,22 +40,8 @@ class CompanyController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'name' => 'required|min:3|unique:companies,name',
-            'description' => 'max:512'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $company = new Company;
         $company->name = Input::get('name');
@@ -99,23 +93,10 @@ class CompanyController extends BaseController
      */
     public function update($id)
     {
-        $inputs = Input::all();
-        $rules = [
-            'name' => 'min:3|unique:companies,name',
-            'description' => 'max:512'
-        ];
-        $validator = Validator::make($inputs, $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
+        $inputs = Input::all();
         $company = Company::find($id);
         if (is_null($company)) {
             Log::info("Unkown company with ID $id");

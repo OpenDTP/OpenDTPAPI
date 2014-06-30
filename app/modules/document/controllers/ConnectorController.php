@@ -10,6 +10,14 @@ use App\Modules\Document\Models\Connector;
 
 class ConnectorController extends BaseController
 {
+    protected $store_rules = [
+        'name' => 'required|min:3|unique:connectors,name',
+        'active' => 'required|in:0,1'
+    ];
+    protected $update_rules = [
+        'name' => 'min:3|unique:connectors,name',
+        'active' => 'in:0,1'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -32,22 +40,8 @@ class ConnectorController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'name' => 'required|min:3|unique:connectors,name',
-            'active' => 'required|in:0,1'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $connector = new Connector;
         $connector->name = Input::get('name');
@@ -93,21 +87,8 @@ class ConnectorController extends BaseController
     public function update($id)
     {
         $inputs = Input::all();
-        $rules = [
-            'name' => 'min:3|unique:connectors,name',
-            'active' => 'in:0,1'
-        ];
-        $validator = Validator::make($inputs, $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $connector = Connector::find($id);
         if (is_null($connector)) {

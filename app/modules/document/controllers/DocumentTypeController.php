@@ -11,6 +11,15 @@ use App\Modules\Document\Models\DocumentType;
 
 class DocumentTypeController extends BaseController
 {
+    protected $store_rules = [
+        'name' => 'required',
+        'extension' => 'required|alpha_num'
+    ];
+    protected $update_rules = [
+        'name' => 'required',
+        'extension' => 'alpha_num'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -37,22 +46,8 @@ class DocumentTypeController extends BaseController
      */
     public function store()
     {
-        $rules = [
-            'name' => 'required',
-            'extension' => 'required|alpha_num'
-        ];
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $type = new DocumentType;
         $type->name = Input::get('name');
@@ -98,22 +93,8 @@ class DocumentTypeController extends BaseController
     public function update($id)
     {
         $inputs = Input::all();
-        $rules = [
-            'name' => 'required',
-            'extension' => 'alpha_num'
-        ];
-        $validator = Validator::make($inputs, $rules);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            Log::info('Invalid parameters : [' . implode(', ', $errors->getMessages()) . ']');
-            return Response::string(
-                [
-                    'code' => API_RETURN_500,
-                    'messages' => $errors->getMessages()
-                ]
-            );
+        if (!$this->isValid()) {
+            return Response::error();
         }
         $type = DocumentType::find($id);
         if (is_null($type)) {
