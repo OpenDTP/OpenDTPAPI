@@ -21,3 +21,14 @@ Route::filter(
     function () {
     }
 );
+
+Route::filter(
+    'oauth.register',
+    function () {
+        $id = ResourceServer::getOwnerId();
+        if ($id) {
+            $user = App\Modules\Core\Models\User::find($id);
+            Auth::login($user);
+        }
+    }
+);
