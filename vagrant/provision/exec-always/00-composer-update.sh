@@ -7,4 +7,4 @@ composer self-update
 composer update
 vendor/bin/phing build
 chmod -R 777 /storage
-chown -R www-data: /storage
+chown -R vagrant: /storage

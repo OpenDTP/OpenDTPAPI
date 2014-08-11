@@ -23,7 +23,7 @@ Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 
 # creating groups
 group { 'puppet':   ensure => present }
-group { 'www-data': ensure => present }
+group { 'vagrant': ensure => present }
 
 # creating user ssh declarated in hiera.yaml
 user { $username:
@@ -36,8 +36,8 @@ user { $username:
 user { ['apache']:
   shell  => '/bin/bash',
   ensure => present,
-  groups => 'www-data',
-  require => Group['www-data']
+  groups => 'vagrant',
+  require => Group['vagrant']
 }
 
 # creating ssh user home
@@ -99,8 +99,8 @@ if $apache_values == undef {
 # installing Apache
 class { 'apache':
   conf_template => '/vagrant/puppet/templates/apache/httpd.conf.erb',
-  user          => 'www-data',
-  group         => 'www-data',
+  user          => 'vagrant',
+  group         => 'vagrant',
   default_vhost => false,
   mpm_module    => prefork,
   manage_user   => false,
@@ -110,8 +110,8 @@ class { 'apache':
 file { "/var/log/apache2":
   ensure => directory,
   recurse => true,
-  owner => "www-data",
-  group => "www-data",
+  owner => "vagrant",
+  group => "vagrant",
   mode => 0644
 }
 
