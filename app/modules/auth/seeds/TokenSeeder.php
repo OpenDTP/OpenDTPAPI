@@ -15,7 +15,7 @@ class TokenSeeder extends Seeder
         OAuthClients::create(
             [
                 'id' => 0,
-                'secret' => '',
+                'secret' => 'opendtp',
                 'name' => 'opendtp_front'
             ]
         );

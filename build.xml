@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="OpenDTPAPI" basedir="." default="build">
+
+    <target name="deploy" depends="build">
+        <echo msg="Deploying application"/>
+        <exec
+            command="php artisan modules:seed"
+            passthru="true"
+            />
+    </target>
+
     <target name="build">
-        <chmod file="${project.basedir}/app/storage" mode="0775" />
+        <mkdir dir="/storage/cache" mode="777"/>
+        <mkdir dir="/storage/logs" mode="777"/>
+        <mkdir dir="/storage/meta" mode="777"/>
+        <mkdir dir="/storage/sessions" mode="777"/>
+        <mkdir dir="/storage/views" mode="777"/>
+
+        <!-- deploy migrations -->
+        <exec
+            command="php artisan modules:migrate"
+            passthru="true"
+            />
+
+        <!-- migrate OAuth module -->
+        <exec
+            command="php artisan migrate --package='lucadegasperi/oauth2-server-laravel'"
+            passthru="true"
+            />
         <echo msg="Build End"/>
     </target>
 

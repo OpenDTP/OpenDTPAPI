@@ -5,6 +5,6 @@ echo "Installing composer dependencies"
 cd /data
 composer self-update
 composer update
-vendor/bin/phing build-dev
+vendor/bin/phing build
 chmod -R 777 /storage
-chown -R www-data: /staorage
+chown -R www-data: /storage
