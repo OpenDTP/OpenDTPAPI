@@ -4,7 +4,6 @@ namespace App\Modules\Document\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Core\Controllers\BaseController;
 use App\Modules\Document\Models\Document;
@@ -99,7 +98,7 @@ class DocumentController extends BaseController
         if (!$this->isValid()) {
             return Response::error();
         }
-        $document = Renderer::find($id);
+        $document = Document::find($id);
         if (is_null($document)) {
             Log::info("Unkown document with ID $id");
             return Response::string(
