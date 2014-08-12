@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use App\Modules\Core\Controllers\BaseController;
 use App\Modules\Document\Models\Document;
+use App\Modules\Storage\Support\Facades\Storage;
 
 class DocumentController extends BaseController
 {
