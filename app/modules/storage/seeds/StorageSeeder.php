@@ -12,11 +12,10 @@ class StorageSeeder extends Seeder
     {
         Store::create(
             [
-                'mime' => 'application/octet-stream',
-                'extension' => 'indd',
                 'name' => 'InDesign Document',
                 'description' => 'InDesign documents from Adobe',
-                'connector' => '\App\Modules\Storage\Connectors\Indesign',
+                'connector' => 'App\Modules\Storage\Connectors\Fs\Connector',
+                'settings' => '',
                 'active' => true
             ]
         );

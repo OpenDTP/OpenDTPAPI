@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Controllers\BaseController;
 use App\Modules\Document\Models\Document;
 use App\Modules\Storage\Support\Facades\Storage;
+use App\Modules\Storage\Models\Store;
 
 class DocumentController extends BaseController
 {
@@ -48,18 +49,10 @@ class DocumentController extends BaseController
             return Response::error();
         }
 
-        $document = new Document;
-        $document->company_id = Input::get('company_id');
-        $document->user_id = Auth::user()->user_id;
-        $document->name = Input::get('name');
-        $document->description = Input::get('description');
-
         $file = Input::file('file');
-        $storeObject = Storage::store($file);
 
         try {
-            $file = Input::file('file');
-            $storeObject = Storage::store($file);
+            $file_id = Storage::store($file, Store::find(1));
         } catch (\Exception $e) {
             Log::info(
                 'Failed to import document file [' . $file->getClientOriginalName() . '] : '
@@ -73,8 +66,15 @@ class DocumentController extends BaseController
             );
         }
 
+        $document = new Document;
+        $document->company_id = Input::get('company_id');
+        $document->user_id = Auth::user()->id;
+        $document->name = Input::get('name');
+        $document->description = Input::get('description');
         $document->file = $file->getClientOriginalName();
-        $document->file_type = 1;
+        $document->file_id = $file_id;
+        $document->store_id = 1;
+        $document->type = 1;
         $document->save();
 
         Log::info('Successfully created document !');

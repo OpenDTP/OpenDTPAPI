@@ -6,14 +6,11 @@ class Store extends \Eloquent
 {
     protected $table = 'stores';
 
-    public static function findByType($mime, $extension, $active = null)
-    {
-        $storeQuery = self::where('mime', '=', $mime)
-            ->where('extension', '=', $extension);
+    public function getSettings() {
+        return json_decode($this->settings, true);
+    }
 
-        if (!is_null($active) && is_bool($active)) {
-            $storeQuery->where('extension', '=', $active);
-        }
-        return $storeQuery->get();
+    public function setSettings($settings) {
+        $this->settings = json_encode($settings);
     }
 }

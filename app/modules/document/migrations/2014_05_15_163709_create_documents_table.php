@@ -24,6 +24,8 @@ class CreateDocumentsTable extends Migration
                 $table->string('description')
                     ->nullable();
                 $table->string('file');
+                $table->string('file_id');
+                $table->string('store_id');
                 $table->unsignedInteger('type');
                 $table->foreign('type')
                     ->references('id')

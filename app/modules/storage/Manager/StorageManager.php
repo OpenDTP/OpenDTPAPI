@@ -7,12 +7,10 @@ use App\Modules\Storage\Models\Store;
 
 class StorageManager
 {
-    public function store(UploadedFile $file)
+    public function store(UploadedFile $file, Store $store)
     {
-        $stores = Store::findByType($file->getMimeType(), $file->getClientOriginalExtension());
-        foreach ($stores as $store) {
-            print_r($store);
-        }
-        die;
+        $connectorClass = $store->connector;
+        $connector = new $connectorClass($store);
+        return $connector->store($file);
     }
-} 
+}

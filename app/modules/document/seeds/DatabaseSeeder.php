@@ -20,6 +20,5 @@ class DatabaseSeeder extends Seeder
         $this->call('App\Modules\Document\Seeds\ConnectorSeeder');
         $this->call('App\Modules\Document\Seeds\RendererSeeder');
         $this->call('App\Modules\Document\Seeds\DocumentTypeSeeder');
-        $this->call('App\Modules\Document\Seeds\DocumentSeeder');
     }
 }
