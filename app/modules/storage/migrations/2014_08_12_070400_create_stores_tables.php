@@ -16,7 +16,6 @@ class CreateStoresTables extends Migration {
         Schema::Create(
             'stores',
             function (Blueprint $table) {
-                $table->increments('id');
                 $table->string('mime');
                 $table->string('extension');
                 $table->string('name');
@@ -24,7 +23,7 @@ class CreateStoresTables extends Migration {
                 $table->string('connector');
                 $table->boolean('active');
                 $table->timestamps();
-                $table->unique(['mime', 'extension']);
+                $table->primary(['mime', 'extension']);
             }
         );
     }

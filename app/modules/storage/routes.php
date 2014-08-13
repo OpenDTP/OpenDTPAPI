@@ -17,7 +17,7 @@
 Route::group(
     [
         'prefix' => 'api/v1/document',
-        'before' => 'auth.basic'
+        'before' => ['oauth', 'oauth.register']
     ],
     function () {
     }

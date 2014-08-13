@@ -12,7 +12,7 @@ class StorageSeeder extends Seeder
     {
         Store::create(
             [
-                'mime' => 'application/adobe',
+                'mime' => 'application/octet-stream',
                 'extension' => 'indd',
                 'name' => 'InDesign Document',
                 'description' => 'InDesign documents from Adobe',
