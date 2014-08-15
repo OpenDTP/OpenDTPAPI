@@ -13,5 +13,5 @@ Summary
 -------
 
 ### For developpers ###
-> [Environement](doc/vagrant.md)
-> [Phing commmands](doc/phing.md)
+* [Environement](doc/vagrant.md)
+* [Phing commmands](doc/phing.md)
