@@ -10,6 +10,16 @@
             />
     </target>
 
+    <target name="redeploy">
+        <echo msg="Uninstalling OpenDTP"/>
+        <exec
+            command="php artisan migrate:reset"
+            passthru="true"
+            />
+
+        <phingcall target="deploy"/>
+    </target>
+
     <target name="build">
         <mkdir dir="/storage/cache" mode="777"/>
         <mkdir dir="/storage/logs" mode="777"/>
