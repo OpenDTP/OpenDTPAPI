@@ -13,13 +13,21 @@ class UserController extends BaseController
 {
     protected $store_rules = [
         'login' => 'required|alpha_num',
-        'password' => 'required|min:6',
-        'email' => 'required|email|unique:users,email'
+        'password' => 'required|min:6|max:255',
+        'email' => 'required|email|max:255|unique:users,email',
+        'firstname' => 'min:6|max:255',
+        'lastname' => 'min:6|max:255',
+        'description' => 'min:6|max:255',
+        'company_id' => 'exists:companies,id'
     ];
     protected $update_rules = [
         'login' => 'alpha_num',
-        'password' => 'min:6',
-        'email' => 'email|unique:users,email'
+        'password' => 'min:6|max:255',
+        'email' => 'email|max:255|unique:users,email',
+        'firstname' => 'min:6|max:255',
+        'lastname' => 'min:6|max:255',
+        'description' => 'min:6|max:255',
+        'company_id' => 'exists:companies,id'
     ];
 
     /**
@@ -66,6 +74,10 @@ class UserController extends BaseController
         $user->login = Input::get('login');
         $user->password = Input::get('password');
         $user->email = Input::get('email');
+        $user->firstname = Input::get('firstname');
+        $user->lastname = Input::get('lastname');
+        $user->description = Input::get('description');
+        $user->company_id = Input::get('company_id');
         $user->save();
 
         Log::info('Successfully created user ' . $user->id . ' ! [' . print_r($user->toArray(), true) . ']');
@@ -136,6 +148,10 @@ class UserController extends BaseController
         $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
         $user->password = empty($inputs['password']) ? $user->login : $inputs['password'];
         $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
+        $user->firstname = empty($inputs['firstname']) ? $user->login : $inputs['firstname'];
+        $user->lastname = empty($inputs['lastname']) ? $user->login : $inputs['lastname'];
+        $user->description = empty($inputs['description']) ? $user->login : $inputs['description'];
+        $user->company_id = empty($inputs['company_id']) ? $user->login : $inputs['company_id'];
         $user->save();
 
         Log::info('Updated user : ' . print_r($user->attributesToArray(), true));
