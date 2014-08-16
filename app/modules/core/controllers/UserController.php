@@ -37,7 +37,9 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $user = Auth::user();
+        $user = Auth::user()
+            ->with('partners', 'company')
+            ->first();
 
         if (is_null($user)) {
             return Response::string(
@@ -47,15 +49,10 @@ class UserController extends BaseController
                 ]
             );
         }
-        $response = $user->attributesToArray();
-        $response['companies'] = [];
-        foreach ($user->companies() as $company) {
-            $response['companies'][] = $company->attributesToArray();
-        }
 
-        Log::info('Found user : ' . print_r($response, true));
+        Log::info('Found user : ' . print_r($user->toArray(), true));
         return Response::string(
-            ['data' => $response]
+            ['data' => $user->toArray()]
         );
     }
 
@@ -112,7 +109,7 @@ class UserController extends BaseController
 
         $response = $user->attributesToArray();
         $response['companies'] = [];
-        foreach ($user->companies() as $company) {
+        foreach ($user->companies as $company) {
             $response['companies'][] = $company->attributesToArray();
         }
 

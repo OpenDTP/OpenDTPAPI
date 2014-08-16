@@ -20,6 +20,6 @@ class Company extends \Eloquent
             'users_companies',
             'company_id',
             'user_id'
-        )->getResults();
+        );
     }
 }
