@@ -45,5 +45,13 @@ Route::group(
                 'uses' => 'App\Modules\Core\Controllers\CompanyUserController@destroy'
             ]
         );
+
+        Route::post(
+            'user/{user_id}/picture',
+            [
+                'as' => 'api.v1.user.picture.post',
+                'uses' => 'App\Modules\Core\Controllers\PictureController@store'
+            ]
+        );
     }
 );

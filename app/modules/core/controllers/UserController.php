@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
-use App\Modules\Core\Support\Facades\Assets;
 use App\Modules\Core\Models\User;
 
 class UserController extends BaseController
@@ -18,7 +17,6 @@ class UserController extends BaseController
         'firstname' => 'min:6|max:255',
         'lastname' => 'min:6|max:255',
         'description' => 'min:6|max:255',
-        'pictures' => 'max:10000|mimes:jpg,png',
         'company_id' => 'exists:companies,id'
     ];
     protected $update_rules = [
@@ -28,7 +26,6 @@ class UserController extends BaseController
         'firstname' => 'min:6|max:255',
         'lastname' => 'min:6|max:255',
         'description' => 'min:6|max:255',
-        'pictures' => 'max:10000|mimes:jpg,png',
         'company_id' => 'exists:companies,id'
     ];
 
@@ -141,12 +138,12 @@ class UserController extends BaseController
             );
         }
         $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
-        $user->password = empty($inputs['password']) ? $user->login : $inputs['password'];
-        $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
-        $user->firstname = empty($inputs['firstname']) ? $user->login : $inputs['firstname'];
-        $user->lastname = empty($inputs['lastname']) ? $user->login : $inputs['lastname'];
-        $user->description = empty($inputs['description']) ? $user->login : $inputs['description'];
-        $user->company_id = empty($inputs['company_id']) ? $user->login : $inputs['company_id'];
+        $user->password = empty($inputs['password']) ? $user->password : $inputs['password'];
+        $user->email = empty($inputs['email']) ? $user->email : $inputs['email'];
+        $user->firstname = empty($inputs['firstname']) ? $user->firstname : $inputs['firstname'];
+        $user->lastname = empty($inputs['lastname']) ? $user->lastname : $inputs['lastname'];
+        $user->description = empty($inputs['description']) ? $user->description : $inputs['description'];
+        $user->company_id = empty($inputs['company_id']) ? $user->company_id : $inputs['company_id'];
         $user->save();
 
         Log::info('Updated user : ' . print_r($user->attributesToArray(), true));
