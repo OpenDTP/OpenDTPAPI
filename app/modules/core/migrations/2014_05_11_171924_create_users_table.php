@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
                     ->nullable();
                 $table->string('description')
                     ->nullable();
+                $table->string('picture')
+                    ->nullable();
                 $table->string('remember_token')
                     ->nullable();
                 $table->boolean('valid')

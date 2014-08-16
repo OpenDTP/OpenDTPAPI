@@ -4,9 +4,9 @@ namespace App\Modules\Core\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use App\Modules\Core\Support\Facades\Assets;
 use App\Modules\Core\Models\User;
 
 class UserController extends BaseController
@@ -18,6 +18,7 @@ class UserController extends BaseController
         'firstname' => 'min:6|max:255',
         'lastname' => 'min:6|max:255',
         'description' => 'min:6|max:255',
+        'pictures' => 'max:10000|mimes:jpg,png',
         'company_id' => 'exists:companies,id'
     ];
     protected $update_rules = [
@@ -27,6 +28,7 @@ class UserController extends BaseController
         'firstname' => 'min:6|max:255',
         'lastname' => 'min:6|max:255',
         'description' => 'min:6|max:255',
+        'pictures' => 'max:10000|mimes:jpg,png',
         'company_id' => 'exists:companies,id'
     ];
 
@@ -95,7 +97,9 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = Auth::user()
+            ->with('partners', 'company')
+            ->find($id);
 
         if (is_null($user)) {
             Log::info("Unkown user with ID $id");
@@ -107,15 +111,9 @@ class UserController extends BaseController
             );
         }
 
-        $response = $user->attributesToArray();
-        $response['companies'] = [];
-        foreach ($user->companies as $company) {
-            $response['companies'][] = $company->attributesToArray();
-        }
-
-        Log::info('Found user : ' . print_r($response, true));
+        Log::info('Found user : ' . print_r($user->toArray(), true));
         return Response::string(
-            ['data' => $response]
+            ['data' => $user->toArray()]
         );
     }
 

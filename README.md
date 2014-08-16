@@ -12,6 +12,15 @@ This project is the API part.
 Summary
 -------
 
+### Webservice access ###
+* How to connect
+* Services summary
+
+### Modules ###
+* Core
+* Document
+* Project
+
 ### For developpers ###
 * [Environement](doc/vagrant.md)
 * [Phing commmands](doc/phing.md)

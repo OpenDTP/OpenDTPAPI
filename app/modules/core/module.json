@@ -1,4 +1,8 @@
 {
     "enabled": true,
-    "seeder": "App\\Modules\\Core\\Seeds\\DatabaseSeeder"
+    "seeder": "App\\Modules\\Core\\Seeds\\DatabaseSeeder",
+    "provider": "App\\Modules\\Core\\Support\\ServiceProvider\\AssetsServiceProvider",
+    "alias": {
+        "Assets": "App\\Modules\\Core\\Support\\Facades\\Assets"
+    }
 }
