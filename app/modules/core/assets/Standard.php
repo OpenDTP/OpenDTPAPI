@@ -6,13 +6,15 @@ use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Modules\Core\Models\Asset;
 
-class Standard implements IAsset {
-
+class Standard implements IAsset
+{
     public function put(UploadedFile $file, $path, $config)
     {
         $asset = new Asset;
 
-        $asset->id = md5($file->getClientOriginalName() . '-' . $file->getSize() . '-' . $file->getClientMimeType() . '-' . time());
+        $asset->id = md5(
+            $file->getClientOriginalName() . '-' . $file->getSize() . '-' . $file->getClientMimeType() . '-' . time()
+        );
         $asset->name = $file->getClientOriginalName();
         $asset->mime = $file->getClientMimeType();
 

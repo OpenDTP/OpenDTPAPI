@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Models\User;
 use App\Modules\Core\Models\Asset;
 
-class PictureController extends BaseController {
-
+class PictureController extends BaseController
+{
     protected $store_rules = [
         'picture' => 'max:10000|mimes:jpg,jpeg,png'
     ];
@@ -18,13 +18,13 @@ class PictureController extends BaseController {
         'picture' => 'max:10000|mimes:jpg,jpeg,png'
     ];
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store($id)
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store($id)
+    {
         if (!$this->isValid()) {
             return Response::error();
         }
@@ -57,17 +57,17 @@ class PictureController extends BaseController {
                 'data' => $asset->attributesToArray()
             ]
         );
-	}
+    }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
         $user = User::find($id);
 
         if (is_null($user)) {
@@ -94,17 +94,17 @@ class PictureController extends BaseController {
         return Response::make(file_get_contents($file), 200)
             ->header('Content-Type', $asset->mime)
             ->header('Content-Length', filesize($file));
-	}
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
         $user = User::find($id);
 
         if (is_null($user)) {
@@ -124,7 +124,5 @@ class PictureController extends BaseController {
         return Response::string(
             ['messages' => ["User $id picture deleted"]]
         );
-	}
-
-
+    }
 }
