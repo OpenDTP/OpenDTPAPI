@@ -5,8 +5,11 @@ namespace App\Modules\Document\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Controllers\BaseController;
 use App\Modules\Document\Models\Document;
+use App\Modules\Storage\Support\Facades\Storage;
+use App\Modules\Storage\Models\Store;
 
 class DocumentController extends BaseController
 {
@@ -45,13 +48,33 @@ class DocumentController extends BaseController
         if (!$this->isValid()) {
             return Response::error();
         }
+
+        $file = Input::file('file');
+
+        try {
+            $file_id = Storage::store($file, Store::find(1));
+        } catch (\Exception $e) {
+            Log::info(
+                'Failed to import document file [' . $file->getClientOriginalName() . '] : '
+                . print_r($e, true)
+            );
+            return Response::string(
+                [
+                    'code' => API_RETURN_500,
+                    'messages' => ['Failed to import document file : ' . $e->getMessage()]
+                ]
+            );
+        }
+
         $document = new Document;
         $document->company_id = Input::get('company_id');
-        $document->user_id = Auth::user()->user_id;
+        $document->user_id = Auth::user()->id;
         $document->name = Input::get('name');
         $document->description = Input::get('description');
-        $document->file = 'toto';
-        $document->file_type = 1;
+        $document->file = $file->getClientOriginalName();
+        $document->file_id = $file_id;
+        $document->store_id = 1;
+        $document->type = 1;
         $document->save();
 
         Log::info('Successfully created document !');

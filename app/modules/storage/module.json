@@ -1,0 +1,7 @@
+{
+    "seeder": "App\\Modules\\Storage\\Seeds\\DatabaseSeeder",
+    "provider": "App\\Modules\\Storage\\Support\\ServiceProvider\\StorageServiceProvider",
+    "alias": {
+        "storage": "App\\Modules\\Storage\\Support\\Facades\\Storage"
+    }
+}
