@@ -16,7 +16,10 @@ class UserSeeder extends Seeder
             [
                 'login' => 'admin',
                 'password' => Hash::make('admin'),
-                'email' => 'fake_email@provider.com'
+                'email' => 'fake_email@provider.com',
+                'firstname' => 'Michael',
+                'lastname' => 'FORASTE',
+                'description' => 'Fake description of admin'
             ]
         );
 
@@ -25,7 +28,10 @@ class UserSeeder extends Seeder
             [
                 'login' => 'duser1',
                 'password' => Hash::make('duser1'),
-                'email' => 'fake_email_duser1@provider.com'
+                'email' => 'fake_email_duser1@provider.com',
+                'firstname' => 'Gaetan',
+                'lastname' => 'GUERAUD',
+                'description' => 'Fake description of duser1'
             ]
         );
 

@@ -56,7 +56,8 @@ class CompanyUserController extends BaseController
      */
     public function show($id)
     {
-        $company = Company::find($id);
+        $company = Company::with('users')
+            ->find($id);
 
         if (is_null($company)) {
             return Response::string(
@@ -66,7 +67,7 @@ class CompanyUserController extends BaseController
                 ]
             );
         }
-        $users = $company->users()->toArray();
+        $users = $company->users->toArray();
 
         Log::info('Found users : ' . print_r($users, true));
         return Response::string(['data' => $users]);

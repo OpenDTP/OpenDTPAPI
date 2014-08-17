@@ -18,16 +18,29 @@ class CreateUsersTable extends Migration
             'users',
             function (Blueprint $table) {
                 $table->increments('id');
+                $table->unsignedInteger('company_id')
+                    ->nullable();
                 $table->string('login');
                 $table->string('password');
                 $table->string('email')
                     ->unique();
+                $table->string('firstname')
+                    ->nullable();
+                $table->string('lastname')
+                    ->nullable();
+                $table->string('description')
+                    ->nullable();
+                $table->string('picture')
+                    ->nullable();
                 $table->string('remember_token')
                     ->nullable();
                 $table->boolean('valid')
                     ->default(true);
                 $table->boolean('blocked')
                     ->default(false);
+                $table->foreign('company_id')
+                    ->references('id')
+                    ->on('companies');
                 $table->timestamps();
             }
         );

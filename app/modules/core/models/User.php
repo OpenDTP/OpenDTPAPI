@@ -16,14 +16,24 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
     protected $table = 'users';
     protected $hidden = array('password');
 
-    public function companies()
+    public function partners()
     {
         return $this->belongsToMany(
             'App\Modules\Core\Models\Company',
             'users_companies',
             'user_id',
             'company_id'
-        )->getResults();
+        );
+    }
+
+    public function company()
+    {
+        return $this->hasOne('App\Modules\Core\Models\Company', 'id', 'company_id');
+    }
+
+    public function picture()
+    {
+        return $this->hasOne('App\Modules\Core\Models\Asset', 'id', 'picture');
     }
 
     public function getAuthIdentifier()

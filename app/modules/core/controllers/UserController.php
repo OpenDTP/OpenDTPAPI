@@ -4,7 +4,6 @@ namespace App\Modules\Core\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Models\User;
@@ -13,13 +12,21 @@ class UserController extends BaseController
 {
     protected $store_rules = [
         'login' => 'required|alpha_num',
-        'password' => 'required|min:6',
-        'email' => 'required|email|unique:users,email'
+        'password' => 'required|min:6|max:255',
+        'email' => 'required|email|max:255|unique:users,email',
+        'firstname' => 'min:6|max:255',
+        'lastname' => 'min:6|max:255',
+        'description' => 'min:6|max:255',
+        'company_id' => 'exists:companies,id'
     ];
     protected $update_rules = [
         'login' => 'alpha_num',
-        'password' => 'min:6',
-        'email' => 'email|unique:users,email'
+        'password' => 'min:6|max:255',
+        'email' => 'email|max:255|unique:users,email',
+        'firstname' => 'min:6|max:255',
+        'lastname' => 'min:6|max:255',
+        'description' => 'min:6|max:255',
+        'company_id' => 'exists:companies,id'
     ];
 
     /**
@@ -29,7 +36,9 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $user = Auth::user();
+        $user = Auth::user()
+            ->with('partners', 'company', 'picture')
+            ->first();
 
         if (is_null($user)) {
             return Response::string(
@@ -39,15 +48,10 @@ class UserController extends BaseController
                 ]
             );
         }
-        $response = $user->attributesToArray();
-        $response['companies'] = [];
-        foreach ($user->companies() as $company) {
-            $response['companies'][] = $company->attributesToArray();
-        }
 
-        Log::info('Found user : ' . print_r($response, true));
+        Log::info('Found user : ' . print_r($user->toArray(), true));
         return Response::string(
-            ['data' => $response]
+            ['data' => $user->toArray()]
         );
     }
 
@@ -66,6 +70,10 @@ class UserController extends BaseController
         $user->login = Input::get('login');
         $user->password = Input::get('password');
         $user->email = Input::get('email');
+        $user->firstname = Input::get('firstname');
+        $user->lastname = Input::get('lastname');
+        $user->description = Input::get('description');
+        $user->company_id = Input::get('company_id');
         $user->save();
 
         Log::info('Successfully created user ' . $user->id . ' ! [' . print_r($user->toArray(), true) . ']');
@@ -86,7 +94,9 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = Auth::user()
+            ->with('partners', 'company', 'picture')
+            ->find($id);
 
         if (is_null($user)) {
             Log::info("Unkown user with ID $id");
@@ -98,15 +108,9 @@ class UserController extends BaseController
             );
         }
 
-        $response = $user->attributesToArray();
-        $response['companies'] = [];
-        foreach ($user->companies() as $company) {
-            $response['companies'][] = $company->attributesToArray();
-        }
-
-        Log::info('Found user : ' . print_r($response, true));
+        Log::info('Found user : ' . print_r($user->toArray(), true));
         return Response::string(
-            ['data' => $response]
+            ['data' => $user->toArray()]
         );
     }
 
@@ -134,8 +138,12 @@ class UserController extends BaseController
             );
         }
         $user->login = empty($inputs['login']) ? $user->login : $inputs['login'];
-        $user->password = empty($inputs['password']) ? $user->login : $inputs['password'];
-        $user->email = empty($inputs['email']) ? $user->login : $inputs['email'];
+        $user->password = empty($inputs['password']) ? $user->password : $inputs['password'];
+        $user->email = empty($inputs['email']) ? $user->email : $inputs['email'];
+        $user->firstname = empty($inputs['firstname']) ? $user->firstname : $inputs['firstname'];
+        $user->lastname = empty($inputs['lastname']) ? $user->lastname : $inputs['lastname'];
+        $user->description = empty($inputs['description']) ? $user->description : $inputs['description'];
+        $user->company_id = empty($inputs['company_id']) ? $user->company_id : $inputs['company_id'];
         $user->save();
 
         Log::info('Updated user : ' . print_r($user->attributesToArray(), true));
