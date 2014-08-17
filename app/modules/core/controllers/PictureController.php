@@ -3,6 +3,7 @@
 namespace App\Modules\Core\Controllers;
 
 use App\Modules\Core\Support\Facades\Assets;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
@@ -23,13 +24,13 @@ class PictureController extends BaseController
      *
      * @return Response
      */
-    public function store($id)
+    public function store($id = null)
     {
         if (!$this->isValid()) {
             return Response::error();
         }
 
-        $user = User::find($id);
+        $user = empty($id) ? Auth::User() : User::find($id);
         if (is_null($user)) {
             Log::info("Unknown user with id $id");
             return Response::string(
@@ -66,9 +67,9 @@ class PictureController extends BaseController
      * @param  int $id
      * @return Response
      */
-    public function show($id)
+    public function show($id = null)
     {
-        $user = User::find($id);
+        $user = empty($id) ? Auth::User() : User::find($id);
 
         if (is_null($user)) {
             Log::info("Unknown user with id $id");
@@ -80,11 +81,11 @@ class PictureController extends BaseController
             );
         }
         if (is_null($user->picture)) {
-            Log::info("No picture for user with id $id");
+            Log::info("No picture for user with id " . $user->id);
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["No picture for user with id $id"]
+                    'messages' => ["No picture for user with id " . $user->id]
                 ]
             );
         }
@@ -103,9 +104,9 @@ class PictureController extends BaseController
      * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id = null)
     {
-        $user = User::find($id);
+        $user = empty($id) ? Auth::User() : User::find($id);
 
         if (is_null($user)) {
             Log::info("Unknown user with id $id");
@@ -120,9 +121,9 @@ class PictureController extends BaseController
         $user->picture = null;
         $user->save();
 
-        Log::info("User $id deleted");
+        Log::info("User " . $user->id . " deleted");
         return Response::string(
-            ['messages' => ["User $id picture deleted"]]
+            ['messages' => ["User " . $user->id . " picture deleted"]]
         );
     }
 }

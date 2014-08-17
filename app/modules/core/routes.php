@@ -20,29 +20,27 @@ Route::group(
         'before' => ['oauth', 'oauth.register']
     ],
     function () {
-        Route::resource(
-            'user',
-            'App\Modules\Core\Controllers\UserController',
-            ['except' => ['create', 'edit']]
+        Route::get(
+            'user/picture',
+            [
+                'as' => 'api.v1.user.picture.show.self',
+                'uses' => 'App\Modules\Core\Controllers\PictureController@show'
+            ]
         );
 
-        Route::resource(
-            'company',
-            'App\Modules\Core\Controllers\CompanyController',
-            ['except' => ['create', 'edit']]
-        );
-
-        Route::resource(
-            'company/user',
-            'App\Modules\Core\Controllers\CompanyUserController',
-            ['only' => ['store', 'show']]
+        Route::post(
+            'user/picture',
+            [
+                'as' => 'api.v1.user.picture.store.self',
+                'uses' => 'App\Modules\Core\Controllers\PictureController@store'
+            ]
         );
 
         Route::delete(
-            'company/user/{company}/{user}',
+            'user/picture',
             [
-                'as' => 'api.v1.company.user.destroy',
-                'uses' => 'App\Modules\Core\Controllers\CompanyUserController@destroy'
+                'as' => 'api.v1.user.picture.destroy.self',
+                'uses' => 'App\Modules\Core\Controllers\PictureController@destroy'
             ]
         );
 
@@ -67,6 +65,32 @@ Route::group(
             [
                 'as' => 'api.v1.user.picture.destroy',
                 'uses' => 'App\Modules\Core\Controllers\PictureController@destroy'
+            ]
+        );
+
+        Route::resource(
+            'user',
+            'App\Modules\Core\Controllers\UserController',
+            ['except' => ['create', 'edit']]
+        );
+
+        Route::resource(
+            'company',
+            'App\Modules\Core\Controllers\CompanyController',
+            ['except' => ['create', 'edit']]
+        );
+
+        Route::resource(
+            'company/user',
+            'App\Modules\Core\Controllers\CompanyUserController',
+            ['only' => ['store', 'show']]
+        );
+
+        Route::delete(
+            'company/user/{company}/{user}',
+            [
+                'as' => 'api.v1.company.user.destroy',
+                'uses' => 'App\Modules\Core\Controllers\CompanyUserController@destroy'
             ]
         );
     }
