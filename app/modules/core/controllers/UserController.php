@@ -95,7 +95,7 @@ class UserController extends BaseController
     public function show($id)
     {
         $user = Auth::user()
-            ->with('partners', 'company')
+            ->with('partners', 'company', 'picture')
             ->find($id);
 
         if (is_null($user)) {

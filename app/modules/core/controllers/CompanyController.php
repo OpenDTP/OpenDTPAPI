@@ -27,7 +27,7 @@ class CompanyController extends BaseController
      */
     public function index()
     {
-        $companies = Auth::user()->companies()->toArray();
+        $companies = Auth::user()->partners()->get()->toArray();
 
         Log::info('Found companies : ' . print_r($companies, true));
         return Response::string(['data' => $companies]);
