@@ -26,6 +26,7 @@
         <mkdir dir="/storage/meta" mode="777"/>
         <mkdir dir="/storage/sessions" mode="777"/>
         <mkdir dir="/storage/views" mode="777"/>
+        <mkdir dir="/storage/assets" mode="777"/>
 
         <!-- deploy migrations -->
         <exec

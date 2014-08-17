@@ -31,6 +31,11 @@ class User extends \Eloquent implements UserInterface, RemindableInterface
         return $this->hasOne('App\Modules\Core\Models\Company', 'id', 'company_id');
     }
 
+    public function picture()
+    {
+        return $this->hasOne('App\Modules\Core\Models\Asset', 'id', 'picture');
+    }
+
     public function getAuthIdentifier()
     {
         return $this->getKey();

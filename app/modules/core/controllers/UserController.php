@@ -37,7 +37,7 @@ class UserController extends BaseController
     public function index()
     {
         $user = Auth::user()
-            ->with('partners', 'company')
+            ->with('partners', 'company', 'picture')
             ->first();
 
         if (is_null($user)) {

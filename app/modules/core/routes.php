@@ -53,5 +53,21 @@ Route::group(
                 'uses' => 'App\Modules\Core\Controllers\PictureController@store'
             ]
         );
+
+        Route::get(
+            'user/{user_id}/picture',
+            [
+                'as' => 'api.v1.user.picture.show',
+                'uses' => 'App\Modules\Core\Controllers\PictureController@show'
+            ]
+        );
+
+        Route::delete(
+            'user/{user_id}/picture',
+            [
+                'as' => 'api.v1.user.picture.destroy',
+                'uses' => 'App\Modules\Core\Controllers\PictureController@destroy'
+            ]
+        );
     }
 );
