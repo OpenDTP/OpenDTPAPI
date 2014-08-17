@@ -13,11 +13,11 @@ Summary
 -------
 
 ### Webservice access ###
-* How to connect
+* [How to connect](doc/connect.md)
 * Services summary
 
 ### Modules ###
-* Core
+* [Core](doc/modules/core.md)
 * Document
 * Project
 
