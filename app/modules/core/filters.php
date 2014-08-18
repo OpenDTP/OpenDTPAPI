@@ -22,3 +22,19 @@ App::after(
     function ($request, $response) {
     }
 );
+
+// Error management
+// Catch unmanaged errors and reformat exception to display
+App::error(
+    function (Exception $exception) {
+        Log::error('Runtime Exception : ' . $exception->getMessage());
+        return Response::json(
+            [
+                'version' => API_VERSION,
+                'code' => $exception->getCode(),
+                'messages' => $exception->getMessage(),
+                'data' => ''
+            ]
+        );
+    }
+);
