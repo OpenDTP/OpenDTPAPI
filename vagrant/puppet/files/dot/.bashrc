@@ -112,6 +112,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export APPLICATION_ENV=developpement
+
 # Change landing directory
 # Automatically go to /data directory for an easier landing with vagrant ssh
 cd /data
