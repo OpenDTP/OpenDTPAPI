@@ -6,6 +6,8 @@
 
 role :prod, %w{forast_m@ironman.opendtp.net}
 
+set :default_env, { APPLICATION_ENV: "production" }
+
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/data/www'
 set :branch, "master"
