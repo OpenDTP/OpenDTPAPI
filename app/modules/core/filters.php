@@ -32,7 +32,7 @@ App::error(
             [
                 'version' => API_VERSION,
                 'code' => $exception->getCode(),
-                'messages' => $exception->getMessage(),
+                'messages' => [ $exception->getMessage() ],
                 'data' => ''
             ]
         );
