@@ -31,6 +31,12 @@ set :pty, true
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
+set :slack_subdomain, 'opendtp'
+set :slack_token, '4zmn4M3EKjYMyjNEQSYcmKlP'
+set :slack_channel, '#opendtp_api'
+set :slack_username, 'Mr Deploy'
+set :slack_emoji, ':odtp:'
+
 namespace :deploy do
 
 end
