@@ -27,12 +27,40 @@ App::after(
 // Catch unmanaged errors and reformat exception to display
 App::error(
     function (Exception $exception) {
+        Log::error('Error : ' . $exception->getMessage());
+        return Response::json(
+            [
+                'version' => API_VERSION,
+                'code' => $exception->getCode(),
+                'messages' => $exception->getMessage(),
+                'data' => ''
+            ]
+        );
+    }
+);
+
+App::fatal(
+    function (Exception $exception) {
         Log::error('Runtime Exception : ' . $exception->getMessage());
         return Response::json(
             [
                 'version' => API_VERSION,
                 'code' => $exception->getCode(),
-                'messages' => [ $exception->getMessage() ],
+                'messages' => $exception->getMessage(),
+                'data' => ''
+            ]
+        );
+    }
+);
+
+App::missing(
+    function (Exception $exception) {
+        Log::error('Missing Route Exception : ' . $exception->getMessage());
+        return Response::json(
+            [
+                'version' => API_VERSION,
+                'code' => API_RETURN_404,
+                'messages' => 'Not Found',
                 'data' => ''
             ]
         );

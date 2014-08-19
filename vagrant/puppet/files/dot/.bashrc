@@ -92,6 +92,9 @@ alias l='ls -CF'
 # Adding an emacs alias
 alias e='emacs'
 
+# phing alias for opendtp
+alias phing='/data/vendor/bin/phing'
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
