@@ -25,5 +25,9 @@ Route::group(
             'App\Modules\Project\Controllers\ProjectController',
             ['except' => ['create', 'edit']]
         );
+        Route::get(
+            'project/{$id}/ticket',
+            'App\Modules\Project\Controllers\TicketController@index'
+        );
     }
 );
