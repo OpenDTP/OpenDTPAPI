@@ -25,9 +25,17 @@ Route::group(
             'App\Modules\Project\Controllers\ProjectController',
             ['except' => ['create', 'edit']]
         );
-        Route::get(
-            'project/{$id}/ticket',
-            'App\Modules\Project\Controllers\TicketController@index'
+
+        Route::resource(
+            'project/ticket',
+            'App\Modules\Project\Controllers\TicketController',
+            ['only' => ['show', 'update', 'destroy']]
+        );
+
+        Route::resource(
+            'project/{id}/ticket',
+            'App\Modules\Project\Controllers\ProjectTicketController',
+            ['only' => ['index', 'store']]
         );
     }
 );
