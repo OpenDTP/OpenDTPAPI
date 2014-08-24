@@ -14,6 +14,7 @@ class ConnectorSeeder extends Seeder
         Connector::create(
             [
                 'name' => 'indesign_soap',
+                'protocol' => 'App\Modules\Document\Protocol\Indesign\Soap',
                 'active' => 1
             ]
         );
@@ -21,6 +22,7 @@ class ConnectorSeeder extends Seeder
         Connector::create(
             [
                 'name' => 'indesign_rest',
+                'protocol' => 'App\Modules\Document\Protocol\Indesign\Rest',
                 'active' => 1
             ]
         );
@@ -28,6 +30,7 @@ class ConnectorSeeder extends Seeder
         Connector::create(
             [
                 'name' => 'scribus_rest',
+                'protocol' => 'App\Modules\Document\Protocol\Scribus\Rest',
                 'active' => 1
             ]
         );
