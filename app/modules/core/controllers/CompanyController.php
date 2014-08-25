@@ -2,6 +2,7 @@
 
 namespace App\Modules\Core\Controllers;
 
+use App\Modules\Core\Models\UserCompany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -47,6 +48,11 @@ class CompanyController extends BaseController
         $company->name = Input::get('name');
         $company->description = Input::get('description');
         $company->save();
+
+        $user_company = new UserCompany;
+        $user_company->user_id = Auth::user()->id;
+        $user_company->company_id = $company->id;
+        $user_company->save();
 
         Log::info(
             'Successfully created company ' . $company->id . ' ! [' .
