@@ -13,13 +13,11 @@ class ProjectController extends BaseController
 {
     protected $store_rules = [
         'name' => 'required|min:3',
-        'user_id' => 'required|exists:users,id',
         'company_id' => 'required|exists:companies,id',
         'description' => 'max:512'
     ];
     protected $update_rules = [
         'name' => 'min:3',
-        'user_id' => 'exists:users,id',
         'company_id' => 'exists:companies,id',
         'description' => 'max:512'
     ];
@@ -52,7 +50,7 @@ class ProjectController extends BaseController
 
         $project = new Project;
         $project->company_id = Input::get('company_id');
-        $project->user_id = Auth::user()->user_id;
+        $project->user_id = Auth::user()->id;
         $project->name = Input::get('name');
         $project->description = Input::get('description');
         $project->save();
@@ -61,7 +59,7 @@ class ProjectController extends BaseController
         return Response::string(
             [
                 'messages' => ['Successfully created project ' . print_r($project->toArray(), true) . ' !'],
-                'data' => $project
+                'data' => $project->toArray()
             ]
         );
     }
@@ -119,7 +117,10 @@ class ProjectController extends BaseController
 
         Log::info('Updated project : ' . print_r($project->attributesToArray(), true));
         return Response::string(
-            ['messages' => ["Successfully updated project $id !"]]
+            [
+                'messages' => ["Successfully updated project $id !"],
+                'data' => $project->toArray()
+            ]
         );
     }
 
