@@ -27,10 +27,16 @@ class Soap extends ProtocolAbstract
     ini_set('soap.wsdl_cache_ttl', 0);
     ini_set("soap.wsdl_cache_enabled", 0);
 
-    $url = app_path().'/config/opendtp/renderers/indesign/INDS.wsdl';
-    $this->_client = new \SoapClient($url);
-
+    try {
+      $this->_client = new \SoapClient('http://'.$this->_renderer->address.'/service?wsdl',
+        array('location' => 'http://'.$this->_renderer->address));
+    } catch (\Exception $e) {
+      Log::error("Connection to InDesign Server failed!");
+      Log::error($e->getMessage());
+      return false;
+    }
     Log::info("SOAP InDesign connection established");
+    return true;
   }
 
   #
