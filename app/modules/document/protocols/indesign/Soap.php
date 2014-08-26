@@ -25,11 +25,8 @@ class Soap extends ProtocolAbstract
     ini_set("soap.wsdl_cache_enabled", 0);
 
     $url = '/data/app/config/INDS.wsdl';
-    $this->_client = new \SoapClient($url, array(
-        'wsdl_cache' => 0,
-        'trace' => 1,
-        'exception' => 1
-    ));
+    $this->_client = new \SoapClient($url);
+
     Log::info("SOAP InDesign connection established");
   }
 
@@ -48,6 +45,7 @@ class Soap extends ProtocolAbstract
       return false;
     }
     $client_response = $this->obj2array($client_response);
+    Log::info($client_response);
     return $client_response;
   }
 
