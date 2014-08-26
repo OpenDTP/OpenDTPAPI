@@ -6,10 +6,13 @@ use App\Modules\Document\Protocols\ProtocolAbstract;
 use App\Modules\Document\Models\Renderer;
 use App\Modules\Document\Models\Connector;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
+
 
 class Soap extends ProtocolAbstract
 {
   private $_client = null;
+  private $script_path = null;
 
   public function __construct()
   {
@@ -24,7 +27,7 @@ class Soap extends ProtocolAbstract
     ini_set('soap.wsdl_cache_ttl', 0);
     ini_set("soap.wsdl_cache_enabled", 0);
 
-    $url = '/data/app/config/INDS.wsdl';
+    $url = '/data/app/config/opendtp/renderers/indesign/INDS.wsdl';
     $this->_client = new \SoapClient($url);
 
     Log::info("SOAP InDesign connection established");
@@ -35,7 +38,7 @@ class Soap extends ProtocolAbstract
     $client_response = null;
     try {
       $client_response = $this->_client->RunScript(array('runScriptParameters' => array(
-        'scriptFile' => "C:\\fonts.jsx",
+        'scriptFile' => Config::get('opendtp/renderers/indesign/config.scripts_path').$name,
         'scriptArgs' => $params,
         'scriptLanguage' => 'javascript'
       )));
