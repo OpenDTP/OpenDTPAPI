@@ -33,13 +33,24 @@ class Soap extends ProtocolAbstract
     Log::info("SOAP InDesign connection established");
   }
 
+  #
+  # Call an InDesign script through SOAP.
+  # Name: the script name (with a jsx extension)
+  # Params: An array of keys/values corresponding to the parameters the script need.
+  #
   public function request($name, $params)
   {
+    $script_parameters = array();
+
+    # InDesign SOAP needs the parameters to be at the following format: array(array("name" => "param1_name", "value" => "param1_value")).
+    foreach ($params as $key => $value)
+      $script_parameters[] = array("name" => $key, "value" => $value);
+
     $client_response = null;
     try {
       $client_response = $this->_client->RunScript(array('runScriptParameters' => array(
         'scriptFile' => Config::get('opendtp/renderers/indesign/config.scripts_path').$name,
-        'scriptArgs' => $params,
+        'scriptArgs' => $script_parameters,
         'scriptLanguage' => 'javascript'
       )));
     } catch(\SoapFault $e) {
