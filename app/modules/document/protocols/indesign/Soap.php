@@ -24,8 +24,6 @@ class Soap extends ProtocolAbstract
   public function connect()
   {
     Log::info("Attempting to connect to InDesign through SOAP");
-    ini_set('soap.wsdl_cache_ttl', 0);
-    ini_set("soap.wsdl_cache_enabled", 0);
 
     try {
       $this->_client = new \SoapClient('http://'.$this->_renderer->address.'/service?wsdl',
