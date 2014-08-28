@@ -37,5 +37,9 @@ Route::group(
             'App\Modules\Project\Controllers\ProjectTicketController',
             ['only' => ['index', 'store']]
         );
+        Route::get(
+            'ticket/{id}',
+            'App\Modules\Project\Controllers\TicketController@show'
+        );
     }
 );

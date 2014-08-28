@@ -3,9 +3,10 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTicketsTable extends Migration {
+class CreateTicketsTable extends Migration
+{
 
-	/**
+  /**
 	 * Run the migrations.
 	 *
 	 * @return void
@@ -17,8 +18,12 @@ class CreateTicketsTable extends Migration {
 					'tickets',
 					function (Blueprint $table) {
 							$table->increments('id');
+							$table->unsignedInteger('ticket_id');
 							$table->unsignedInteger('user_id');
 							$table->unsignedInteger('project_id');
+							$table->unsignedInteger('run_num');
+							$table->decimal('version', 5, 2);
+							$table->string('result');
 							$table->string('name');
 							$table->text('description')
 									->nullable();
