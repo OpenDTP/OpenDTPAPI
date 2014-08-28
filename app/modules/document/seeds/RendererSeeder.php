@@ -15,7 +15,7 @@ class RendererSeeder extends Seeder
                 'company_id' => 1,
                 'connector_id' => 1,
                 'name' => 'InDesign main',
-                'address' => '192.168.1.1'
+                'address' => '185.21.192.195'
             ]
         );
 
