@@ -19,6 +19,7 @@ class Soap extends ProtocolAbstract
     $connector = Connector::where('name', '=', 'indesign_soap')->first();
     $renderer = Renderer::where('connector_id', '=', $connector->id)->first();
     parent::__construct($renderer);
+    $this->connect();
   }
 
   public function connect()
@@ -53,7 +54,7 @@ class Soap extends ProtocolAbstract
     $client_response = null;
     try {
       $client_response = $this->_client->RunScript(array('runScriptParameters' => array(
-        'scriptFile' => Config::get('opendtp/renderers/indesign/config.scripts_path').$name,
+        'scriptFile' => Config::get('opendtp/renderers/indesign/config.scripts_path').$name.".jsx",
         'scriptArgs' => $script_parameters,
         'scriptLanguage' => 'javascript'
       )));
