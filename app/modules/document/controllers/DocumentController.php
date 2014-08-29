@@ -117,8 +117,6 @@ class DocumentController extends BaseController
     */
     public function preview($id)
     {
-      $inputs = Input::all();
-      Log::info($inputs);
       if (!$this->isValid()) {
         return Response::error();
       }
@@ -137,7 +135,15 @@ class DocumentController extends BaseController
         'document' => Config::get('opendtp/renderers/indesign/config.documents_path').$document->file
       );
       $response = $renderer_protocol->request('export', $scripts_params);
-      return Response::string(['data' => $response]);
+      if ($response['errorNumber'] != 0) {
+        return Response::string(
+          [
+            'code' => API_RETURN_500,
+            'messages' => ["InDesign server : code ".$response['errorNumber']." : ".$response['errorString']]
+          ]
+        );
+      }
+      return Response::string(['data' => $response['scriptResult']['data']]);
     }
 
 
