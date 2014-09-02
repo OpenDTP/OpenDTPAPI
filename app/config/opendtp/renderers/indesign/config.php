@@ -2,5 +2,5 @@
 
 return array(
   'scripts_path' => 'C:\\ids\\scripts\\',
-  'documents_path' => 'C:\\Data\\Pool\\'
+  'documents_path' => 'D:\\Documents\\'
 );
