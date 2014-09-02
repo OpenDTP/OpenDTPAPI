@@ -6,27 +6,27 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use App\Modules\Core\Controllers\BaseController;
-use App\Modules\Project\Models\Ticket;
+use App\Modules\Project\Models\Team;
 
-class TicketController extends BaseController
+class TeamController extends BaseController
 {
     protected $update_rules = [
         'name' => 'min:3',
         'description' => 'max:512'
     ];
 
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index($project_id)
     {
-        $tickets = Ticket::where('project_id', '=', $project_id)->get()->toArray();
+        $teams = Team::where('project_id', '=', $project_id)->get()->toArray();
 
-        Log::info('Found Tickets : ' . print_r($tickets, true));
+        Log::info('Found Teams : ' . print_r($teams, true));
         return Response::string(
-            ['data' => $tickets]
+            ['data' => $teams]
         );
     }
 
@@ -52,22 +52,22 @@ class TicketController extends BaseController
             );
         }
 
-        $ticket = new Ticket;
-        $ticket->project_id = $project->id;
-        $ticket->user_id = Auth::user()->id;
-        $ticket->name = Input::get('name');
-        $ticket->description = Input::get('description');
-        $ticket->save();
+        $team = new Team;
+        $team->project_id = $project->id;
+        $team->user_id = Auth::user()->id;
+        $team->name = Input::get('name');
+        $team->description = Input::get('description');
+        $team->save();
 
-        Log::info('Successfully created ticket !');
+        Log::info('Successfully created team !');
         return Response::string(
             [
-                'messages' => ['Successfully created ticket ' . print_r($ticket->toArray(), true) . ' !'],
-                'data' => $ticket->toArray()
+                'messages' => ['Successfully created team ' . print_r($team->toArray(), true) . ' !'],
+                'data' => $team->toArray()
             ]
         );
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -76,20 +76,20 @@ class TicketController extends BaseController
      */
     public function show($id)
     {
-        $ticket = Ticket::find($id);
+        $team = Team::find($id);
 
-        if (is_null($ticket)) {
-            Log::info("Unkown ticket with ID $id");
+        if (is_null($team)) {
+            Log::info("Unkown team with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown ticket with ID $id"]
+                    'messages' => ["Unkown team with ID $id"]
                 ]
             );
         }
 
-        Log::info('Found ticket ' . print_r($ticket->toArray(), true));
-        return Response::string(['data' => $ticket->toArray()]);
+        Log::info('Found team ' . print_r($team->toArray(), true));
+        return Response::string(['data' => $team->toArray()]);
     }
 
 
@@ -107,25 +107,25 @@ class TicketController extends BaseController
             return Response::error();
         }
 
-        $ticket = Ticket::find($id);
-        if (is_null($ticket)) {
-            Log::info("Unkown ticket with ID $id");
+        $team = Team::find($id);
+        if (is_null($team)) {
+            Log::info("Unkown team with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown ticket with ID $id"]
+                    'messages' => ["Unkown team with ID $id"]
                 ]
             );
         }
-        $ticket->project_id = empty($inputs['project_id']) ? $ticket->project_id : $inputs['project_id'];
-        $ticket->name = empty($inputs['name']) ? $ticket->name : $inputs['name'];
-        $ticket->description = empty($inputs['description']) ? $ticket->description : $inputs['description'];
+        $team->project_id = empty($inputs['project_id']) ? $team->project_id : $inputs['project_id'];
+        $team->name = empty($inputs['name']) ? $team->name : $inputs['name'];
+        $team->description = empty($inputs['description']) ? $team->description : $inputs['description'];
 
-        Log::info('Updated ticket : ' . print_r($ticket->attributesToArray(), true));
+        Log::info('Updated team : ' . print_r($team->attributesToArray(), true));
         return Response::string(
             [
-                'messages' => ["Successfully updated ticket $id !"],
-                'data' => $ticket->toArray()
+                'messages' => ["Successfully updated team $id !"],
+                'data' => $team->toArray()
             ]
         );
     }
@@ -139,20 +139,20 @@ class TicketController extends BaseController
      */
     public function destroy($id)
     {
-        $ticket = Ticket::find($id);
+        $team = Team::find($id);
 
-        if (is_null($ticket)) {
-            Log::info("Unkown ticket with ID $id");
+        if (is_null($team)) {
+            Log::info("Unkown team with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown ticket with ID $id"]
+                    'messages' => ["Unkown team with ID $id"]
                 ]
             );
         }
-        $ticket->delete();
+        $team->delete();
 
-        Log::info("Ticket $id deleted");
-        return Response::string(['messages' => ["Ticket $id deleted"]]);
+        Log::info("Team $id deleted");
+        return Response::string(['messages' => ["Team $id deleted"]]);
     }
 }

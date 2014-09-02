@@ -21,6 +21,7 @@ class CreateProjectTable extends Migration
                 $table->unsignedInteger('user_id');
                 $table->unsignedInteger('company_id');
                 $table->string('name');
+                $table->datetime('end');
                 $table->text('description')
                     ->nullable();
                 $table->foreign('user_id')
@@ -29,6 +30,9 @@ class CreateProjectTable extends Migration
                 $table->foreign('company_id')
                     ->references('id')
                     ->on('companies');
+                $table->foreign('team_id')
+                    ->references('id')
+                    ->on('teams');
                 $table->timestamps();
             }
         );
