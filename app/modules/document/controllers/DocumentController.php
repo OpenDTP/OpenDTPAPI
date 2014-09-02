@@ -132,7 +132,7 @@ class DocumentController extends BaseController
       }
       $renderer_protocol = new Indesign\Soap();
       $scripts_params = array(
-        'document' => Config::get('opendtp/renderers/indesign/config.documents_path').$document->file
+        'document' => Config::get('opendtp/renderers/indesign/config.documents_path').$document->file_id.'/'.$document->file
       );
       $response = $renderer_protocol->request('export', $scripts_params);
       if ($response['errorNumber'] != 0) {
