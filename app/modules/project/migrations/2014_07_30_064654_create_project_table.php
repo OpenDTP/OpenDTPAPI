@@ -20,6 +20,8 @@ class CreateProjectTable extends Migration
                 $table->increments('id');
                 $table->unsignedInteger('user_id');
                 $table->unsignedInteger('company_id');
+                $table->unsignedInteger('team_id')
+                    ->nullable();
                 $table->string('name');
                 $table->datetime('end');
                 $table->text('description')

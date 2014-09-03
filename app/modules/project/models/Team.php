@@ -2,7 +2,7 @@
 
 namespace App\Modules\Project\Models;
 
-class Ticket extends \Eloquent
+class Team extends \Eloquent
 {
     protected $table = 'teams';
 }
