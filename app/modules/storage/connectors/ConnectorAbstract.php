@@ -26,5 +26,4 @@ abstract class ConnectorAbstract implements IConnector
     {
         $this->settings = $settings;
     }
-
 }

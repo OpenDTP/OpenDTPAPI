@@ -13,12 +13,11 @@ class Connector extends ConnectorAbstract
 
     public function init(Store $store)
     {
-
     }
 
     public function store(UploadedFile $file)
     {
-        $id = uniqid();;
+        $id = uniqid();
         $file->move($this->path . DIRECTORY_SEPARATOR . $id, $file->getClientOriginalName());
         return $id;
     }

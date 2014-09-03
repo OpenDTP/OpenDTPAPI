@@ -10,6 +10,8 @@ use App\Modules\Core\Controllers\BaseController;
 use App\Modules\Document\Models\Document;
 use App\Modules\Storage\Support\Facades\Storage;
 use App\Modules\Storage\Models\Store;
+use App\Modules\Document\Protocols\Indesign;
+use Illuminate\Support\Facades\Config;
 
 class DocumentController extends BaseController
 {
@@ -103,9 +105,45 @@ class DocumentController extends BaseController
                 ]
             );
         }
-
         Log::info('Found document ' . print_r($document->toArray(), true));
         return Response::string(['data' => $document->toArray()]);
+    }
+
+    /**
+    * Preview as an image the specified resource.
+    *
+    * @param  int $id
+    * @return Response
+    */
+    public function preview($id)
+    {
+      if (!$this->isValid()) {
+        return Response::error();
+      }
+      $document = Document::find($id);
+      if (is_null($document)) {
+        Log::info("Unkown document with ID $id");
+        return Response::string(
+          [
+            'code' => API_RETURN_404,
+            'messages' => ["Unkown document with ID $id"]
+          ]
+        );
+      }
+      $renderer_protocol = new Indesign\Soap();
+      $scripts_params = array(
+        'document' => Config::get('opendtp/renderers/indesign/config.documents_path').$document->file_id.'/'.$document->file
+      );
+      $response = $renderer_protocol->request('export', $scripts_params);
+      if ($response['errorNumber'] != 0) {
+        return Response::string(
+          [
+            'code' => API_RETURN_500,
+            'messages' => ["InDesign server : code ".$response['errorNumber']." : ".$response['errorString']]
+          ]
+        );
+      }
+      return Response::string(['data' => $response['scriptResult']['data']]);
     }
 
 

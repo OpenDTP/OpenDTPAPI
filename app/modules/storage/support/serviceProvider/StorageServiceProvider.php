@@ -5,7 +5,8 @@ namespace App\Modules\Storage\Support\ServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use App\Modules\Storage\Manager\StorageManager;
 
-class StorageServiceProvider extends ServiceProvider {
+class StorageServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the service provider.
@@ -14,9 +15,8 @@ class StorageServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app['storage'] = $this->app->share(function($app)
-            {
-                return new StorageManager;
-            });
+        $this->app['storage'] = $this->app->share(function ($app) {
+            return new StorageManager;
+        });
     }
-} 
+}

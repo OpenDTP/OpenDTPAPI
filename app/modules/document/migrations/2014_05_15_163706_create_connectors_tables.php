@@ -19,6 +19,7 @@ class CreateConnectorsTables extends Migration
             function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
+                $table->string('protocol');
                 $table->boolean('active');
                 $table->timestamps();
             }
