@@ -1,5 +1,5 @@
 {
     "enabled": true,
     "seeder": "App\\Modules\\Project\\Seeds\\DatabaseSeeder",
-    "order" : 1
+    "order" : 20
 }

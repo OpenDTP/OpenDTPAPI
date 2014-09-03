@@ -18,6 +18,7 @@ class CreateTeamsTable extends Migration
 					'teams',
 					function (Blueprint $table) {
 							$table->increments('id');
+							$table->unsignedInteger('user_id');
 							$table->string('name');
 							$table->text('description')
 									->nullable();

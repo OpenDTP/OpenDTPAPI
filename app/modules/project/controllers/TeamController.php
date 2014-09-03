@@ -20,9 +20,9 @@ class TeamController extends BaseController
      *
      * @return Response
      */
-    public function index($project_id)
+    public function index($id)
     {
-        $teams = Team::where('project_id', '=', $project_id)->get()->toArray();
+        $teams = Team::where('id', '=', $id)->get()->toArray();
 
         Log::info('Found Teams : ' . print_r($teams, true));
         return Response::string(
@@ -35,25 +35,25 @@ class TeamController extends BaseController
      *
      * @return Response
      */
-    public function store($project_id)
+    public function store($id)
     {
         if (!$this->isValid()) {
             return Response::error();
         }
 
-        $project = Project::find($project_id);
+        $project = Project::find($id);
         if (is_null($project)) {
-            Log::info("Unkown project with ID $project_id");
+            Log::info("Unkown project with ID $id");
             return Response::string(
                 [
                     'code' => API_RETURN_404,
-                    'messages' => ["Unkown project with ID $project_id"]
+                    'messages' => ["Unkown project with ID $id"]
                 ]
             );
         }
 
         $team = new Team;
-        $team->project_id = $project->id;
+        $team->id = $project->id;
         $team->user_id = Auth::user()->id;
         $team->name = Input::get('name');
         $team->description = Input::get('description');
@@ -117,7 +117,7 @@ class TeamController extends BaseController
                 ]
             );
         }
-        $team->project_id = empty($inputs['project_id']) ? $team->project_id : $inputs['project_id'];
+        $team->id = empty($inputs['id']) ? $team->id : $inputs['id'];
         $team->name = empty($inputs['name']) ? $team->name : $inputs['name'];
         $team->description = empty($inputs['description']) ? $team->description : $inputs['description'];
 
