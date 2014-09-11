@@ -36,6 +36,7 @@ Route::group(
             ['except' => ['create', 'edit']]
         );
         Route::get('{id}/preview', 'App\Modules\Document\Controllers\DocumentController@preview');
+        Route::get('{id}/export', 'App\Modules\Document\Controllers\DocumentController@export');
         Route::resource(
             '/',
             'App\Modules\Document\Controllers\DocumentController',

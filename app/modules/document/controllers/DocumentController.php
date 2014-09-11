@@ -109,6 +109,42 @@ class DocumentController extends BaseController
         return Response::string(['data' => $document->toArray()]);
     }
 
+    /*
+    * Export a document to HTML
+    *
+    * @param  int $id
+    * @return Response
+    */
+    public function export($id)
+    {
+      $document = Document::find($id);
+
+      if (is_null($document)) {
+          Log::info("Unkown document with ID $id");
+          return Response::string(
+              [
+                  'code' => API_RETURN_404,
+                  'messages' => ["Unkown document with ID $id"]
+              ]
+          );
+      }
+      $renderer_protocol = new Indesign\Soap();
+      $scripts_params = array(
+        'document' => Config::get('opendtp/renderers/indesign/config.documents_path').$document->file_id.'/'.$document->file
+      );
+      $response = $renderer_protocol->request('html_export', $scripts_params);
+      Log::info('Found document ' . print_r($document->toArray(), true));
+      if ($response['errorNumber'] != 0) {
+        return Response::string(
+          [
+            'code' => API_RETURN_500,
+            'messages' => ["InDesign server : code ".$response['errorNumber']." : ".$response['errorString']]
+          ]
+        );
+      }
+      return Response::string(['data' => $response['scriptResult']['data']]);
+    }
+
     /**
     * Preview as an image the specified resource.
     *
