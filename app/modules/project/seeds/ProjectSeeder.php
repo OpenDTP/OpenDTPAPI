@@ -22,7 +22,8 @@ class ProjectSeeder extends Seeder
                 'name' => 'dproject',
                 'description' => 'First Dummy project',
                 'user_id' => 1,
-                'company_id' => 1
+                'company_id' => 1,
+                'team_id' => 1
             ]
         );
 

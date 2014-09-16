@@ -27,15 +27,30 @@ Route::group(
         );
 
         Route::resource(
-            'project/ticket',
+            'project/{id}/ticket',
             'App\Modules\Project\Controllers\TicketController',
-            ['only' => ['show', 'update', 'destroy']]
+            ['only' => ['index', 'store', 'show', 'update', 'destroy']]
         );
 
         Route::resource(
-            'project/{id}/ticket',
-            'App\Modules\Project\Controllers\ProjectTicketController',
-            ['only' => ['index', 'store']]
+            'project/{id}/team',
+            'App\Modules\Project\Controllers\TeamController',
+            ['only' => ['index', 'store', 'show', 'update', 'destroy']]
+        );
+
+        // Route::resource(
+        //     'project/{id}/ticket',
+        //     'App\Modules\Project\Controllers\ProjectTicketController',
+        //     ['only' => ['index', 'store']]
+        // );
+
+        Route::get(
+            'ticket/{id}',
+            'App\Modules\Project\Controllers\TicketController@show'
+        );
+        Route::get(
+            'team/{id}',
+            'App\Modules\Project\Controllers\TeamController@show'
         );
     }
 );
