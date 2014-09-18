@@ -5,7 +5,7 @@ namespace App\Modules\Ticket\Seeds;
 use Illuminate\Database\Seeder;
 use App\Modules\Ticket\Models\Ticket;
 
-class TiketSeeder extends Seeder
+class TicketSeeder extends Seeder
 {
 
     public function run()
