@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         Eloquent::unguard();
 
+        $this->call('App\Modules\Project\Seeds\TeamSeeder');
         $this->call('App\Modules\Project\Seeds\ProjectSeeder');
+        $this->call('App\Modules\Project\Seeds\TicketSeeder');
     }
 }
